@@ -1,0 +1,173 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Builds results/<run>/RESULTS.md from the per-model JSON files. Data only, no verdicts.
+require "json"
+require "yaml"
+require "set"
+
+root = File.expand_path("..", __dir__)
+run = ARGV[0] || abort("usage: bin/report RUN")
+dir = File.join(root, "results", run)
+rows = Dir[File.join(dir, "*.json")].map { JSON.parse(File.read(_1, encoding: "UTF-8")) }.sort_by { [_1["model"].downcase, _1["size_gb"].to_f] }
+
+# Family table order: Qwen newest first, then the other families.
+FAMILY_ORDER = ["Qwen3.8", "Qwen3.6", "Qwen3.5", "Qwen3 ", "Gemma 4", "IQuest"].freeze
+CONFIG_MODELS = YAML.load_file(File.join(root, "config/models.yml"))["models"]
+FAMILIES = CONFIG_MODELS.to_h { [_1["id"], _1["family"] || "Other"] }
+# Models whose files have since been removed from the MBPs (their `parked` note says "deleted").
+VISION = CONFIG_MODELS.to_h { [_1["id"], _1["vision"]] }
+DELETED = CONFIG_MODELS.select { _1["parked"].to_s =~ /deleted/i }.map { _1["id"] }.to_set
+family = ->(r) { FAMILIES.fetch(r["model"], "Other") }
+f = ->(v, d = 1) { v.nil? ? "—" : v.is_a?(Numeric) ? v.round(d).to_s : v.to_s }
+lines = []
+lines << "# Results — #{run}"
+lines << ""
+lines << "Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun)."
+lines << "Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases."
+lines << "Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns."
+lines << ""
+lines << "**Legend: screen table**"
+lines << ""
+lines << "- **Size GB**: model files on disk."
+lines << "- **Load s**: seconds to load the model into memory (oMLX or LM Studio)."
+lines << "- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives."
+lines << "- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). " \
+         "High tok/s does not mean fast answers if the model reasons at length first."
+lines << "- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. " \
+         "Per-answer limit #{rows.map { _1.dig('screens', 'coding', 'max_tokens') }.compact.uniq.join(', ').then { _1.empty? ? '1024' : _1 }} tokens; " \
+         "answers cut off at the limit count as failures."
+# Runs before 2026-10-20 did not record the agentic limit: 2048 in screen runs, 4096 in extended runs.
+extended_run = rows.any? { _1.dig("screens", "coding", "mode") == "extended" }
+lines << "- **Agentic token limit**: #{rows.map { _1.dig('screens', 'agentic', 'max_tokens') }.compact.uniq.join(', ').then { _1.empty? ? (extended_run ? '4096' : '2048') : _1 }} tokens per turn."
+lines << "- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box."
+lines << "- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not."
+lines << "- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` " \
+         "(replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`."
+lines << "- **Error**: the model could not be loaded or reached; no scores for that row."
+lines << ""
+lines << "| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |"
+lines << "|---|---|---|---|---|---|---|---|---|---|"
+rows.each do |r|
+  s = r["screens"] || {}
+  sp = s["speed"] || {}
+  c = s["coding"] || {}
+  t = s["tools"] || {}
+  a = s["agentic"] || {}
+  agent = a.empty? ? "—" : (a["solved"] ? "**solved**" : "not solved")
+  lines << "| #{r['model']} | #{f.(r['size_gb'])} | #{f.(r['load_seconds'])} | #{f.(sp['ttft'], 2)} | #{f.(sp['tok_per_s'])} | " \
+           "#{c.empty? ? '—' : "#{c['passed']}/#{c['attempted']}"} | #{t.empty? ? '—' : "#{t['passed']}/#{t['attempted']}"} | " \
+           "#{agent} | #{a.empty? ? '—' : "#{a['turns']} / #{a['stop']}"} | #{(r['error'] || sp['error']).to_s[0, 60]} |"
+end
+ext = rows.select { _1.dig("screens", "coding", "mode") == "extended" }
+unless ext.empty?
+  lines << ""
+  lines << "## Extended coding (all 161 problems, early stop below 50% after 20, or at the time cap)"
+  lines << ""
+  lines << "**Legend: extended tables**"
+  lines << ""
+  lines << "- **Pass / attempted**: Ruby problems whose unit tests passed / problems answered before the run stopped (161 = all)."
+  lines << "- **Pass rate**: pass ÷ attempted. Accuracy only; ignores speed."
+  lines << "- **Pass rate excl. cut-off**: pass rate over only the answers that finished inside the token limit. A big gap from Pass rate means the model is accurate but too verbose for the limit."
+  lines << "- **s / problem**: average seconds per answer, including any reasoning. The real pace, unlike tok/s."
+  lines << "- **Solved per hour**: correct answers per hour of generation (passed × 3600 ÷ total answer seconds). Speed and accuracy in one number."
+  caps = ext.map { _1.dig("screens", "coding", "max_tokens") }.compact.uniq.join(", ")
+  agent_caps = ext.map { _1.dig("screens", "agentic", "max_tokens") }.compact.uniq.join(", ")
+  lines << "- **Hit token cap**: answers that ran into the per-answer limit of **#{caps} tokens** (reasoning plus code) and were cut off; " \
+           "those count as failures, so a high number means the pass rate is understated."
+  lines << "- **Token limits used in this run**: coding #{caps} tokens per answer; agentic #{agent_caps.empty? ? '4096' : agent_caps} tokens per turn."
+  lines << "- **Stop**: `completed` (all 161), `time_cap (60 min)`, or `low_pass_rate` (below 50% after 20 problems)."
+  lines << "- **Agentic**: whether the slugify task's 4 tests pass at the end (10-minute box, 30 turns)."
+  lines << "- **Agentic turns / stop / s**: turns used, why it stopped (see the screen-table legend), and seconds taken."
+  lines << ""
+  lines << "| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |"
+  lines << "|---|---|---|---|---|---|---|---|---|---|"
+  row = lambda do |r|
+    c = r.dig("screens", "coding")
+    a = r.dig("screens", "agentic") || {}
+    whole = c["problems"].reject { _1["hit_cap"] }
+    clean = whole.empty? ? "—" : "#{(whole.count { _1["passed"] } * 100.0 / whole.size).round}% (#{whole.count { _1["passed"] }} of #{whole.size} finished)"
+    "| #{r['model']} | #{c['passed']}/#{c['attempted']} | #{(c['pass_rate'].to_f * 100).round}% | #{clean} | #{f.(c['seconds_per_problem'])} | " \
+      "#{f.(c['solved_per_hour'])} | #{c['hit_cap']} | #{c['stop']} | #{a.empty? ? '—' : (a['solved'] ? '**solved**' : 'not solved')} | " \
+      "#{a.empty? ? '—' : "#{a['turns']} / #{a['stop']} / #{f.(a['seconds'])}"} |"
+  end
+  header = lines.pop(2)
+  rate = ->(r) { r.dig("screens", "coding", "pass_rate").to_f }
+  per_hour = ->(r) { r.dig("screens", "coding", "solved_per_hour").to_f }
+  solved = ->(r) { r.dig("screens", "agentic", "solved") ? 1 : 0 }
+  views = [
+    ["By model name", ext],
+    ["By pass rate (most accurate first)", ext.sort_by { [-rate.(_1), -per_hour.(_1)] }],
+    ["By solved per hour (speed × accuracy)", ext.sort_by { [-per_hour.(_1), -rate.(_1)] }],
+    ["Grouped by agentic result, then solved per hour", ext.sort_by { [-solved.(_1), -per_hour.(_1)] }],
+    [:family, ext]
+  ]
+  views.each do |title, list|
+    if title == :family
+      lines << "### Grouped by family (Qwen newest first, then Gemma), then solved per hour" << ""
+      lines.concat(header)
+      list.group_by { family.(_1) }.sort_by { |fam, ms| [FAMILY_ORDER.index { fam.start_with?(_1) } || FAMILY_ORDER.size, fam] }.each do |fam, ms|
+        lines << "| **#{fam}** | | | | | | | | | |"
+        ms.sort_by { -per_hour.(_1) }.each { lines << row.(_1) }
+      end
+      lines << ""
+      next
+    end
+    lines << "### #{title}" << ""
+    lines.concat(header)
+    list.each { lines << row.(_1) }
+    lines << ""
+  end
+end
+unless ext.empty?
+  # Worked weightings for the overnight-builder role. Each version is kept (newest first) so the
+  # history of how the weights changed stays visible. None is agreed yet.
+  versions = [
+    { name: "v2 (2026-10-20): adds vision, taken from memory", w: { agentic: 0.4, accuracy: 0.3, throughput: 0.2, memory: 0.05, vision: 0.05 },
+      why: "A model that reads images avoids handing screenshots to a second model, which costs time and memory." },
+    { name: "v1 (2026-10-20): first worked example", w: { agentic: 0.4, accuracy: 0.3, throughput: 0.2, memory: 0.1 }, why: nil }
+  ]
+  max_sph = ext.map { _1.dig("screens", "coding", "solved_per_hour").to_f }.max
+  max_gb = ext.map { _1["size_gb"].to_f }.max
+  base = ext.map do |r|
+    c = r.dig("screens", "coding")
+    hours = c["problems"].sum { _1["seconds"].to_f } / 3600
+    comp = {
+      agentic: r.dig("screens", "agentic", "solved") ? 1.0 : 0.0,
+      accuracy: c["pass_rate"].to_f,
+      throughput: max_sph.positive? ? Math.log(1 + c["solved_per_hour"].to_f) / Math.log(1 + max_sph) : 0,
+      memory: 1 - r["size_gb"].to_f / max_gb,
+      vision: VISION[r["model"]] ? 1.0 : 0.0
+    }
+    net = hours.positive? ? (c["passed"] - (c["attempted"] - c["passed"])) / hours : nil
+    [r, comp, net]
+  end
+  lines << ""
+  lines << "## Weighted score: overnight builder (worked example, weights not yet agreed)"
+  lines << ""
+  lines << "**How it is worked out**"
+  lines << ""
+  lines << "- **Score** = 100 × the sum of (weight × component). Each component is on a 0–1 scale; the tables show each one."
+  lines << "- **agentic**: 1 if the agentic task was solved, else 0. One attempt per model, so treat it as a coin flip until repeated."
+  lines << "- **accuracy**: Pass rate (cut-off answers count as wrong)."
+  lines << "- **throughput**: log(1 + solved per hour) ÷ log(1 + best solved per hour in this run). The log stops one very fast model swamping the rest."
+  lines << "- **memory**: 1 − size ÷ largest size in this run, so smaller scores higher."
+  lines << "- **vision**: 1 if the model's weights include an image encoder, else 0 (from the model files; not yet tested with a real image)."
+  lines << "- **<sup>(d)</sup>** after a model name: deleted from the MBP-14 since this run (the MBP-16 may still hold a copy). Kept here as history."
+  lines << "- **Net per hour**: (passed − failed) ÷ hours of answering. Counts every wrong answer as cancelling a right one, " \
+           "because wrong code costs review or rework. Negative means it produces more wrong code than right."
+  versions.each do |v|
+    w = v[:w]
+    lines << "" << "### Weights #{v[:name]}" << ""
+    lines << "Score = 100 × (#{w.map { |k, x| "#{x} × #{k}" }.join(' + ')})." + (v[:why] ? " #{v[:why]}" : "") << ""
+    lines << "| Model | #{w.map { |k, x| "#{k.to_s.capitalize} (×#{x})" }.join(' | ')} | **Score** | Solved per hour | Net per hour |"
+    lines << "|#{'---|' * (w.size + 4)}"
+    base.map { |r, comp, net| [r, comp, net, w.sum { |k, x| x * comp[k] } * 100] }.sort_by { -_4 }.each do |r, comp, net, score|
+      name = DELETED.include?(r["model"]) ? "#{r['model']} <sup>(d)</sup>" : r["model"]
+      lines << "| #{name} | #{w.keys.map { f.(comp[_1], 2) }.join(' | ')} | **#{f.(score)}** | " \
+               "#{f.(r.dig('screens', 'coding', 'solved_per_hour'))} | #{f.(net, 0)} |"
+    end
+  end
+end
+File.write(File.join(dir, "RESULTS.md"), lines.join("\n") + "\n")
+puts lines

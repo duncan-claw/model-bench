@@ -1,0 +1,133 @@
+{
+  "model": "DeepSeek-V4-Pro-Qwen3.5-9B-8bit",
+  "host": "mbp14-omlx",
+  "size_gb": 9.7,
+  "started_at": "2026-10-19T17:52:00+11:00",
+  "screens": {
+    "speed": {
+      "ttft": 3.184443000005558,
+      "total": 18.855334000021685,
+      "completion_tokens": 400,
+      "tok_per_s": 25.52503236731009,
+      "chars": 1875
+    },
+    "coding": {
+      "attempted": 3,
+      "passed": 1,
+      "box_seconds": 120,
+      "gen_seconds": 130.6,
+      "pass_rate": 0.333,
+      "problems": [
+        {
+          "name": "HumanEval_108_count_nums",
+          "seconds": 51.6,
+          "error": null,
+          "tokens": 1024,
+          "code": "# Write a function count_nums which takes an array of integers and returns\n# the number of elements which has a sum of digits > 0.\n# If a number is negative, then its first signed digit will be negative:\n# e.g. -123 has signed digits -1, 2, and 3.\n# >>> count_nums.call([])\n# 0\n# >>> count_nums.call([-1, 11, -11])\n# 1\n# >>> count_nums.call([1, 1, 2])\n# 3\ndef count_nums(arr)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_count_nums\n    candidate = method(:count_nums)\n    assert_equal(0, candidate.call([]))\n    assert_equal(0, candidate.call([-1, -2, 0]))\n    assert_equal(6, candidate.call([1, 1, 2, -2, 3, 4, 5]))\n    assert_equal(5, candidate.call([1, 6, 9, -6, 0, 1, 5]))\n    assert_equal(4, candidate.call([1, 100, 98, -7, 1, -1]))\n    assert_equal(5, candidate.call([12, 23, 34, -45, -56, 0]))\n    assert_equal(1, candidate.call([0, 1]))\n    assert_equal(1, candidate.call([1]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_111_histogram",
+          "seconds": 14.2,
+          "error": null,
+          "tokens": 221,
+          "code": "def histogram(test)\n return {} if test.empty?\n counts = test.split(' ').each_with_object({}) { |letter, h| h[letter] ||= 0; h[letter] += 1 }\n max_count = counts.values.max\n counts.select { |_, count| count == max_count }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_histogram\n    candidate = method(:histogram)\n    assert_equal({\"a\" => 2, \"b\" => 2}, candidate.call(\"a b b a\"))\n    assert_equal({\"a\" => 2, \"b\" => 2}, candidate.call(\"a b c a b\"))\n    assert_equal({\"a\" => 1, \"b\" => 1, \"c\" => 1, \"d\" => 1, \"g\" => 1}, candidate.call(\"a b c d g\"))\n    assert_equal({\"r\" => 1, \"t\" => 1, \"g\" => 1}, candidate.call(\"r t g\"))\n    assert_equal({\"b\" => 4}, candidate.call(\"b b b b a\"))\n    assert_equal({\"r\" => 1, \"t\" => 1, \"g\" => 1}, candidate.call(\"r t g\"))\n    assert_equal({}, candidate.call(\"\"))\n    assert_equal({\"a\" => 1}, candidate.call(\"a\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_145_order_by_points",
+          "seconds": 64.8,
+          "error": null,
+          "tokens": 1024,
+          "code": "# Write a function which sorts the given array of integers\n# in ascending order according to the sum of their digits.\n# Note: if there are several items with similar sum of their digits,\n# order them based on their index in original array.\n# For example:\n# >>> order_by_points.call([1, 11, -1, -11, -12])\n# [-1, -11, 1, -12, 11]\n# >>> order_by_points.call([])\n# []\ndef order_by_points(nums)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_order_by_points\n    candidate = method(:order_by_points)\n    assert_equal([-1, -11, 1, -12, 11], candidate.call([1, 11, -1, -11, -12]))\n    assert_equal([0, 2, 3, 6, 53, 423, 423, 423, 1234, 145, 37, 46, 56, 463, 3457], candidate.call([1234, 423, 463, 145, 2, 423, 423, 53, 6, 37, 3457, 3, 56, 0, 46]))\n    assert_equal([], candidate.call([]))\n    assert_equal([-3, -32, -98, -11, 1, 2, 43, 54], candidate.call([1, -11, -32, 43, 54, -98, 2, -3]))\n    assert_equal([1, 10, 2, 11, 3, 4, 5, 6, 7, 8, 9], candidate.call([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]))\n    assert_equal([-76, -21, 0, 4, 23, 6, 6], candidate.call([0, 6, 6, -76, -21, 23, 4]))\n  end\nend\n",
+          "passed": false
+        }
+      ]
+    },
+    "tools": {
+      "attempted": 7,
+      "passed": 7,
+      "total_cases": 12,
+      "box_seconds": 90,
+      "gen_seconds": 95.7,
+      "cases": [
+        {
+          "case": 1,
+          "seconds": 12.7,
+          "error": null,
+          "calls": [
+            "get_weather({\"city\":\"Melbourne\",\"unit\":\"celsius\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 2,
+          "seconds": 24.6,
+          "error": null,
+          "calls": [
+            "create_calendar_event({\"title\":\"Roadmap review\",\"start\":\"2026-10-21T15:00:00\",\"duration_minutes\":30})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 3,
+          "seconds": 14.2,
+          "error": null,
+          "calls": [
+            "send_email({\"to\":\"leah@example.com\",\"subject\":\"Invoice\",\"body\":\"Attached is the invoice.\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 4,
+          "seconds": 9.7,
+          "error": null,
+          "calls": [],
+          "passed": true
+        },
+        {
+          "case": 5,
+          "seconds": 10.8,
+          "error": null,
+          "calls": [
+            "read_file({\"path\":\"config/database.yml\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 6,
+          "seconds": 11.5,
+          "error": null,
+          "calls": [
+            "search_web({\"query\":\"Rails 8.1 release news\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 7,
+          "seconds": 12.3,
+          "error": null,
+          "calls": [
+            "run_tests({\"path\":\"test/models\"})"
+          ],
+          "passed": true
+        }
+      ]
+    },
+    "agentic": {
+      "turns": 5,
+      "stop": "no_tool_call",
+      "seconds": 132.5,
+      "tool_counts": {
+        "list_files": 1,
+        "read_file": 2,
+        "run_tests": 1
+      },
+      "solved": false,
+      "final_tests": "4 runs, 4 assertions, 3 failures, 0 errors, 0 skips",
+      "box_seconds": 120
+    }
+  },
+  "load_seconds": 4.2,
+  "finished_at": "2026-10-19T17:58:24+11:00"
+}

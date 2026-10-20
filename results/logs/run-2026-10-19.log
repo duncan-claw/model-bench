@@ -1,0 +1,228 @@
+[17:52:00] run 2026-10-19: 13 models, screens speed,coding,tools,agentic
+[17:52:05] DeepSeek-V4-Pro-Qwen3.5-9B-8bit: loaded in 4.2s
+[17:52:24]   speed {ttft: 3.184443000005558, tok_per_s: 25.52503236731009}
+[17:54:35]   coding {attempted: 3, passed: 1}
+[17:56:11]   tools {attempted: 7, passed: 7}
+[17:58:24]   agentic {solved: false, turns: 5, stop: "no_tool_call"}
+[17:58:31] SrogiLesnik--Gemma-4-19B-mlx-4Bit: loaded in 6.1s
+[17:58:43]   speed {ttft: 3.0318679999909364, tok_per_s: 46.410226957727524}
+[18:00:45]   coding {attempted: 29, passed: 23}
+[18:01:27]   tools {attempted: 12, passed: 12}
+[18:02:58]   agentic {solved: false, turns: 7, stop: "no_tool_call"}
+[18:02:59]   ERROR RuntimeError: load failed 500: {"detail" => "Model 'ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16' is unavailable after a previous load failure: Splash exited with code 1 while loading ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16: error: omlx/ZQ-De
+[18:03:06] kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit: loaded in 6.9s
+[18:03:30]   speed {ttft: 1.3720469999825582, tok_per_s: 17.62980572529453}
+[18:05:36]   coding {attempted: 26, passed: 16}
+[18:07:04]   tools {attempted: 12, passed: 12}
+[18:09:47]   agentic {solved: false, turns: 6, stop: "no_tool_call"}
+[18:10:08] mlx-community--gemma-4-26b-a4b-it-4bit: loaded in 21.0s
+[18:10:19]   speed {ttft: 3.3504529999918304, tok_per_s: 48.723979872034036}
+[18:12:40]   coding {attempted: 7, passed: 1}
+[18:13:38]   tools {attempted: 12, passed: 12}
+[18:14:39]   agentic {solved: false, turns: 5, stop: "no_tool_call"}
+[18:14:55] mlx-community--IQuest-Coder-V1-14B-Instruct-8bit: loaded in 15.1s
+[18:15:24]   speed {ttft: 1.3211999999475665, tok_per_s: 13.409005052505021}
+[18:17:27]   coding {attempted: 12, passed: 5}
+[18:18:42]   tools {attempted: 12, passed: 11}
+[18:20:45]   agentic {solved: false, turns: 14, stop: "time_box"}
+[18:21:29] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 43.1s
+[18:22:41]   speed {ttft: 39.80236699996749, tok_per_s: 12.375540733778365}
+[18:24:43]   coding {attempted: 26, passed: 19}
+[18:26:21]   tools {attempted: 6, passed: 6}
+[18:27:39]   agentic {solved: true, turns: 8, stop: "finish"}
+[18:28:03] ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit: loaded in 22.9s
+[18:28:12]   speed {ttft: 0.16852099995594472, tok_per_s: 45.51127940148312}
+[18:30:18]   coding {attempted: 25, passed: 20}
+[18:30:35]   tools {attempted: 12, passed: 12}
+[18:31:09]   agentic {solved: false, turns: 3, stop: "no_tool_call"}
+[18:31:20] mlx-community--Qwen3.6-35B-A3B-4bit: loaded in 9.8s
+[18:31:29]   speed {ttft: 3.327653000014834, tok_per_s: 75.90282616606828}
+[18:33:35]   coding {attempted: 9, passed: 1}
+[18:34:40]   tools {attempted: 12, passed: 12}
+[18:35:31]   agentic {solved: true, turns: 12, stop: "finish"}
+[18:35:42] mlx-community--Qwen3.8-27B-8bit: loaded in 11.0s
+[18:36:39]   speed {ttft: 7.5900130000081845, tok_per_s: 8.09719680714759}
+[18:38:52]   coding {attempted: 11, passed: 9}
+[18:40:26]   tools {attempted: 4, passed: 4}
+[18:41:59]   agentic {solved: true, turns: 5, stop: "finish"}
+[18:42:31] Qwen3.6-35B-A3B-8bit: loaded in 32.2s
+[18:42:39]   speed {ttft: 0.24989500001538545, tok_per_s: 50.87701156571328}
+[18:44:48]   coding {attempted: 9, passed: 3}
+[18:45:36]   tools {attempted: 12, passed: 12}
+[18:46:41]   agentic {solved: true, turns: 6, stop: "finish"}
+[18:47:10] Qwopus3.6-35B-A3B-Coder-8bit: loaded in 27.9s
+[18:47:17]   speed {ttft: 0.16993599996203557, tok_per_s: 56.329031391349496}
+[18:49:22]   coding {attempted: 11, passed: 5}
+[18:49:49]   tools {attempted: 12, passed: 12}
+[18:50:32]   agentic {solved: true, turns: 10, stop: "finish"}
+[18:50:48] mlx-community--IQuest-Coder-V1-40B-Loop-Instruct-8bit: loaded in 14.1s
+[18:52:11]   speed {ttft: 16.15512100001797, tok_per_s: 4.293820469256326}
+[18:56:41]   coding {attempted: 1, passed: 0}
+[18:58:19]   tools {attempted: 5, passed: 4}
+[19:00:54]   agentic {solved: false, turns: 4, stop: "time_box"}
+[19:01:38] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+# Results — 2026-10-19
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 9.7 | 4.2 | 3.18 | 25.5 | 1/3 | 7/7 | not solved | 5 / no_tool_call |  |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | 12 | 6.9 | 1.37 | 17.6 | 16/26 | 12/12 | not solved | 6 / no_tool_call |  |
+| mlx-community--gemma-4-26b-a4b-it-4bit | 14 | 21.0 | 3.35 | 48.7 | 1/7 | 12/12 | not solved | 5 / no_tool_call |  |
+| mlx-community--IQuest-Coder-V1-14B-Instruct-8bit | 14 | 15.1 | 1.32 | 13.4 | 5/12 | 11/12 | not solved | 14 / time_box |  |
+| mlx-community--IQuest-Coder-V1-40B-Loop-Instruct-8bit | 39 | 14.1 | 16.16 | 4.3 | 0/1 | 4/5 | not solved | 4 / time_box |  |
+| mlx-community--Qwen3.6-35B-A3B-4bit | 19 | 9.8 | 3.33 | 75.9 | 1/9 | 12/12 | **solved** | 12 / finish |  |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 43.1 | 39.8 | 12.4 | 19/26 | 6/6 | **solved** | 8 / finish |  |
+| mlx-community--Qwen3.8-27B-8bit | 28 | 11.0 | 7.59 | 8.1 | 9/11 | 4/4 | **solved** | 5 / finish |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 22.9 | 0.17 | 45.5 | 20/25 | 12/12 | not solved | 3 / no_tool_call |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 32.2 | 0.25 | 50.9 | 3/9 | 12/12 | **solved** | 6 / finish |  |
+| Qwopus3.6-35B-A3B-Coder-8bit | 35 | 27.9 | 0.17 | 56.3 | 5/11 | 12/12 | **solved** | 10 / finish |  |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | 9.7 | 6.1 | 3.03 | 46.4 | 23/29 | 12/12 | not solved | 7 / no_tool_call |  |
+| ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16 | 11 | — | — | — | — | — | — | — | RuntimeError: load failed 500: {"detail" => "Model 'ZQ-Dev-- |
+[19:01:52] run 2026-10-19: 1 models, screens speed,coding,tools,agentic
+[19:01:56]   ERROR RuntimeError: load failed 500: {"detail" => "Model 'ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16' failed to load: Splash exited with code 1 while loading ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16: error: omlx/ZQ-Dev-KAT-Coder-V2.5-Dev-oQ2e-fp16
+[19:02:37] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+# Results — 2026-10-19
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 9.7 | 4.2 | 3.18 | 25.5 | 1/3 | 7/7 | not solved | 5 / no_tool_call |  |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | 12 | 6.9 | 1.37 | 17.6 | 16/26 | 12/12 | not solved | 6 / no_tool_call |  |
+| mlx-community--gemma-4-26b-a4b-it-4bit | 14 | 21.0 | 3.35 | 48.7 | 1/7 | 12/12 | not solved | 5 / no_tool_call |  |
+| mlx-community--IQuest-Coder-V1-14B-Instruct-8bit | 14 | 15.1 | 1.32 | 13.4 | 5/12 | 11/12 | not solved | 14 / time_box |  |
+| mlx-community--IQuest-Coder-V1-40B-Loop-Instruct-8bit | 39 | 14.1 | 16.16 | 4.3 | 0/1 | 4/5 | not solved | 4 / time_box |  |
+| mlx-community--Qwen3.6-35B-A3B-4bit | 19 | 9.8 | 3.33 | 75.9 | 1/9 | 12/12 | **solved** | 12 / finish |  |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 43.1 | 39.8 | 12.4 | 19/26 | 6/6 | **solved** | 8 / finish |  |
+| mlx-community--Qwen3.8-27B-8bit | 28 | 11.0 | 7.59 | 8.1 | 9/11 | 4/4 | **solved** | 5 / finish |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 22.9 | 0.17 | 45.5 | 20/25 | 12/12 | not solved | 3 / no_tool_call |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 32.2 | 0.25 | 50.9 | 3/9 | 12/12 | **solved** | 6 / finish |  |
+| Qwopus3.6-35B-A3B-Coder-8bit | 35 | 27.9 | 0.17 | 56.3 | 5/11 | 12/12 | **solved** | 10 / finish |  |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | 9.7 | 6.1 | 3.03 | 46.4 | 23/29 | 12/12 | not solved | 7 / no_tool_call |  |
+| ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16 | 11 | — | — | — | — | — | — | — | RuntimeError: load failed 500: {"detail" => "Model 'ZQ-Dev-- |
+[19:24:50] run 2026-10-19: 1 models, screens speed,coding,tools,agentic
+[19:24:54]   ERROR RuntimeError: load failed 500: {"detail" => "Model 'ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16' failed to load: Splash exited with code 1 while loading ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16: error: omlx/ZQ-Dev-KAT-Coder-V2.5-Dev-oQ2e-fp16
+[19:25:33] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+# Results — 2026-10-19
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 9.7 | 4.2 | 3.18 | 25.5 | 1/3 | 7/7 | not solved | 5 / no_tool_call |  |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | 12 | 6.9 | 1.37 | 17.6 | 16/26 | 12/12 | not solved | 6 / no_tool_call |  |
+| mlx-community--gemma-4-26b-a4b-it-4bit | 14 | 21.0 | 3.35 | 48.7 | 1/7 | 12/12 | not solved | 5 / no_tool_call |  |
+| mlx-community--IQuest-Coder-V1-14B-Instruct-8bit | 14 | 15.1 | 1.32 | 13.4 | 5/12 | 11/12 | not solved | 14 / time_box |  |
+| mlx-community--IQuest-Coder-V1-40B-Loop-Instruct-8bit | 39 | 14.1 | 16.16 | 4.3 | 0/1 | 4/5 | not solved | 4 / time_box |  |
+| mlx-community--Qwen3.6-35B-A3B-4bit | 19 | 9.8 | 3.33 | 75.9 | 1/9 | 12/12 | **solved** | 12 / finish |  |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 43.1 | 39.8 | 12.4 | 19/26 | 6/6 | **solved** | 8 / finish |  |
+| mlx-community--Qwen3.8-27B-8bit | 28 | 11.0 | 7.59 | 8.1 | 9/11 | 4/4 | **solved** | 5 / finish |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 22.9 | 0.17 | 45.5 | 20/25 | 12/12 | not solved | 3 / no_tool_call |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 32.2 | 0.25 | 50.9 | 3/9 | 12/12 | **solved** | 6 / finish |  |
+| Qwopus3.6-35B-A3B-Coder-8bit | 35 | 27.9 | 0.17 | 56.3 | 5/11 | 12/12 | **solved** | 10 / finish |  |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | 9.7 | 6.1 | 3.03 | 46.4 | 23/29 | 12/12 | not solved | 7 / no_tool_call |  |
+| ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16 | 11 | — | — | — | — | — | — | — | RuntimeError: load failed 500: {"detail" => "Model 'ZQ-Dev-- |
+[19:29:25] run 2026-10-19: 4 models, screens speed,coding,tools,agentic
+[19:29:56] fullstack-learn-lm-30b-a3b-i1: loaded in LM Studio in 27.2s
+[19:29:56]   speed {error: "Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for \"<mac-host>\" port 1234)"}
+[19:29:59]   coding {attempted: 161, passed: 0}
+[19:29:59]   tools {attempted: 12, passed: 0}
+[19:30:00]   agentic {solved: false, turns: 1, stop: "error: Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for \"<mac-host>"}
+[19:30:17] gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2: loaded in LM Studio in 11.4s
+[19:30:17]   speed {error: "Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for \"<mac-host>\" port 1234)"}
+[19:30:22]   coding {attempted: 161, passed: 0}
+[19:30:22]   tools {attempted: 12, passed: 0}
+[19:30:23]   agentic {solved: false, turns: 1, stop: "error: Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for \"<mac-host>"}
+[19:30:48] ornith-1.5-35b-a3b: loaded in LM Studio in 21.5s
+[19:30:48]   speed {error: "Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for \"<mac-host>\" port 1234)"}
+[19:30:51]   coding {attempted: 161, passed: 0}
+[19:30:51]   tools {attempted: 12, passed: 0}
+[19:30:52]   agentic {solved: false, turns: 1, stop: "error: Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for \"<mac-host>"}
+[19:31:14] qwen3-coder-30b-rails: loaded in LM Studio in 14.9s
+[19:31:14]   speed {error: "Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for \"<mac-host>\" port 1234)"}
+[19:31:17]   coding {attempted: 161, passed: 0}
+[19:31:17]   tools {attempted: 12, passed: 0}
+[19:31:17]   agentic {solved: false, turns: 1, stop: "error: Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for \"<mac-host>"}
+[19:31:22] LM Studio unloaded and server stopped
+[19:32:09] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+# Results — 2026-10-19
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 9.7 | 4.2 | 3.18 | 25.5 | 1/3 | 7/7 | not solved | 5 / no_tool_call |  |
+| fullstack-learn-lm-30b-a3b-i1 | 23 | 27.2 | — | — | 0/161 | 0/12 | not solved | 1 / error: Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for "<mac-host> | Errno::ECONNREFUSED: Failed to open TCP connection to 100.12 |
+| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 | 12 | 11.4 | — | — | 0/161 | 0/12 | not solved | 1 / error: Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for "<mac-host> | Errno::ECONNREFUSED: Failed to open TCP connection to 100.12 |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | 12 | 6.9 | 1.37 | 17.6 | 16/26 | 12/12 | not solved | 6 / no_tool_call |  |
+| mlx-community--gemma-4-26b-a4b-it-4bit | 14 | 21.0 | 3.35 | 48.7 | 1/7 | 12/12 | not solved | 5 / no_tool_call |  |
+| mlx-community--IQuest-Coder-V1-14B-Instruct-8bit | 14 | 15.1 | 1.32 | 13.4 | 5/12 | 11/12 | not solved | 14 / time_box |  |
+| mlx-community--IQuest-Coder-V1-40B-Loop-Instruct-8bit | 39 | 14.1 | 16.16 | 4.3 | 0/1 | 4/5 | not solved | 4 / time_box |  |
+| mlx-community--Qwen3.6-35B-A3B-4bit | 19 | 9.8 | 3.33 | 75.9 | 1/9 | 12/12 | **solved** | 12 / finish |  |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 43.1 | 39.8 | 12.4 | 19/26 | 6/6 | **solved** | 8 / finish |  |
+| mlx-community--Qwen3.8-27B-8bit | 28 | 11.0 | 7.59 | 8.1 | 9/11 | 4/4 | **solved** | 5 / finish |  |
+| ornith-1.5-35b-a3b | 27.9 | 21.5 | — | — | 0/161 | 0/12 | not solved | 1 / error: Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for "<mac-host> | Errno::ECONNREFUSED: Failed to open TCP connection to 100.12 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 22.9 | 0.17 | 45.5 | 20/25 | 12/12 | not solved | 3 / no_tool_call |  |
+| qwen3-coder-30b-rails | 20 | 14.9 | — | — | 0/161 | 0/12 | not solved | 1 / error: Errno::ECONNREFUSED: Failed to open TCP connection to <mac-host>:1234 (Connection refused - connect(2) for "<mac-host> | Errno::ECONNREFUSED: Failed to open TCP connection to 100.12 |
+| Qwen3.6-35B-A3B-8bit | 35 | 32.2 | 0.25 | 50.9 | 3/9 | 12/12 | **solved** | 6 / finish |  |
+| Qwopus3.6-35B-A3B-Coder-8bit | 35 | 27.9 | 0.17 | 56.3 | 5/11 | 12/12 | **solved** | 10 / finish |  |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | 9.7 | 6.1 | 3.03 | 46.4 | 23/29 | 12/12 | not solved | 7 / no_tool_call |  |
+| ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16 | 11 | — | — | — | — | — | — | — | RuntimeError: load failed 500: {"detail" => "Model 'ZQ-Dev-- |
+[19:32:22] run 2026-10-19: 4 models, screens speed,coding,tools,agentic
+[19:32:41] fullstack-learn-lm-30b-a3b-i1: loaded in LM Studio in 16.4s
+[19:32:53]   speed {ttft: 0.5228399999905378, tok_per_s: 30.721492884917943}
+[19:35:00]   coding {attempted: 40, passed: 28}
+[19:35:24]   tools {attempted: 12, passed: 11}
+[19:37:47]   agentic {solved: false, turns: 12, stop: "time_box"}
+[19:38:02] gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2: loaded in LM Studio in 9.3s
+[19:38:37]   speed {ttft: 1.033476000011433, tok_per_s: 11.87139938601383}
+[19:40:47]   coding {attempted: 6, passed: 5}
+[19:42:27]   tools {attempted: 11, passed: 11}
+[19:44:38]   agentic {solved: true, turns: 10, stop: "time_box"}
+[19:45:00] ornith-1.5-35b-a3b: loaded in LM Studio in 19.4s
+[19:45:20]   speed {ttft: 0.5210739999893121, tok_per_s: 21.092132703039912}
+[19:47:29]   coding {attempted: 8, passed: 7}
+[19:48:01]   tools {attempted: 12, passed: 12}
+[19:49:20]   agentic {solved: false, turns: 3, stop: "no_tool_call"}
+[19:49:41] qwen3-coder-30b-rails: loaded in LM Studio in 13.8s
+[19:49:49]   speed {ttft: 0.31029799999669194, tok_per_s: 39.44496312325077}
+[19:51:55]   coding {attempted: 55, passed: 37}
+[19:52:12]   tools {attempted: 12, passed: 12}
+[19:54:16]   agentic {solved: false, turns: 12, stop: "time_box"}
+[19:54:19] LM Studio unloaded and server stopped
+[19:54:58] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+# Results — 2026-10-19
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 9.7 | 4.2 | 3.18 | 25.5 | 1/3 | 7/7 | not solved | 5 / no_tool_call |  |
+| fullstack-learn-lm-30b-a3b-i1 | 23 | 16.4 | 0.52 | 30.7 | 28/40 | 11/12 | not solved | 12 / time_box |  |
+| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 | 12 | 9.3 | 1.03 | 11.9 | 5/6 | 11/11 | **solved** | 10 / time_box |  |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | 12 | 6.9 | 1.37 | 17.6 | 16/26 | 12/12 | not solved | 6 / no_tool_call |  |
+| mlx-community--gemma-4-26b-a4b-it-4bit | 14 | 21.0 | 3.35 | 48.7 | 1/7 | 12/12 | not solved | 5 / no_tool_call |  |
+| mlx-community--IQuest-Coder-V1-14B-Instruct-8bit | 14 | 15.1 | 1.32 | 13.4 | 5/12 | 11/12 | not solved | 14 / time_box |  |
+| mlx-community--IQuest-Coder-V1-40B-Loop-Instruct-8bit | 39 | 14.1 | 16.16 | 4.3 | 0/1 | 4/5 | not solved | 4 / time_box |  |
+| mlx-community--Qwen3.6-35B-A3B-4bit | 19 | 9.8 | 3.33 | 75.9 | 1/9 | 12/12 | **solved** | 12 / finish |  |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 43.1 | 39.8 | 12.4 | 19/26 | 6/6 | **solved** | 8 / finish |  |
+| mlx-community--Qwen3.8-27B-8bit | 28 | 11.0 | 7.59 | 8.1 | 9/11 | 4/4 | **solved** | 5 / finish |  |
+| ornith-1.5-35b-a3b | 27.9 | 19.4 | 0.52 | 21.1 | 7/8 | 12/12 | not solved | 3 / no_tool_call |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 22.9 | 0.17 | 45.5 | 20/25 | 12/12 | not solved | 3 / no_tool_call |  |
+| qwen3-coder-30b-rails | 20 | 13.8 | 0.31 | 39.4 | 37/55 | 12/12 | not solved | 12 / time_box |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 32.2 | 0.25 | 50.9 | 3/9 | 12/12 | **solved** | 6 / finish |  |
+| Qwopus3.6-35B-A3B-Coder-8bit | 35 | 27.9 | 0.17 | 56.3 | 5/11 | 12/12 | **solved** | 10 / finish |  |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | 9.7 | 6.1 | 3.03 | 46.4 | 23/29 | 12/12 | not solved | 7 / no_tool_call |  |
+| ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16 | 11 | — | — | — | — | — | — | — | RuntimeError: load failed 500: {"detail" => "Model 'ZQ-Dev-- |

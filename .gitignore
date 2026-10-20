@@ -1,0 +1,7 @@
+tmp/
+config/hosts.yml
+results/*.log
+bin/queue-*
+
+# Redacted copies of results/*.log are published; see bin/redact-logs
+!results/logs/

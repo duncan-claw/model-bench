@@ -1,0 +1,101 @@
+{
+  "model": "mlx-community--IQuest-Coder-V1-40B-Loop-Instruct-8bit",
+  "host": "mbp14-omlx",
+  "size_gb": 39,
+  "started_at": "2026-10-19T18:50:32+11:00",
+  "screens": {
+    "speed": {
+      "ttft": 16.15512100001797,
+      "total": 83.22825599997304,
+      "completion_tokens": 288,
+      "tok_per_s": 4.293820469256326,
+      "chars": 1319
+    },
+    "coding": {
+      "attempted": 1,
+      "passed": 0,
+      "box_seconds": 120,
+      "gen_seconds": 269.8,
+      "pass_rate": 0.0,
+      "problems": [
+        {
+          "name": "HumanEval_108_count_nums",
+          "seconds": 269.8,
+          "error": null,
+          "tokens": 1024,
+          "code": "def count_nums(arr)\n  count = 0\n  \n  arr.each do |num|\n    if num == 0\n      next\n    end\n    \n    # Convert to string to process digits\n    str = num.to_s\n    sum = 0\n    \n    if num < 0\n      # For negative numbers: first digit is negative, rest are positive\n      sum -= str[1..-1].to_i\n    else\n      # For positive numbers: all digits are positive\n      sum = str.to_i\n    end\n    \n    count += 1 if sum > 0\n  end\n  \n  count\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_count_nums\n    candidate = method(:count_nums)\n    assert_equal(0, candidate.call([]))\n    assert_equal(0, candidate.call([-1, -2, 0]))\n    assert_equal(6, candidate.call([1, 1, 2, -2, 3, 4, 5]))\n    assert_equal(5, candidate.call([1, 6, 9, -6, 0, 1, 5]))\n    assert_equal(4, candidate.call([1, 100, 98, -7, 1, -1]))\n    assert_equal(5, candidate.call([12, 23, 34, -45, -56, 0]))\n    assert_equal(1, candidate.call([0, 1]))\n    assert_equal(1, candidate.call([1]))\n  end\nend\n",
+          "passed": false
+        }
+      ]
+    },
+    "tools": {
+      "attempted": 5,
+      "passed": 4,
+      "total_cases": 12,
+      "box_seconds": 90,
+      "gen_seconds": 97.9,
+      "cases": [
+        {
+          "case": 1,
+          "seconds": 39.1,
+          "error": null,
+          "calls": [
+            "get_weather({\"city\":\"Melbourne\",\"unit\":\"celsius\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 2,
+          "seconds": 21.0,
+          "error": null,
+          "calls": [
+            "create_calendar_event({\"title\":\"Roadmap review\",\"start\":\"2026-10-21T15:00:00\",\"duration_minutes\":30})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 3,
+          "seconds": 16.1,
+          "error": null,
+          "calls": [
+            "send_email({\"to\":\"leah@example.com\",\"subject\":\"Invoice\",\"body\":\"Attached is the invoice.\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 4,
+          "seconds": 10.8,
+          "error": null,
+          "calls": [
+            "search_web({\"query\":\"17 times 3\"})"
+          ],
+          "passed": false
+        },
+        {
+          "case": 5,
+          "seconds": 10.8,
+          "error": null,
+          "calls": [
+            "read_file({\"path\":\"config/database.yml\"})"
+          ],
+          "passed": true
+        }
+      ]
+    },
+    "agentic": {
+      "turns": 4,
+      "stop": "time_box",
+      "seconds": 154.3,
+      "tool_counts": {
+        "list_files": 1,
+        "read_file": 2,
+        "write_file": 1
+      },
+      "solved": false,
+      "final_tests": "4 runs, 4 assertions, 2 failures, 0 errors, 0 skips",
+      "box_seconds": 120
+    }
+  },
+  "load_seconds": 14.1,
+  "finished_at": "2026-10-19T19:00:54+11:00"
+}

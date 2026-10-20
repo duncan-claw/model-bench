@@ -1,0 +1,1636 @@
+{
+  "model": "Qwopus3.6-35B-A3B-Coder-8bit",
+  "host": "mbp14-omlx",
+  "size_gb": 35,
+  "started_at": "2026-10-20T08:01:09+11:00",
+  "screens": {
+    "coding": {
+      "mode": "extended",
+      "stop": "completed",
+      "attempted": 161,
+      "passed": 122,
+      "total_problems": 161,
+      "pass_rate": 0.758,
+      "gen_seconds": 4344.7,
+      "seconds_per_problem": 26.9,
+      "solved_per_hour": 101.4,
+      "hit_cap": 26,
+      "max_tokens": 8192,
+      "box_seconds": 120,
+      "problems": [
+        {
+          "name": "HumanEval_108_count_nums",
+          "seconds": 90.9,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Write a function count_nums which takes an array of integers and returns\n# the number of elements which has a sum of digits > 0.\n# If a number is negative, then its first signed digit will be negative:\n# e.g. -123 has signed digits -1, 2, and 3.\n# >>> count_nums.call([])\n# 0\n# >>> count_nums.call([-1, 11, -11])\n# 1\n# >>> count_nums.call([1, 1, 2])\n# 3\ndef count_nums(arr)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_count_nums\n    candidate = method(:count_nums)\n    assert_equal(0, candidate.call([]))\n    assert_equal(0, candidate.call([-1, -2, 0]))\n    assert_equal(6, candidate.call([1, 1, 2, -2, 3, 4, 5]))\n    assert_equal(5, candidate.call([1, 6, 9, -6, 0, 1, 5]))\n    assert_equal(4, candidate.call([1, 100, 98, -7, 1, -1]))\n    assert_equal(5, candidate.call([12, 23, 34, -45, -56, 0]))\n    assert_equal(1, candidate.call([0, 1]))\n    assert_equal(1, candidate.call([1]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_111_histogram",
+          "seconds": 12.6,
+          "error": null,
+          "tokens": 851,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def histogram(test)\n  counts = test.split.each_with_object(Hash.new(0)) { |char, hash| hash[char] += 1 }\n  max_count = counts.values.max\n  counts.select { |_, count| count == max_count }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_histogram\n    candidate = method(:histogram)\n    assert_equal({\"a\" => 2, \"b\" => 2}, candidate.call(\"a b b a\"))\n    assert_equal({\"a\" => 2, \"b\" => 2}, candidate.call(\"a b c a b\"))\n    assert_equal({\"a\" => 1, \"b\" => 1, \"c\" => 1, \"d\" => 1, \"g\" => 1}, candidate.call(\"a b c d g\"))\n    assert_equal({\"r\" => 1, \"t\" => 1, \"g\" => 1}, candidate.call(\"r t g\"))\n    assert_equal({\"b\" => 4}, candidate.call(\"b b b b a\"))\n    assert_equal({\"r\" => 1, \"t\" => 1, \"g\" => 1}, candidate.call(\"r t g\"))\n    assert_equal({}, candidate.call(\"\"))\n    assert_equal({\"a\" => 1}, candidate.call(\"a\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_145_order_by_points",
+          "seconds": 97.5,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Write a function which sorts the given array of integers\n# in ascending order according to the sum of their digits.\n# Note: if there are several items with similar sum of their digits,\n# order them based on their index in original array.\n# For example:\n# >>> order_by_points.call([1, 11, -1, -11, -12])\n# [-1, -11, 1, -12, 11]\n# >>> order_by_points.call([])\n# []\ndef order_by_points(nums)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_order_by_points\n    candidate = method(:order_by_points)\n    assert_equal([-1, -11, 1, -12, 11], candidate.call([1, 11, -1, -11, -12]))\n    assert_equal([0, 2, 3, 6, 53, 423, 423, 423, 1234, 145, 37, 46, 56, 463, 3457], candidate.call([1234, 423, 463, 145, 2, 423, 423, 53, 6, 37, 3457, 3, 56, 0, 46]))\n    assert_equal([], candidate.call([]))\n    assert_equal([-3, -32, -98, -11, 1, 2, 43, 54], candidate.call([1, -11, -32, 43, 54, -98, 2, -3]))\n    assert_equal([1, 10, 2, 11, 3, 4, 5, 6, 7, 8, 9], candidate.call([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]))\n    assert_equal([-76, -21, 0, 4, 23, 6, 6], candidate.call([0, 6, 6, -76, -21, 23, 4]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_58_common",
+          "seconds": 8.3,
+          "error": null,
+          "tokens": 545,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def common(l1, l2)\n  (l1 & l2).sort\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_common\n    candidate = method(:common)\n    assert_equal([1, 5, 653], candidate.call([1, 4, 3, 34, 653, 2, 5], [5, 7, 1, 5, 9, 653, 121]))\n    assert_equal([2, 3], candidate.call([5, 3, 2, 8], [3, 2]))\n    assert_equal([2, 3, 4], candidate.call([4, 3, 2, 8], [3, 2, 4]))\n    assert_equal([], candidate.call([4, 3, 2, 8], []))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_97_multiply",
+          "seconds": 5.8,
+          "error": null,
+          "tokens": 390,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def multiply(a, b)\n  (a.abs % 10) * (b.abs % 10)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_multiply\n    candidate = method(:multiply)\n    assert_equal(16, candidate.call(148, 412))\n    assert_equal(72, candidate.call(19, 28))\n    assert_equal(0, candidate.call(2020, 1851))\n    assert_equal(20, candidate.call(14, -15))\n    assert_equal(42, candidate.call(76, 67))\n    assert_equal(49, candidate.call(17, 27))\n    assert_equal(0, candidate.call(0, 1))\n    assert_equal(0, candidate.call(0, 0))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_29_filter_by_prefix",
+          "seconds": 3.6,
+          "error": null,
+          "tokens": 245,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def filter_by_prefix(strings, prefix)\n  strings.select { |s| s.start_with?(prefix) }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_filter_by_prefix\n    candidate = method(:filter_by_prefix)\n    assert_equal([], candidate.call([], \"john\"))\n    assert_equal([\"xxx\", \"xxxAAA\", \"xxx\"], candidate.call([\"xxx\", \"asd\", \"xxy\", \"john doe\", \"xxxAAA\", \"xxx\"], \"xxx\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_104_unique_digits",
+          "seconds": 17.1,
+          "error": null,
+          "tokens": 1167,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def unique_digits(x)\n  x.select { |n| n.digits.none?(&:even?) }.sort\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_unique_digits\n    candidate = method(:unique_digits)\n    assert_equal([1, 15, 33], candidate.call([15, 33, 1422, 1]))\n    assert_equal([], candidate.call([152, 323, 1422, 10]))\n    assert_equal([111, 151], candidate.call([12345, 2033, 111, 151]))\n    assert_equal([31, 135], candidate.call([135, 103, 31]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_54_same_chars",
+          "seconds": 27.9,
+          "error": null,
+          "tokens": 1480,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def same_chars(s0, s1)\n  s0.chars.uniq.sort == s1.chars.uniq.sort\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_same_chars\n    candidate = method(:same_chars)\n    assert_equal(true, candidate.call(\"eabcdzzzz\", \"dddzzzzzzzddeddabc\"))\n    assert_equal(true, candidate.call(\"abcd\", \"dddddddabc\"))\n    assert_equal(true, candidate.call(\"dddddddabc\", \"abcd\"))\n    assert_equal(false, candidate.call(\"eabcd\", \"dddddddabc\"))\n    assert_equal(false, candidate.call(\"abcd\", \"dddddddabcf\"))\n    assert_equal(false, candidate.call(\"eabcdzzzz\", \"dddzzzzzzzddddabc\"))\n    assert_equal(false, candidate.call(\"aabb\", \"aaccc\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_103_rounded_avg",
+          "seconds": 16.0,
+          "error": null,
+          "tokens": 1116,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def rounded_avg(n, m)\n  return -1 if n > m\n  \"0b\" + ((n + m) / 2.0).round.to_s(2)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_rounded_avg\n    candidate = method(:rounded_avg)\n    assert_equal(\"0b11\", candidate.call(1, 5))\n    assert_equal(\"0b1010\", candidate.call(7, 13))\n    assert_equal(\"0b1111001010\", candidate.call(964, 977))\n    assert_equal(\"0b1111100100\", candidate.call(996, 997))\n    assert_equal(\"0b1011000010\", candidate.call(560, 851))\n    assert_equal(\"0b101101110\", candidate.call(185, 546))\n    assert_equal(\"0b110101101\", candidate.call(362, 496))\n    assert_equal(\"0b1001110010\", candidate.call(350, 902))\n    assert_equal(\"0b11010111\", candidate.call(197, 233))\n    assert_equal(-1, candidate.call(7, 5))\n    assert_equal(-1, candidate.call(5, 1))\n    assert_equal(\"0b101\", candidate.call(5, 5))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_146_specialFilter",
+          "seconds": 26.1,
+          "error": null,
+          "tokens": 1989,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def specialFilter(nums)\n  nums.count { |n| n > 10 && n.to_s[0].to_i.odd? && n % 10.odd? }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_specialFilter\n    candidate = method(:specialFilter)\n    assert_equal(0, candidate.call([5, -2, 1, -5]))\n    assert_equal(1, candidate.call([15, -73, 14, -15]))\n    assert_equal(2, candidate.call([33, -2, -3, 45, 21, 109]))\n    assert_equal(4, candidate.call([43, -12, 93, 125, 121, 109]))\n    assert_equal(3, candidate.call([71, -2, -33, 75, 21, 19]))\n    assert_equal(0, candidate.call([1]))\n    assert_equal(0, candidate.call([]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_19_sort_numbers",
+          "seconds": 8.4,
+          "error": null,
+          "tokens": 649,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def sort_numbers(numbers)\n  mapping = {\n    'zero' => 0, 'one' => 1, 'two' => 2, 'three' => 3, 'four' => 4,\n    'five' => 5, 'six' => 6, 'seven' => 7, 'eight' => 8, 'nine' => 9\n  }\n  numbers.split.sort_by { |word| mapping[word] }.join(' ')\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_sort_numbers\n    candidate = method(:sort_numbers)\n    assert_equal(\"\", candidate.call(\"\"))\n    assert_equal(\"three\", candidate.call(\"three\"))\n    assert_equal(\"three five nine\", candidate.call(\"three five nine\"))\n    assert_equal(\"zero four five seven eight nine\", candidate.call(\"five zero four seven nine eight\"))\n    assert_equal(\"zero one two three four five six\", candidate.call(\"six five four three two one zero\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_87_get_row",
+          "seconds": 12.7,
+          "error": null,
+          "tokens": 718,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def get_row(lst, x)\n  result = []\n  lst.each_with_index do |row, i|\n    row.each_with_index do |val, j|\n      result << [i, j] if val == x\n    end\n  end\n  result.sort_by { |r, c| [r, -c] }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_get_row\n    candidate = method(:get_row)\n    assert_equal([[0, 0], [1, 4], [1, 0], [2, 5], [2, 0]], candidate.call([[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 1, 6], [1, 2, 3, 4, 5, 1]], 1))\n    assert_equal([[0, 1], [1, 1], [2, 1], [3, 1], [4, 1], [5, 1]], candidate.call([[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6]], 2))\n    assert_equal([[0, 0], [1, 0], [2, 1], [2, 0], [3, 2], [3, 0], [4, 3], [4, 0], [5, 4], [5, 0], [6, 5], [6, 0]], candidate.call([[1, 2, 3, 4, 5, 6], [1, 2, 3, 4, 5, 6], [1, 1, 3, 4, 5, 6], [1, 2, 1, 4, 5, 6], [1, 2, 3, 1, 5, 6], [1, 2, 3, 4, 1, 6], [1, 2, 3, 4, 5, 1]], 1))\n    assert_equal([], candidate.call([], 1))\n    assert_equal([], candidate.call([[1]], 2))\n    assert_equal([[2, 2]], candidate.call([[], [1], [1, 2, 3]], 3))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_15_string_sequence",
+          "seconds": 2.4,
+          "error": null,
+          "tokens": 189,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def string_sequence(n)\n  (0..n).join(\" \")\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_string_sequence\n    candidate = method(:string_sequence)\n    assert_equal(\"0\", candidate.call(0))\n    assert_equal(\"0 1 2 3\", candidate.call(3))\n    assert_equal(\"0 1 2 3 4 5 6 7 8 9 10\", candidate.call(10))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_69_search",
+          "seconds": 17.7,
+          "error": null,
+          "tokens": 1446,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def search(lst)\n  freq = lst.tally\n  max_val = -1\n  freq.each do |k, v|\n    if k > 0 && v >= k\n      max_val = [max_val, k].max\n    end\n  end\n  max_val\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_search\n    candidate = method(:search)\n    assert_equal(1, candidate.call([5, 5, 5, 5, 1]))\n    assert_equal(4, candidate.call([4, 1, 4, 1, 4, 4]))\n    assert_equal(-1, candidate.call([3, 3]))\n    assert_equal(8, candidate.call([8, 8, 8, 8, 8, 8, 8, 8]))\n    assert_equal(2, candidate.call([2, 3, 3, 2, 2]))\n    assert_equal(1, candidate.call([2, 7, 8, 8, 4, 8, 7, 3, 9, 6, 5, 10, 4, 3, 6, 7, 1, 7, 4, 10, 8, 1]))\n    assert_equal(2, candidate.call([3, 2, 8, 2]))\n    assert_equal(1, candidate.call([6, 7, 1, 8, 8, 10, 5, 8, 5, 3, 10]))\n    assert_equal(-1, candidate.call([8, 8, 3, 6, 5, 6, 4]))\n    assert_equal(1, candidate.call([6, 9, 6, 7, 1, 4, 7, 1, 8, 8, 9, 8, 10, 10, 8, 4, 10, 4, 10, 1, 2, 9, 5, 7, 9]))\n    assert_equal(1, candidate.call([1, 9, 10, 1, 3]))\n    assert_equal(5, candidate.call([6, 9, 7, 5, 8, 7, 5, 3, 7, 5, 10, 10, 3, 6, 10, 2, 8, 6, 5, 4, 9, 5, 3, 10]))\n    assert_equal(1, candidate.call([1]))\n    assert_equal(4, candidate.call([8, 8, 10, 6, 4, 3, 5, 8, 2, 4, 2, 8, 4, 6, 10, 4, 2, 1, 10, 2, 1, 1, 5]))\n    assert_equal(2, candidate.call([2, 10, 4, 8, 2, 10, 5, 1, 2, 9, 5, 5, 6, 3, 8, 6, 4, 10]))\n    assert_equal(1, candidate.call([1, 6, 10, 1, 6, 9, 10, 8, 6, 8, 7, 3]))\n    assert_equal(4, candidate.call([9, 2, 4, 1, 5, 1, 5, 2, 5, 7, 7, 7, 3, 10, 1, 5, 4, 2, 8, 4, 1, 9, 10, 7, 10, 2, 8, 10, 9, 4]))\n    assert_equal(4, candidate.call([2, 6, 4, 2, 8, 7, 5, 6, 4, 10, 4, 6, 3, 7, 8, 8, 3, 1, 4, 2, 2, 10, 7]))\n    assert_equal(2, candidate.call([9, 8, 6, 10, 2, 6, 10, 2, 7, 8, 10, 3, 8, 2, 6, 2, 3, 1]))\n    assert_equal(-1, candidate.call([5, 5, 3, 9, 5, 6, 3, 2, 8, 5, 6, 10, 10, 6, 8, 4, 10, 7, 7, 10, 8]))\n    assert_equal(-1, candidate.call([10]))\n    assert_equal(2, candidate.call([9, 7, 7, 2, 4, 7, 2, 10, 9, 7, 5, 7, 2]))\n    assert_equal(1, candidate.call([5, 4, 10, 2, 1, 1, 10, 3, 6, 1, 8]))\n    assert_equal(1, candidate.call([7, 9, 9, 9, 3, 4, 1, 5, 9, 1, 2, 1, 1, 10, 7, 5, 6, 7, 6, 7, 7, 6]))\n    assert_equal(-1, candidate.call([3, 10, 10, 9, 2]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_24_largest_divisor",
+          "seconds": 54.6,
+          "error": null,
+          "tokens": 4471,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def largest_divisor(n)\n  return 1 if n <= 1\n  (2..Math.sqrt(n)).each do |i|\n    return n / i if n % i == 0\n  end\n  1\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_largest_divisor\n    candidate = method(:largest_divisor)\n    assert_equal(1, candidate.call(3))\n    assert_equal(1, candidate.call(7))\n    assert_equal(5, candidate.call(10))\n    assert_equal(50, candidate.call(100))\n    assert_equal(7, candidate.call(49))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_30_get_positive",
+          "seconds": 5.3,
+          "error": null,
+          "tokens": 467,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def get_positive(l)\n  l.select { |n| n > 0 }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_get_positive\n    candidate = method(:get_positive)\n    assert_equal([4, 5, 6], candidate.call([-1, -2, 4, 5, 6]))\n    assert_equal([5, 3, 2, 3, 3, 9, 123, 1], candidate.call([5, 3, -5, 2, 3, 3, 9, 0, 123, 1, -10]))\n    assert_equal([], candidate.call([-1, -2]))\n    assert_equal([], candidate.call([]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_131_digits",
+          "seconds": 8.7,
+          "error": null,
+          "tokens": 726,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def digits(n)\n  odd_digits = n.to_s.chars.map(&:to_i).select(&:odd?)\n  odd_digits.empty? ? 0 : odd_digits.reduce(1, :*)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_digits\n    candidate = method(:digits)\n    assert_equal(5, candidate.call(5))\n    assert_equal(5, candidate.call(54))\n    assert_equal(1, candidate.call(120))\n    assert_equal(5, candidate.call(5014))\n    assert_equal(315, candidate.call(98765))\n    assert_equal(2625, candidate.call(5576543))\n    assert_equal(0, candidate.call(2468))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_151_double_the_difference",
+          "seconds": 13.3,
+          "error": null,
+          "tokens": 1185,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def double_the_difference(lst)\n  lst.select { |n| n.is_a?(Integer) && n > 0 && n.odd? }.sum { |n| n ** 2 }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_double_the_difference\n    candidate = method(:double_the_difference)\n    assert_equal(0, candidate.call([]))\n    assert_equal(25, candidate.call([5.0, 4.0]))\n    assert_equal(0, candidate.call([0.1, 0.2, 0.3]))\n    assert_equal(0, candidate.call([-10.0, -20.0, -30.0]))\n    assert_equal(0, candidate.call([-1.0, -2.0, 8.0]))\n    assert_equal(34, candidate.call([0.2, 3.0, 5.0]))\n    assert_equal(165, candidate.call([-9.0, -7.0, -5.0, -3.0, -1.0, 1.0, 3.0, 5.0, 7.0, 9.0]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_101_words_string",
+          "seconds": 13.0,
+          "error": null,
+          "tokens": 988,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def words_string(s)\n  s.split(/[\\s,]+/)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_words_string\n    candidate = method(:words_string)\n    assert_equal([\"Hi\", \"my\", \"name\", \"is\", \"John\"], candidate.call(\"Hi, my name is John\"))\n    assert_equal([\"One\", \"two\", \"three\", \"four\", \"five\", \"six\"], candidate.call(\"One, two, three, four, five, six\"))\n    assert_equal([\"Hi\", \"my\", \"name\"], candidate.call(\"Hi, my name\"))\n    assert_equal([\"One\", \"two\", \"three\", \"four\", \"five\", \"six\"], candidate.call(\"One,, two, three, four, five, six,\"))\n    assert_equal([], candidate.call(\"\"))\n    assert_equal([\"ahmed\", \"gamal\"], candidate.call(\"ahmed     , gamal\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_16_count_distinct_characters",
+          "seconds": 4.7,
+          "error": null,
+          "tokens": 399,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def count_distinct_characters(string)\n  string.downcase.chars.uniq.count\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_count_distinct_characters\n    candidate = method(:count_distinct_characters)\n    assert_equal(0, candidate.call(\"\"))\n    assert_equal(5, candidate.call(\"abcde\"))\n    assert_equal(5, candidate.call(\"abcdecadeCADE\"))\n    assert_equal(1, candidate.call(\"aaaaAAAAaaaa\"))\n    assert_equal(5, candidate.call(\"Jerry jERRY JeRRRY\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_78_hex_key",
+          "seconds": 7.2,
+          "error": null,
+          "tokens": 611,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def hex_key(num)\n  num.count('2357BD')\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_hex_key\n    candidate = method(:hex_key)\n    assert_equal(1, candidate.call(\"AB\"))\n    assert_equal(2, candidate.call(\"1077E\"))\n    assert_equal(4, candidate.call(\"ABED1A33\"))\n    assert_equal(2, candidate.call(\"2020\"))\n    assert_equal(6, candidate.call(\"123456789ABCDEF0\"))\n    assert_equal(12, candidate.call(\"112233445566778899AABBCCDDEEFF00\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_18_how_many_times",
+          "seconds": 28.5,
+          "error": null,
+          "tokens": 2338,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def how_many_times(string, substring)\n  count = 0\n  start = 0\n  while (start = string.index(substring, start))\n    count += 1\n    start += 1\n  end\n  count\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_how_many_times\n    candidate = method(:how_many_times)\n    assert_equal(0, candidate.call(\"\", \"x\"))\n    assert_equal(4, candidate.call(\"xyxyxyx\", \"x\"))\n    assert_equal(4, candidate.call(\"cacacacac\", \"cac\"))\n    assert_equal(1, candidate.call(\"john doe\", \"john\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_12_longest",
+          "seconds": 4.5,
+          "error": null,
+          "tokens": 366,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def longest(strings)\n  strings.max_by(&:length)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_longest\n    candidate = method(:longest)\n    assert_equal(nil, candidate.call([]))\n    assert_equal(\"x\", candidate.call([\"x\", \"y\", \"z\"]))\n    assert_equal(\"zzzz\", candidate.call([\"x\", \"yyy\", \"zzzz\", \"www\", \"kkkk\", \"abc\"]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_9_rolling_max",
+          "seconds": 13.3,
+          "error": null,
+          "tokens": 1235,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def rolling_max(numbers)\n  numbers.each_with_object([]) do |num, result|\n    result << (result.last || num)\n  end\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_rolling_max\n    candidate = method(:rolling_max)\n    assert_equal([], candidate.call([]))\n    assert_equal([1, 2, 3, 4], candidate.call([1, 2, 3, 4]))\n    assert_equal([4, 4, 4, 4], candidate.call([4, 3, 2, 1]))\n    assert_equal([3, 3, 3, 100, 100], candidate.call([3, 2, 3, 100, 3]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_31_is_prime",
+          "seconds": 16.7,
+          "error": null,
+          "tokens": 1494,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def is_prime(n)\n  return false if n <= 1\n  return true if n == 2\n  return false if n.even?\n  \n  (3..Math.sqrt(n).to_i).step(2) do |i|\n    return false if n % i == 0\n  end\n  \n  true\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_is_prime\n    candidate = method(:is_prime)\n    assert_equal(false, candidate.call(6))\n    assert_equal(true, candidate.call(101))\n    assert_equal(true, candidate.call(11))\n    assert_equal(true, candidate.call(13441))\n    assert_equal(true, candidate.call(61))\n    assert_equal(false, candidate.call(4))\n    assert_equal(false, candidate.call(1))\n    assert_equal(true, candidate.call(5))\n    assert_equal(true, candidate.call(11))\n    assert_equal(true, candidate.call(17))\n    assert_equal(false, candidate.call(85))\n    assert_equal(false, candidate.call(77))\n    assert_equal(false, candidate.call(255379))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_155_even_odd_count",
+          "seconds": 23.0,
+          "error": null,
+          "tokens": 2016,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def even_odd_count(num)\n  digits = num.to_s.chars.reject { |c| c == '-' }.map(&:to_i)\n  [digits.count(&:even?), digits.count(&:odd?)]\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_even_odd_count\n    candidate = method(:even_odd_count)\n    assert_equal([0, 1], candidate.call(7))\n    assert_equal([1, 1], candidate.call(-78))\n    assert_equal([2, 2], candidate.call(3452))\n    assert_equal([3, 3], candidate.call(346211))\n    assert_equal([3, 3], candidate.call(-345821))\n    assert_equal([1, 0], candidate.call(-2))\n    assert_equal([2, 3], candidate.call(-45347))\n    assert_equal([1, 0], candidate.call(0))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_100_make_a_pile",
+          "seconds": 7.4,
+          "error": null,
+          "tokens": 624,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def make_a_pile(n)\n  Array.new(n) { |i| n + i * 2 }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_make_a_pile\n    candidate = method(:make_a_pile)\n    assert_equal([3, 5, 7], candidate.call(3))\n    assert_equal([4, 6, 8, 10], candidate.call(4))\n    assert_equal([5, 7, 9, 11, 13], candidate.call(5))\n    assert_equal([6, 8, 10, 12, 14, 16], candidate.call(6))\n    assert_equal([8, 10, 12, 14, 16, 18, 20, 22], candidate.call(8))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_59_largest_prime_factor",
+          "seconds": 35.3,
+          "error": null,
+          "tokens": 3809,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def largest_prime_factor(n)\n  largest = 1\n  while n % 2 == 0\n    largest = 2\n    n /= 2\n  end\n  i = 3\n  while i * i <= n\n    if n % i == 0\n      largest = i\n      n /= i\n    else\n      i += 2\n    end\n  end\n  n > 1 ? n : largest\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_largest_prime_factor\n    candidate = method(:largest_prime_factor)\n    assert_equal(5, candidate.call(15))\n    assert_equal(3, candidate.call(27))\n    assert_equal(7, candidate.call(63))\n    assert_equal(11, candidate.call(330))\n    assert_equal(29, candidate.call(13195))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_135_can_arrange",
+          "seconds": 13.7,
+          "error": null,
+          "tokens": 791,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def can_arrange(arr)\n  (arr.size - 1).downto(1) do |i|\n    return i if arr[i] < arr[i-1]\n  end\n  -1\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_can_arrange\n    candidate = method(:can_arrange)\n    assert_equal(3, candidate.call([1, 2, 4, 3, 5]))\n    assert_equal(-1, candidate.call([1, 2, 4, 5]))\n    assert_equal(2, candidate.call([1, 4, 2, 5, 6, 7, 8, 9, 10]))\n    assert_equal(4, candidate.call([4, 8, 5, 7, 3]))\n    assert_equal(-1, candidate.call([]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_107_even_odd_palindrome",
+          "seconds": 6.9,
+          "error": null,
+          "tokens": 659,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def even_odd_palindrome(n)\n  even = 0\n  odd = 0\n  (1..n).each do |i|\n    if i.to_s == i.to_s.reverse\n      i.even? ? even += 1 : odd += 1\n    end\n  end\n  [even, odd]\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_even_odd_palindrome\n    candidate = method(:even_odd_palindrome)\n    assert_equal([8, 13], candidate.call(123))\n    assert_equal([4, 6], candidate.call(12))\n    assert_equal([1, 2], candidate.call(3))\n    assert_equal([6, 8], candidate.call(63))\n    assert_equal([5, 6], candidate.call(25))\n    assert_equal([4, 6], candidate.call(19))\n    assert_equal([4, 5], candidate.call(9))\n    assert_equal([0, 1], candidate.call(1))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_140_fix_spaces",
+          "seconds": 76.6,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Given a string text, replace all spaces in it with underscores, \n# and if a string has more than 2 consecutive spaces, \n# then replace all consecutive spaces with - \n# >>> fix_spaces.call(\" Example\")\n# \"Example\"\n# >>> fix_spaces.call(\" Example 1\")\n# \"Example_1\"\n# >>> fix_spaces.call(\" Example 2\")\n# \"_Example_2\"\n# >>> fix_spaces.call(\" Example 3\")\n# \"_Example-3\"\ndef fix_spaces(text)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_fix_spaces\n    candidate = method(:fix_spaces)\n    assert_equal(\"Example\", candidate.call(\"Example\"))\n    assert_equal(\"Mudasir_Hanif_\", candidate.call(\"Mudasir Hanif \"))\n    assert_equal(\"Yellow_Yellow__Dirty__Fellow\", candidate.call(\"Yellow Yellow  Dirty  Fellow\"))\n    assert_equal(\"Exa-mple\", candidate.call(\"Exa   mple\"))\n    assert_equal(\"-Exa_1_2_2_mple\", candidate.call(\"   Exa 1 2 2 mple\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_81_numerical_letter_grade",
+          "seconds": 72.5,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# It is the last week of the semester and the teacher has to give the grades\n# to students. The teacher has been making her own algorithm for grading.\n# The only problem is, she has lost the code she used for grading.\n# She has given you an array of GPAs for some students and you have to write \n# a function that can output an array of letter grades using the following table:\n# GPA       |    Letter grade\n# 4.0                A+\n# > 3.7                A \n# > 3.3                A- \n# > 3.0                B+\n# > 2.7                B \n# > 2.3                B-\n# > 2.0                C+\n# > 1.7                C\n# > 1.3                C-\n# > 1.0                D+ \n# > 0.7                D \n# > 0.0                D-\n# 0.0                E\n# Example:\n# >>> grade_equation.call([4.0, 3, 1.7, 2, 3.5])\n# [\"A+\", \"B\", \"C-\", \"C\", \"A-\"]\ndef numerical_letter_grade(grades)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_numerical_letter_grade\n    candidate = method(:numerical_letter_grade)\n    assert_equal([\"A+\", \"B\", \"C-\", \"C\", \"A-\"], candidate.call([4.0, 3, 1.7, 2, 3.5]))\n    assert_equal([\"D+\"], candidate.call([1.2]))\n    assert_equal([\"D-\"], candidate.call([0.5]))\n    assert_equal([\"E\"], candidate.call([0.0]))\n    assert_equal([\"D\", \"D-\", \"C-\", \"B\", \"B+\"], candidate.call([1.0, 0.3, 1.5, 2.8, 3.3]))\n    assert_equal([\"E\", \"D-\"], candidate.call([0.0, 0.7]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_63_fibfib",
+          "seconds": 10.0,
+          "error": null,
+          "tokens": 1028,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def fibfib(n)\n  return 0 if n == 0\n  return 0 if n == 1\n  return 1 if n == 2\n  \n  a, b, c = 0, 0, 1\n  3.upto(n) do |i|\n    a, b, c = b, c, a + b + c\n  end\n  c\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_fibfib\n    candidate = method(:fibfib)\n    assert_equal(1, candidate.call(2))\n    assert_equal(0, candidate.call(1))\n    assert_equal(4, candidate.call(5))\n    assert_equal(24, candidate.call(8))\n    assert_equal(81, candidate.call(10))\n    assert_equal(274, candidate.call(12))\n    assert_equal(927, candidate.call(14))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_118_get_closest_vowel",
+          "seconds": 85.6,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# You are given a word. Your task is to find the closest vowel that stands between \n# two consonants from the right side of the word (case sensitive).\n# Vowels in the beginning and ending doesn't count. Return empty string if you didn't\n# find any vowel met the above condition. \n# You may assume that the given string contains English letter only.\n# Example:\n# >>> get_closest_vowel.call(\"yogurt\")\n# \"u\"\n# >>> get_closest_vowel.call(\"FULL\")\n# \"U\"\n# >>> get_closest_vowel.call(\"quick\")\n# \"\"\n# >>> get_closest_vowel.call(\"ab\")\n# \"\"\ndef get_closest_vowel(word)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_get_closest_vowel\n    candidate = method(:get_closest_vowel)\n    assert_equal(\"u\", candidate.call(\"yogurt\"))\n    assert_equal(\"u\", candidate.call(\"full\"))\n    assert_equal(\"\", candidate.call(\"easy\"))\n    assert_equal(\"\", candidate.call(\"eAsy\"))\n    assert_equal(\"\", candidate.call(\"ali\"))\n    assert_equal(\"a\", candidate.call(\"bad\"))\n    assert_equal(\"o\", candidate.call(\"most\"))\n    assert_equal(\"\", candidate.call(\"ab\"))\n    assert_equal(\"\", candidate.call(\"ba\"))\n    assert_equal(\"\", candidate.call(\"quick\"))\n    assert_equal(\"i\", candidate.call(\"anime\"))\n    assert_equal(\"\", candidate.call(\"Asia\"))\n    assert_equal(\"o\", candidate.call(\"Above\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_2_truncate_number",
+          "seconds": 4.0,
+          "error": null,
+          "tokens": 377,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def truncate_number(number)\n  number % 1\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_truncate_number\n    candidate = method(:truncate_number)\n    assert_equal(0.5, candidate.call(3.5))\n    assert_equal(0.25, candidate.call(1.25))\n    assert_equal(0.0, candidate.call(123.0))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_126_is_sorted",
+          "seconds": 80.2,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Given an array of numbers, return whether or not they are sorted\n# in ascending order. If array has more than 1 duplicate of the same\n# number, return false. Assume no negative numbers and only integers.\n# Examples\n# >>> is_sorted.call([5])\n# true\n# >>> is_sorted.call([1, 2, 3, 4, 5])\n# true\n# >>> is_sorted.call([1, 3, 2, 4, 5])\n# false\n# >>> is_sorted.call([1, 2, 3, 4, 5, 6])\n# true\n# >>> is_sorted.call([1, 2, 3, 4, 5, 6, 7])\n# true\n# >>> is_sorted.call([1, 3, 2, 4, 5, 6, 7])\n# false\n# >>> is_sorted.call([1, 2, 2, 3, 3, 4])\n# true\n# >>> is_sorted.call([1, 2, 2, 2, 3, 4])\n# false\ndef is_sorted(lst)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_is_sorted\n    candidate = method(:is_sorted)\n    assert_equal(true, candidate.call([5]))\n    assert_equal(true, candidate.call([1, 2, 3, 4, 5]))\n    assert_equal(false, candidate.call([1, 3, 2, 4, 5]))\n    assert_equal(true, candidate.call([1, 2, 3, 4, 5, 6]))\n    assert_equal(true, candidate.call([1, 2, 3, 4, 5, 6, 7]))\n    assert_equal(false, candidate.call([1, 3, 2, 4, 5, 6, 7]))\n    assert_equal(true, candidate.call([]))\n    assert_equal(true, candidate.call([1]))\n    assert_equal(false, candidate.call([3, 2, 1]))\n    assert_equal(false, candidate.call([1, 2, 2, 2, 3, 4]))\n    assert_equal(false, candidate.call([1, 2, 3, 3, 3, 4]))\n    assert_equal(true, candidate.call([1, 2, 2, 3, 3, 4]))\n    assert_equal(true, candidate.call([1, 2, 3, 4]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_47_median",
+          "seconds": 69.3,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Return median of elements in the array l.\n# >>> median.call([3, 1, 2, 4, 5])\n# 3\n# >>> median.call([-10, 4, 6, 1000, 10, 20])\n# 15.0\ndef median(l)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_median\n    candidate = method(:median)\n    assert_equal(3, candidate.call([3, 1, 2, 4, 5]))\n    assert_equal(8.0, candidate.call([-10, 4, 6, 1000, 10, 20]))\n    assert_equal(5, candidate.call([5]))\n    assert_equal(5.5, candidate.call([6, 5]))\n    assert_equal(7, candidate.call([8, 1, 3, 9, 9, 2, 7]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_44_change_base",
+          "seconds": 15.0,
+          "error": null,
+          "tokens": 856,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def change_base(x, base)\n  return \"0\" if x == 0\n  digits = []\n  while x > 0\n    digits << (x % base).to_s\n    x /= base\n  end\n  digits.reverse.join\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_change_base\n    candidate = method(:change_base)\n    assert_equal(\"22\", candidate.call(8, 3))\n    assert_equal(\"100\", candidate.call(9, 3))\n    assert_equal(\"11101010\", candidate.call(234, 2))\n    assert_equal(\"10000\", candidate.call(16, 2))\n    assert_equal(\"1000\", candidate.call(8, 2))\n    assert_equal(\"111\", candidate.call(7, 2))\n    assert_equal(\"2\", candidate.call(2, 3))\n    assert_equal(\"3\", candidate.call(3, 4))\n    assert_equal(\"4\", candidate.call(4, 5))\n    assert_equal(\"5\", candidate.call(5, 6))\n    assert_equal(\"6\", candidate.call(6, 7))\n    assert_equal(\"7\", candidate.call(7, 8))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_72_will_it_fly",
+          "seconds": 5.0,
+          "error": null,
+          "tokens": 512,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def will_it_fly(q, w)\n  q == q.reverse && q.sum <= w\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_will_it_fly\n    candidate = method(:will_it_fly)\n    assert_equal(true, candidate.call([3, 2, 3], 9))\n    assert_equal(false, candidate.call([1, 2], 5))\n    assert_equal(true, candidate.call([3], 5))\n    assert_equal(false, candidate.call([3, 2, 3], 1))\n    assert_equal(false, candidate.call([1, 2, 3], 6))\n    assert_equal(true, candidate.call([5], 5))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_93_encode",
+          "seconds": 23.4,
+          "error": null,
+          "tokens": 2232,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def encode(message)\n  message.swapcase.tr('aeiouAEIOU', 'cgkqwgCGKQWG')\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_encode\n    candidate = method(:encode)\n    assert_equal(\"tgst\", candidate.call(\"TEST\"))\n    assert_equal(\"mWDCSKR\", candidate.call(\"Mudasir\"))\n    assert_equal(\"ygs\", candidate.call(\"YES\"))\n    assert_equal(\"tHKS KS C MGSSCGG\", candidate.call(\"This is a message\"))\n    assert_equal(\"k dQnT kNqW wHcT Tq wRkTg\", candidate.call(\"I DoNt KnOw WhAt tO WrItE\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_26_remove_duplicates",
+          "seconds": 10.4,
+          "error": null,
+          "tokens": 1016,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def remove_duplicates(numbers)\n  counts = numbers.tally\n  numbers.select { |n| counts[n] == 1 }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_remove_duplicates\n    candidate = method(:remove_duplicates)\n    assert_equal([], candidate.call([]))\n    assert_equal([1, 2, 3, 4], candidate.call([1, 2, 3, 4]))\n    assert_equal([1, 4, 5], candidate.call([1, 2, 3, 2, 4, 3, 5]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_142_sum_squares",
+          "seconds": 6.8,
+          "error": null,
+          "tokens": 724,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def sum_squares(lst)\n  lst.each_with_index.sum do |num, idx|\n    if idx % 3 == 0\n      num ** 2\n    elsif idx % 4 == 0\n      num ** 3\n    else\n      num\n    end\n  end\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_sum_squares\n    candidate = method(:sum_squares)\n    assert_equal(6, candidate.call([1, 2, 3]))\n    assert_equal(14, candidate.call([1, 4, 9]))\n    assert_equal(0, candidate.call([]))\n    assert_equal(9, candidate.call([1, 1, 1, 1, 1, 1, 1, 1, 1]))\n    assert_equal(-3, candidate.call([-1, -1, -1, -1, -1, -1, -1, -1, -1]))\n    assert_equal(0, candidate.call([0]))\n    assert_equal(-126, candidate.call([-1, -5, 2, -1, -5]))\n    assert_equal(3030, candidate.call([-56, -99, 1, 0, -2]))\n    assert_equal(0, candidate.call([-1, 0, 0, 0, 0, 0, 0, 0, -1]))\n    assert_equal(-14196, candidate.call([-16, -9, -2, 36, 36, 26, -20, 25, -40, 20, -4, 12, -26, 35, 37]))\n    assert_equal(-1448, candidate.call([-1, -3, 17, -1, -15, 13, -1, 14, -14, -12, -5, 14, -14, 6, 13, 11, 16, 16, 4, 10]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_85_add",
+          "seconds": 7.9,
+          "error": null,
+          "tokens": 711,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def add(lst)\n  lst.each_with_index.sum { |num, idx| num.even? && idx.odd? ? num : 0 }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_add\n    candidate = method(:add)\n    assert_equal(88, candidate.call([4, 88]))\n    assert_equal(122, candidate.call([4, 5, 6, 7, 2, 122]))\n    assert_equal(0, candidate.call([4, 0, 6, 7]))\n    assert_equal(12, candidate.call([4, 4, 6, 8]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_99_closest_integer",
+          "seconds": 77.9,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Create a function that takes a value (string) representing a number\n# and returns the closest integer to it. If the number is equidistant\n# from two integers, round it away from zero.\n# Examples\n# >>> closest_integer.call(\"10\")\n# 10\n# >>> closest_integer.call(\"15.3\")\n# 15\n# Note:\n# Rounding away from zero means that if the given number is equidistant\n# from two integers, the one you should return is the one that is the\n# farthest from zero. For example closest_integer(\"14.5\") should\n# return 15 and closest_integer(\"-14.5\") should return -15.\ndef closest_integer(value)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_closest_integer\n    candidate = method(:closest_integer)\n    assert_equal(10, candidate.call(\"10\"))\n    assert_equal(15, candidate.call(\"14.5\"))\n    assert_equal(-16, candidate.call(\"-15.5\"))\n    assert_equal(15, candidate.call(\"15.3\"))\n    assert_equal(0, candidate.call(\"0\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_134_check_if_last_char_is_a_letter",
+          "seconds": 76.4,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Create a function that returns true if the last character\n# of a given string is an alphabetical character and is not\n# a part of a word, and false otherwise.\n# Note: \"word\" is a group of characters separated by space.\n# Examples:\n# >>> check_if_last_char_is_a_letter.call(\"apple pie\")\n# false\n# >>> check_if_last_char_is_a_letter.call(\"apple pi e\")\n# true\n# >>> check_if_last_char_is_a_letter.call(\"apple pi e \")\n# false\n# >>> check_if_last_char_is_a_letter.call(\"\")\n# false\ndef check_if_last_char_is_a_letter(txt)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_check_if_last_char_is_a_letter\n    candidate = method(:check_if_last_char_is_a_letter)\n    assert_equal(false, candidate.call(\"apple\"))\n    assert_equal(true, candidate.call(\"apple pi e\"))\n    assert_equal(false, candidate.call(\"eeeee\"))\n    assert_equal(true, candidate.call(\"A\"))\n    assert_equal(false, candidate.call(\"Pumpkin pie \"))\n    assert_equal(false, candidate.call(\"Pumpkin pie 1\"))\n    assert_equal(false, candidate.call(\"\"))\n    assert_equal(false, candidate.call(\"eeeee e \"))\n    assert_equal(false, candidate.call(\"apple pie\"))\n    assert_equal(false, candidate.call(\"apple pi e \"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_37_sort_even",
+          "seconds": 7.2,
+          "error": null,
+          "tokens": 515,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def sort_even(l)\n  sorted_evens = l.select.with_index { |_, i| i.even? }.sort\n  l.map.with_index { |val, i| i.even? ? sorted_evens.shift : val }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_sort_even\n    candidate = method(:sort_even)\n    assert_equal([1, 2, 3], candidate.call([1, 2, 3]))\n    assert_equal([-10, 3, -5, 2, -3, 3, 5, 0, 9, 1, 123], candidate.call([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10]))\n    assert_equal([-12, 8, 3, 4, 5, 2, 12, 11, 23, -10], candidate.call([5, 8, -12, 4, 23, 2, 3, 11, 12, -10]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_84_solve",
+          "seconds": 5.9,
+          "error": null,
+          "tokens": 661,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def solve(n)\n  sum = n.to_s.chars.map(&:to_i).sum\n  sum.to_s(2)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_solve\n    candidate = method(:solve)\n    assert_equal(\"1\", candidate.call(1000))\n    assert_equal(\"110\", candidate.call(150))\n    assert_equal(\"1100\", candidate.call(147))\n    assert_equal(\"1001\", candidate.call(333))\n    assert_equal(\"10010\", candidate.call(963))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_22_filter_integers",
+          "seconds": 2.6,
+          "error": null,
+          "tokens": 240,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def filter_integers(values)\n  values.select { |v| v.is_a?(Integer) }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_filter_integers\n    candidate = method(:filter_integers)\n    assert_equal([], candidate.call([]))\n    assert_equal([4, 9], candidate.call([4, {}, [], 23.2, 9, \"adasd\"]))\n    assert_equal([3, 3, 3], candidate.call([3, \"c\", 3, 3, \"a\", \"b\"]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_147_get_max_triples",
+          "seconds": 102.3,
+          "error": null,
+          "tokens": 6950,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def get_max_triples(n)\n  count2 = (n + 1) / 3\n  count_non2 = n - count2\n  total = 0\n  total += count2 * (count2 - 1) * (count2 - 2) / 6 if count2 >= 3\n  total += count_non2 * (count_non2 - 1) * (count_non2 - 2) / 6 if count_non2 >= 3\n  total\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_get_max_triples\n    candidate = method(:get_max_triples)\n    assert_equal(1, candidate.call(5))\n    assert_equal(4, candidate.call(6))\n    assert_equal(36, candidate.call(10))\n    assert_equal(53361, candidate.call(100))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_70_strange_sort_list",
+          "seconds": 10.3,
+          "error": null,
+          "tokens": 645,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def strange_sort_list(lst)\n  sorted = lst.sort\n  result = []\n  left = 0\n  right = sorted.length - 1\n  while left <= right\n    result << sorted[left]\n    result << sorted[right] if left != right\n    left += 1\n    right -= 1\n  end\n  result\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_strange_sort_list\n    candidate = method(:strange_sort_list)\n    assert_equal([1, 4, 2, 3], candidate.call([1, 2, 3, 4]))\n    assert_equal([5, 9, 6, 8, 7], candidate.call([5, 6, 7, 8, 9]))\n    assert_equal([1, 5, 2, 4, 3], candidate.call([1, 2, 3, 4, 5]))\n    assert_equal([1, 9, 5, 8, 6, 7], candidate.call([5, 6, 7, 8, 9, 1]))\n    assert_equal([5, 5, 5, 5], candidate.call([5, 5, 5, 5]))\n    assert_equal([], candidate.call([]))\n    assert_equal([1, 8, 2, 7, 3, 6, 4, 5], candidate.call([1, 2, 3, 4, 5, 6, 7, 8]))\n    assert_equal([-5, 5, -5, 5, 0, 2, 2, 2], candidate.call([0, 2, 2, 2, 5, 5, -5, -5]))\n    assert_equal([111111], candidate.call([111111]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_117_select_words",
+          "seconds": 23.5,
+          "error": null,
+          "tokens": 2280,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def select_words(s, n)\n  return [] if s.empty?\n  \n  vowels = 'aeiouAEIOU'\n  result = []\n  \n  s.split.each do |word|\n    consonant_count = word.count(vowels, '^')\n    result << word if consonant_count == n\n  end\n  \n  result\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_select_words\n    candidate = method(:select_words)\n    assert_equal([\"little\"], candidate.call(\"Mary had a little lamb\", 4))\n    assert_equal([\"Mary\", \"lamb\"], candidate.call(\"Mary had a little lamb\", 3))\n    assert_equal([], candidate.call(\"simple white space\", 2))\n    assert_equal([\"world\"], candidate.call(\"Hello world\", 4))\n    assert_equal([\"Uncle\"], candidate.call(\"Uncle sam\", 3))\n    assert_equal([], candidate.call(\"\", 4))\n    assert_equal([\"b\", \"c\", \"d\", \"f\"], candidate.call(\"a b c d e f\", 1))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_11_string_xor",
+          "seconds": 8.7,
+          "error": null,
+          "tokens": 761,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def string_xor(a, b)\n  a.chars.zip(b.chars).map { |x, y| (x.to_i ^ y.to_i).to_s }.join\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_string_xor\n    candidate = method(:string_xor)\n    assert_equal(\"010010\", candidate.call(\"111000\", \"101010\"))\n    assert_equal(\"0\", candidate.call(\"1\", \"1\"))\n    assert_equal(\"0101\", candidate.call(\"0101\", \"0000\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_68_pluck",
+          "seconds": 9.6,
+          "error": null,
+          "tokens": 945,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def pluck(arr)\n  min_even = nil\n  min_index = nil\n  \n  arr.each_with_index do |v, i|\n    if v.even?\n      if min_even.nil? || v < min_even\n        min_even = v\n        min_index = i\n      end\n    end\n  end\n  \n  min_even.nil? ? [] : [min_even, min_index]\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_pluck\n    candidate = method(:pluck)\n    assert_equal([2, 1], candidate.call([4, 2, 3]))\n    assert_equal([2, 1], candidate.call([1, 2, 3]))\n    assert_equal([], candidate.call([]))\n    assert_equal([0, 1], candidate.call([5, 0, 3, 0, 4, 2]))\n    assert_equal([0, 3], candidate.call([1, 2, 3, 0, 5, 3]))\n    assert_equal([4, 1], candidate.call([5, 4, 8, 4, 8]))\n    assert_equal([6, 1], candidate.call([7, 6, 7, 1]))\n    assert_equal([], candidate.call([7, 9, 7, 1]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_88_sort_array",
+          "seconds": 8.8,
+          "error": null,
+          "tokens": 882,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def sort_array(array)\n  return [] if array.empty?\n  sum = array.first + array.last\n  sum.odd? ? array.sort : array.sort.reverse\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_sort_array\n    candidate = method(:sort_array)\n    assert_equal([], candidate.call([]))\n    assert_equal([5], candidate.call([5]))\n    assert_equal([0, 1, 2, 3, 4, 5], candidate.call([2, 4, 3, 0, 1, 5]))\n    assert_equal([6, 5, 4, 3, 2, 1, 0], candidate.call([2, 4, 3, 0, 1, 5, 6]))\n    assert_equal([1, 2], candidate.call([2, 1]))\n    assert_equal([0, 11, 15, 32, 42, 87], candidate.call([15, 42, 87, 32, 11, 0]))\n    assert_equal([23, 21, 14, 11], candidate.call([21, 14, 23, 11]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_6_parse_nested_parens",
+          "seconds": 11.1,
+          "error": null,
+          "tokens": 1236,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def parse_nested_parens(paren_string)\n  paren_string.split.map do |group|\n    max_depth = 0\n    current_depth = 0\n    group.each_char do |char|\n      current_depth += 1 if char == '('\n      current_depth -= 1 if char == ')'\n      max_depth = current_depth if current_depth > max_depth\n    end\n    max_depth\n  end\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_parse_nested_parens\n    candidate = method(:parse_nested_parens)\n    assert_equal([2, 3, 1, 3], candidate.call(\"(()()) ((())) () ((())()())\"))\n    assert_equal([1, 2, 3, 4], candidate.call(\"() (()) ((())) (((())))\"))\n    assert_equal([4], candidate.call(\"(()(())((())))\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_27_flip_case",
+          "seconds": 1.6,
+          "error": null,
+          "tokens": 139,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def flip_case(string)\n  string.swapcase\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_flip_case\n    candidate = method(:flip_case)\n    assert_equal(\"\", candidate.call(\"\"))\n    assert_equal(\"hELLO!\", candidate.call(\"Hello!\"))\n    assert_equal(\"tHESE VIOLENT DELIGHTS HAVE VIOLENT ENDS\", candidate.call(\"These violent delights have violent ends\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_79_decimal_to_binary",
+          "seconds": 3.7,
+          "error": null,
+          "tokens": 308,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def decimal_to_binary(decimal)\n  \"db#{decimal.to_s(2)}db\"\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_decimal_to_binary\n    candidate = method(:decimal_to_binary)\n    assert_equal(\"db0db\", candidate.call(0))\n    assert_equal(\"db100000db\", candidate.call(32))\n    assert_equal(\"db1100111db\", candidate.call(103))\n    assert_equal(\"db1111db\", candidate.call(15))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_143_words_in_sentence",
+          "seconds": 22.7,
+          "error": null,
+          "tokens": 1924,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def words_in_sentence(sentence)\n  sentence.split.select { |word| prime?(word.length) }.join(\" \")\nend\n\ndef prime?(n)\n  return false if n < 2\n  (2...n).none? { |i| n % i == 0 }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_words_in_sentence\n    candidate = method(:words_in_sentence)\n    assert_equal(\"is\", candidate.call(\"This is a test\"))\n    assert_equal(\"go for\", candidate.call(\"lets go for swimming\"))\n    assert_equal(\"there is no place\", candidate.call(\"there is no place available here\"))\n    assert_equal(\"Hi am Hussein\", candidate.call(\"Hi I am Hussein\"))\n    assert_equal(\"go for it\", candidate.call(\"go for it\"))\n    assert_equal(\"\", candidate.call(\"here\"))\n    assert_equal(\"is\", candidate.call(\"here is\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_129_minPath",
+          "seconds": 147.8,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Given a grid with N rows and N columns (N >= 2) and a positive integer k, \n# each cell of the grid contains a value. Every integer in the range [1, N * N]\n# inclusive appears exactly once on the cells of the grid.\n# You have to find the minimum path of length k in the grid. You can start\n# from any cell, and in each step you can move to any of the neighbor cells,\n# in other words, you can go to cells which share an edge with you current\n# cell.\n# Please note that a path of length k means visiting exactly k cells (not\n# necessarily distinct).\n# You CANNOT go off the grid.\n# A path A (of length k) is considered less than a path B (of length k) if\n# after making the ordered arrays of the values on the cells that A and B go\n# through (let's call them lst_A and lst_B), lst_A is lexicographically less\n# than lst_B, in other words, there exist an integer index i (1 <= i <= k)\n# such that lst_A[i] < lst_B[i] and for any j (1 <= j < i) we have\n# lst_A[j] = lst_B[j].\n# It is guaranteed that the answer is unique.\n# Return an ordered array of the values on the cells that the minimum path go through.\n# Examples:    \n# >>> minPath.call([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 3)\n# [1, 2, 1]\n# >>> minPath.call([[5, 9, 3], [4, 1, 6], [7, 8, 2]], 1)\n# [1]\ndef minPath(grid, k)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_minPath\n    candidate = method(:minPath)\n    assert_equal([1, 2, 1], candidate.call([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 3))\n    assert_equal([1], candidate.call([[5, 9, 3], [4, 1, 6], [7, 8, 2]], 1))\n    assert_equal([1, 2, 1, 2], candidate.call([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]], 4))\n    assert_equal([1, 10, 1, 10, 1, 10, 1], candidate.call([[6, 4, 13, 10], [5, 7, 12, 1], [3, 16, 11, 15], [8, 14, 9, 2]], 7))\n    assert_equal([1, 7, 1, 7, 1], candidate.call([[8, 14, 9, 2], [6, 4, 13, 15], [5, 7, 1, 12], [3, 10, 11, 16]], 5))\n    assert_equal([1, 6, 1, 6, 1, 6, 1, 6, 1], candidate.call([[11, 8, 7, 2], [5, 16, 14, 4], [9, 3, 15, 6], [12, 13, 10, 1]], 9))\n    assert_equal([1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6], candidate.call([[12, 13, 10, 1], [9, 3, 15, 6], [5, 16, 14, 4], [11, 8, 7, 2]], 12))\n    assert_equal([1, 3, 1, 3, 1, 3, 1, 3], candidate.call([[2, 7, 4], [3, 1, 5], [6, 8, 9]], 8))\n    assert_equal([1, 5, 1, 5, 1, 5, 1, 5], candidate.call([[6, 1, 5], [3, 8, 9], [2, 7, 4]], 8))\n    assert_equal([1, 2, 1, 2, 1, 2, 1, 2, 1, 2], candidate.call([[1, 2], [3, 4]], 10))\n    assert_equal([1, 3, 1, 3, 1, 3, 1, 3, 1, 3], candidate.call([[1, 3], [3, 2]], 10))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_43_pairs_sum_to_zero",
+          "seconds": 15.6,
+          "error": null,
+          "tokens": 1331,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def pairs_sum_to_zero(l)\n  seen = {}\n  l.each do |n|\n    return true if seen[-n]\n    seen[n] = true\n  end\n  false\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_pairs_sum_to_zero\n    candidate = method(:pairs_sum_to_zero)\n    assert_equal(false, candidate.call([1, 3, 5, 0]))\n    assert_equal(false, candidate.call([1, 3, -2, 1]))\n    assert_equal(false, candidate.call([1, 2, 3, 7]))\n    assert_equal(true, candidate.call([2, 4, -5, 3, 5, 7]))\n    assert_equal(false, candidate.call([1]))\n    assert_equal(true, candidate.call([-3, 9, -1, 3, 2, 30]))\n    assert_equal(true, candidate.call([-3, 9, -1, 3, 2, 31]))\n    assert_equal(false, candidate.call([-3, 9, -1, 4, 2, 30]))\n    assert_equal(false, candidate.call([-3, 9, -1, 4, 2, 31]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_4_mean_absolute_deviation",
+          "seconds": 15.3,
+          "error": null,
+          "tokens": 1353,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def mean_absolute_deviation(numbers)\n  mean = numbers.sum.fdiv(numbers.size)\n  numbers.map { |x| (x - mean).abs }.sum.fdiv(numbers.size)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_mean_absolute_deviation\n    candidate = method(:mean_absolute_deviation)\n    assert_equal(0.5, candidate.call([1.0, 2.0]))\n    assert_equal(1.0, candidate.call([1.0, 2.0, 3.0, 4.0]))\n    assert_equal(1.2, candidate.call([1.0, 2.0, 3.0, 4.0, 5.0]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_139_special_factorial",
+          "seconds": 6.6,
+          "error": null,
+          "tokens": 408,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def special_factorial(n)\n  result = 1\n  factorial = 1\n  (1..n).each do |i|\n    factorial *= i\n    result *= factorial\n  end\n  result\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_special_factorial\n    candidate = method(:special_factorial)\n    assert_equal(288, candidate.call(4))\n    assert_equal(34560, candidate.call(5))\n    assert_equal(125411328000, candidate.call(7))\n    assert_equal(1, candidate.call(1))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_33_sort_third",
+          "seconds": 16.2,
+          "error": null,
+          "tokens": 1408,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def sort_third(l)\n  sorted_thirds = l.each_with_index.select { |_, i| i % 3 == 0 }.map(&:first).sort\n  l.map.with_index { |v, i| i % 3 == 0 ? sorted_thirds.shift : v }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_sort_third\n    candidate = method(:sort_third)\n    assert_equal([2, 6, 3, 4, 8, 9, 5], candidate.call([5, 6, 3, 4, 8, 9, 2]))\n    assert_equal([2, 8, 3, 4, 6, 9, 5], candidate.call([5, 8, 3, 4, 6, 9, 2]))\n    assert_equal([2, 6, 9, 4, 8, 3, 5], candidate.call([5, 6, 9, 4, 8, 3, 2]))\n    assert_equal([2, 6, 3, 4, 8, 9, 5, 1], candidate.call([5, 6, 3, 4, 8, 9, 2, 1]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_130_tri",
+          "seconds": 54.4,
+          "error": null,
+          "tokens": 5167,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def tri(n)\n  result = Array.new(n + 1)\n  result[0] = 1\n  if n >= 1\n    result[1] = 3\n  end\n  (2..n).each do |i|\n    if i.even?\n      result[i] = 1 + i / 2\n    else\n      result[i] = result[i-1] + result[i-2] + 1 + (i+1) / 2\n    end\n  end\n  result\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_tri\n    candidate = method(:tri)\n    assert_equal([1, 3, 2, 8], candidate.call(3))\n    assert_equal([1, 3, 2, 8, 3], candidate.call(4))\n    assert_equal([1, 3, 2, 8, 3, 15], candidate.call(5))\n    assert_equal([1, 3, 2, 8, 3, 15, 4], candidate.call(6))\n    assert_equal([1, 3, 2, 8, 3, 15, 4, 24], candidate.call(7))\n    assert_equal([1, 3, 2, 8, 3, 15, 4, 24, 5], candidate.call(8))\n    assert_equal([1, 3, 2, 8, 3, 15, 4, 24, 5, 35], candidate.call(9))\n    assert_equal([1, 3, 2, 8, 3, 15, 4, 24, 5, 35, 6, 48, 7, 63, 8, 80, 9, 99, 10, 120, 11], candidate.call(20))\n    assert_equal([1], candidate.call(0))\n    assert_equal([1, 3], candidate.call(1))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_136_largest_smallest_integers",
+          "seconds": 7.6,
+          "error": null,
+          "tokens": 585,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def largest_smallest_integers(lst)\n  negatives = lst.select { |n| n < 0 }\n  positives = lst.select { |n| n > 0 }\n  \n  a = negatives.empty? ? nil : negatives.max\n  b = positives.empty? ? nil : positives.min\n  \n  [a, b]\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_largest_smallest_integers\n    candidate = method(:largest_smallest_integers)\n    assert_equal([nil, 1], candidate.call([2, 4, 1, 3, 5, 7]))\n    assert_equal([nil, 1], candidate.call([2, 4, 1, 3, 5, 7, 0]))\n    assert_equal([-2, 1], candidate.call([1, 3, 2, 4, 5, 6, -2]))\n    assert_equal([-7, 2], candidate.call([4, 5, 3, 6, 2, 7, -7]))\n    assert_equal([-9, 2], candidate.call([7, 3, 8, 4, 9, 2, 5, -9]))\n    assert_equal([nil, nil], candidate.call([]))\n    assert_equal([nil, nil], candidate.call([0]))\n    assert_equal([-1, nil], candidate.call([-1, -3, -5, -6]))\n    assert_equal([-1, nil], candidate.call([-1, -3, -5, -6, 0]))\n    assert_equal([-3, 1], candidate.call([-6, -4, -4, -3, 1]))\n    assert_equal([-3, 1], candidate.call([-6, -4, -4, -3, -100, 1]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_71_triangle_area",
+          "seconds": 10.9,
+          "error": null,
+          "tokens": 845,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def triangle_area(a, b, c)\n  return -1 unless a + b > c && a + c > b && b + c > a\n  s = (a + b + c) / 2.0\n  Math.sqrt(s * (s - a) * (s - b) * (s - c)).round(2)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_triangle_area\n    candidate = method(:triangle_area)\n    assert_equal(6.0, candidate.call(3, 4, 5))\n    assert_equal(-1, candidate.call(1, 2, 10))\n    assert_equal(8.18, candidate.call(4, 8, 5))\n    assert_equal(1.73, candidate.call(2, 2, 2))\n    assert_equal(-1, candidate.call(1, 2, 3))\n    assert_equal(16.25, candidate.call(10, 5, 7))\n    assert_equal(-1, candidate.call(2, 6, 3))\n    assert_equal(0.43, candidate.call(1, 1, 1))\n    assert_equal(-1, candidate.call(2, 2, 10))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_10_make_palindrome",
+          "seconds": 79.3,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Find the shortest palindrome that begins with a supplied string.\n# Algorithm idea is simple:\n# - Find the longest postfix of supplied string that is a palindrome.\n# - Append to the end of the string reverse of a string prefix that comes before the palindromic suffix.\n# >>> make_palindrome.call(\"\")\n# \"\"\n# >>> make_palindrome.call(\"cat\")\n# \"catac\"\n# >>> make_palindrome.call(\"cata\")\n# \"catac\"\ndef make_palindrome(string)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_make_palindrome\n    candidate = method(:make_palindrome)\n    assert_equal(\"\", candidate.call(\"\"))\n    assert_equal(\"x\", candidate.call(\"x\"))\n    assert_equal(\"xyzyx\", candidate.call(\"xyz\"))\n    assert_equal(\"xyx\", candidate.call(\"xyx\"))\n    assert_equal(\"jerryrrej\", candidate.call(\"jerry\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_98_count_upper",
+          "seconds": 18.7,
+          "error": null,
+          "tokens": 1592,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def count_upper(s)\n  s.each_char.with_index.count { |c, i| i.even? && c.match?(/[AEIOU]/) }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_count_upper\n    candidate = method(:count_upper)\n    assert_equal(1, candidate.call(\"aBCdEf\"))\n    assert_equal(0, candidate.call(\"abcdefg\"))\n    assert_equal(0, candidate.call(\"dBBE\"))\n    assert_equal(0, candidate.call(\"B\"))\n    assert_equal(1, candidate.call(\"U\"))\n    assert_equal(0, candidate.call(\"\"))\n    assert_equal(2, candidate.call(\"EEEE\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_112_reverse_delete",
+          "seconds": 6.7,
+          "error": null,
+          "tokens": 552,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def reverse_delete(s, c)\n  filtered = s.delete(c)\n  [filtered, filtered == filtered.reverse]\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_reverse_delete\n    candidate = method(:reverse_delete)\n    assert_equal([\"bcd\", false], candidate.call(\"abcde\", \"ae\"))\n    assert_equal([\"acdef\", false], candidate.call(\"abcdef\", \"b\"))\n    assert_equal([\"cdedc\", true], candidate.call(\"abcdedcba\", \"ab\"))\n    assert_equal([\"dik\", false], candidate.call(\"dwik\", \"w\"))\n    assert_equal([\"\", true], candidate.call(\"a\", \"a\"))\n    assert_equal([\"abcdedcba\", true], candidate.call(\"abcdedcba\", \"\"))\n    assert_equal([\"abcdedcba\", true], candidate.call(\"abcdedcba\", \"v\"))\n    assert_equal([\"abba\", true], candidate.call(\"vabba\", \"v\"))\n    assert_equal([\"\", true], candidate.call(\"mamma\", \"mia\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_0_has_close_elements",
+          "seconds": 19.6,
+          "error": null,
+          "tokens": 1188,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def has_close_elements(numbers, threshold)\n  return false if numbers.size < 2\n  numbers.sort.each_cons(2) { |a, b| return true if b - a < threshold }\n  false\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_has_close_elements\n    candidate = method(:has_close_elements)\n    assert_equal(true, candidate.call([1.0, 2.0, 3.9, 4.0, 5.0, 2.2], 0.3))\n    assert_equal(false, candidate.call([1.0, 2.0, 3.9, 4.0, 5.0, 2.2], 0.05))\n    assert_equal(true, candidate.call([1.0, 2.0, 5.9, 4.0, 5.0], 0.95))\n    assert_equal(false, candidate.call([1.0, 2.0, 5.9, 4.0, 5.0], 0.8))\n    assert_equal(true, candidate.call([1.0, 2.0, 3.0, 4.0, 5.0, 2.0], 0.1))\n    assert_equal(true, candidate.call([1.1, 2.2, 3.1, 4.1, 5.1], 1.0))\n    assert_equal(false, candidate.call([1.1, 2.2, 3.1, 4.1, 5.1], 0.5))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_122_add_elements",
+          "seconds": 18.6,
+          "error": null,
+          "tokens": 1037,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def add_elements(arr, k)\n  arr[0...k].select { |x| x.abs < 100 }.sum\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_add_elements\n    candidate = method(:add_elements)\n    assert_equal(-4, candidate.call([1, -2, -3, 41, 57, 76, 87, 88, 99], 3))\n    assert_equal(0, candidate.call([111, 121, 3, 4000, 5, 6], 2))\n    assert_equal(125, candidate.call([11, 21, 3, 90, 5, 6, 7, 8, 9], 4))\n    assert_equal(24, candidate.call([111, 21, 3, 4000, 5, 6, 7, 8, 9], 4))\n    assert_equal(1, candidate.call([1], 1))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_114_minSubArraySum",
+          "seconds": 14.4,
+          "error": null,
+          "tokens": 1458,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def minSubArraySum(nums)\n  min_sum = current_sum = nums.first\n  nums[1..-1].each do |num|\n    current_sum = [num, current_sum + num].min\n    min_sum = [min_sum, current_sum].min\n  end\n  min_sum\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_minSubArraySum\n    candidate = method(:minSubArraySum)\n    assert_equal(1, candidate.call([2, 3, 4, 1, 2, 4]))\n    assert_equal(-6, candidate.call([-1, -2, -3]))\n    assert_equal(-14, candidate.call([-1, -2, -3, 2, -10]))\n    assert_equal(-9999999999999999, candidate.call([-9999999999999999]))\n    assert_equal(0, candidate.call([0, 10, 20, 1000000]))\n    assert_equal(-6, candidate.call([-1, -2, -3, 10, -5]))\n    assert_equal(-6, candidate.call([100, -1, -2, -3, 10, -5]))\n    assert_equal(3, candidate.call([10, 11, 13, 8, 3, 4]))\n    assert_equal(-33, candidate.call([100, -33, 32, -1, 0, -2]))\n    assert_equal(-10, candidate.call([-10]))\n    assert_equal(7, candidate.call([7]))\n    assert_equal(-1, candidate.call([1, -1]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_67_fruit_distribution",
+          "seconds": 15.3,
+          "error": null,
+          "tokens": 1398,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def fruit_distribution(s, n)\n  apples, oranges = s.match(/(\\d+) apples and (\\d+) oranges/).captures.map(&:to_i)\n  n - apples - oranges\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_fruit_distribution\n    candidate = method(:fruit_distribution)\n    assert_equal(8, candidate.call(\"5 apples and 6 oranges\", 19))\n    assert_equal(10, candidate.call(\"5 apples and 6 oranges\", 21))\n    assert_equal(2, candidate.call(\"0 apples and 1 oranges\", 3))\n    assert_equal(2, candidate.call(\"1 apples and 0 oranges\", 3))\n    assert_equal(95, candidate.call(\"2 apples and 3 oranges\", 100))\n    assert_equal(0, candidate.call(\"2 apples and 3 oranges\", 5))\n    assert_equal(19, candidate.call(\"1 apples and 100 oranges\", 120))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_46_fib4",
+          "seconds": 15.5,
+          "error": null,
+          "tokens": 1465,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def fib4(n)\n  return 0 if n == 0 || n == 1 || n == 3\n  return 2 if n == 2\n\n  a, b, c, d = 0, 0, 2, 0\n  4.upto(n) do |i|\n    a, b, c, d = b, c, d, a + b + c + d\n  end\n  d\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_fib4\n    candidate = method(:fib4)\n    assert_equal(4, candidate.call(5))\n    assert_equal(28, candidate.call(8))\n    assert_equal(104, candidate.call(10))\n    assert_equal(386, candidate.call(12))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_89_encrypt",
+          "seconds": 84.6,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Create a function encrypt that takes a string as an argument and\n# returns a string encrypted with the alphabet being rotated. \n# The alphabet should be rotated in a manner such that the letters \n# shift down by two multiplied to two places.\n# For example:\n# >>> encrypt.call(\"hi\")\n# \"lm\"\n# >>> encrypt.call(\"asdfghjkl\")\n# \"ewhjklnop\"\n# >>> encrypt.call(\"gf\")\n# \"kj\"\n# >>> encrypt.call(\"et\")\n# \"ix\"\ndef encrypt(s)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_encrypt\n    candidate = method(:encrypt)\n    assert_equal(\"lm\", candidate.call(\"hi\"))\n    assert_equal(\"ewhjklnop\", candidate.call(\"asdfghjkl\"))\n    assert_equal(\"kj\", candidate.call(\"gf\"))\n    assert_equal(\"ix\", candidate.call(\"et\"))\n    assert_equal(\"jeiajeaijeiak\", candidate.call(\"faewfawefaewg\"))\n    assert_equal(\"lippsqcjvmirh\", candidate.call(\"hellomyfriend\"))\n    assert_equal(\"hbdhpqrmpjylqmpyjlpmlyjrqpmqryjlpmqryjljygyjl\", candidate.call(\"dxzdlmnilfuhmilufhlihufnmlimnufhlimnufhfucufh\"))\n    assert_equal(\"e\", candidate.call(\"a\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_28_concatenate",
+          "seconds": 2.1,
+          "error": null,
+          "tokens": 156,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def concatenate(strings)\n  strings.join\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_concatenate\n    candidate = method(:concatenate)\n    assert_equal(\"\", candidate.call([]))\n    assert_equal(\"xyz\", candidate.call([\"x\", \"y\", \"z\"]))\n    assert_equal(\"xyzwk\", candidate.call([\"x\", \"y\", \"z\", \"w\", \"k\"]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_42_incr_list",
+          "seconds": 3.1,
+          "error": null,
+          "tokens": 287,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def incr_list(l)\n  l.map { |n| n + 1 }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_incr_list\n    candidate = method(:incr_list)\n    assert_equal([], candidate.call([]))\n    assert_equal([4, 3, 2], candidate.call([3, 2, 1]))\n    assert_equal([6, 3, 6, 3, 4, 4, 10, 1, 124], candidate.call([5, 2, 5, 2, 3, 3, 9, 0, 123]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_115_max_fill",
+          "seconds": 19.9,
+          "error": null,
+          "tokens": 1231,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def max_fill(grid, capacity)\n  grid.sum { |row| (row.sum + capacity - 1) / capacity }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_max_fill\n    candidate = method(:max_fill)\n    assert_equal(6, candidate.call([[0, 0, 1, 0], [0, 1, 0, 0], [1, 1, 1, 1]], 1))\n    assert_equal(5, candidate.call([[0, 0, 1, 1], [0, 0, 0, 0], [1, 1, 1, 1], [0, 1, 1, 1]], 2))\n    assert_equal(0, candidate.call([[0, 0, 0], [0, 0, 0]], 5))\n    assert_equal(4, candidate.call([[1, 1, 1, 1], [1, 1, 1, 1]], 2))\n    assert_equal(2, candidate.call([[1, 1, 1, 1], [1, 1, 1, 1]], 9))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_25_factorize",
+          "seconds": 10.0,
+          "error": null,
+          "tokens": 989,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def factorize(n)\n  factors = []\n  d = 2\n  while n > 1\n    while n % d == 0\n      factors << d\n      n /= d\n    end\n    d += 1\n  end\n  factors\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_factorize\n    candidate = method(:factorize)\n    assert_equal([2], candidate.call(2))\n    assert_equal([2, 2], candidate.call(4))\n    assert_equal([2, 2, 2], candidate.call(8))\n    assert_equal([3, 19], candidate.call(57))\n    assert_equal([3, 3, 19, 19], candidate.call(3249))\n    assert_equal([3, 3, 3, 19, 19, 19], candidate.call(185193))\n    assert_equal([3, 19, 19, 19], candidate.call(20577))\n    assert_equal([2, 3, 3], candidate.call(18))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_23_strlen",
+          "seconds": 1.3,
+          "error": null,
+          "tokens": 100,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def strlen(string)\n  string.length\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_strlen\n    candidate = method(:strlen)\n    assert_equal(0, candidate.call(\"\"))\n    assert_equal(1, candidate.call(\"x\"))\n    assert_equal(9, candidate.call(\"asdasnakj\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_120_maximum",
+          "seconds": 8.4,
+          "error": null,
+          "tokens": 948,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def maximum(arr, k)\n  arr.sort[-k, k]\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_maximum\n    candidate = method(:maximum)\n    assert_equal([-4, -3, 5], candidate.call([-3, -4, 5], 3))\n    assert_equal([4, 4], candidate.call([4, -4, 4], 2))\n    assert_equal([2], candidate.call([-3, 2, 1, 2, -1, -2, 1], 1))\n    assert_equal([2, 20, 123], candidate.call([123, -123, 20, 0, 1, 2, -3], 3))\n    assert_equal([0, 1, 2, 20], candidate.call([-123, 20, 0, 1, 2, -3], 4))\n    assert_equal([-13, -8, 0, 0, 3, 5, 15], candidate.call([5, 15, 0, 3, -13, -8, 0], 7))\n    assert_equal([3, 5], candidate.call([-1, 0, 2, 5, 3, -10], 2))\n    assert_equal([5], candidate.call([1, 0, 5, -7], 1))\n    assert_equal([-4, 4], candidate.call([4, -4], 2))\n    assert_equal([-10, 10], candidate.call([-10, 10], 2))\n    assert_equal([], candidate.call([1, 2, 3, -23, 243, -400, 0], 0))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_82_prime_length",
+          "seconds": 18.8,
+          "error": null,
+          "tokens": 1783,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def prime_length(string)\n  length = string.length\n  return false if length < 2\n  (2..(length**0.5).to_i).none? { |i| length % i == 0 }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_prime_length\n    candidate = method(:prime_length)\n    assert_equal(true, candidate.call(\"Hello\"))\n    assert_equal(true, candidate.call(\"abcdcba\"))\n    assert_equal(true, candidate.call(\"kittens\"))\n    assert_equal(false, candidate.call(\"orange\"))\n    assert_equal(true, candidate.call(\"wow\"))\n    assert_equal(true, candidate.call(\"world\"))\n    assert_equal(true, candidate.call(\"MadaM\"))\n    assert_equal(true, candidate.call(\"Wow\"))\n    assert_equal(false, candidate.call(\"\"))\n    assert_equal(true, candidate.call(\"HI\"))\n    assert_equal(true, candidate.call(\"go\"))\n    assert_equal(false, candidate.call(\"gogo\"))\n    assert_equal(false, candidate.call(\"aaaaaaaaaaaaaaa\"))\n    assert_equal(true, candidate.call(\"Madam\"))\n    assert_equal(false, candidate.call(\"M\"))\n    assert_equal(false, candidate.call(\"0\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_41_car_race_collision",
+          "seconds": 25.7,
+          "error": null,
+          "tokens": 1735,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def car_race_collision(n)\n  n * n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_car_race_collision\n    candidate = method(:car_race_collision)\n    assert_equal(4, candidate.call(2))\n    assert_equal(9, candidate.call(3))\n    assert_equal(16, candidate.call(4))\n    assert_equal(64, candidate.call(8))\n    assert_equal(100, candidate.call(10))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_96_count_up_to",
+          "seconds": 49.9,
+          "error": null,
+          "tokens": 5177,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def count_up_to(n)\n  return [] if n < 2\n  is_prime = Array.new(n, true)\n  is_prime[0] = false\n  is_prime[1] = false\n  (2..Math.sqrt(n)).each do |i|\n    if is_prime[i]\n      (i*i...n).step(i) do |j|\n        is_prime[j] = false\n      end\n    end\n  end\n  is_prime.each_index.select { |i| is_prime[i] }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_count_up_to\n    candidate = method(:count_up_to)\n    assert_equal([2, 3], candidate.call(5))\n    assert_equal([2, 3, 5], candidate.call(6))\n    assert_equal([2, 3, 5], candidate.call(7))\n    assert_equal([2, 3, 5, 7], candidate.call(10))\n    assert_equal([], candidate.call(0))\n    assert_equal([2, 3, 5, 7, 11, 13, 17, 19], candidate.call(22))\n    assert_equal([], candidate.call(1))\n    assert_equal([2, 3, 5, 7, 11, 13, 17], candidate.call(18))\n    assert_equal([2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43], candidate.call(47))\n    assert_equal([2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97], candidate.call(101))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_160_do_algebra",
+          "seconds": 112.3,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Given two arrays operator, and operand. The first array has basic algebra operations, and \n# the second array is an array of integers. Use the two given arrays to build the algebric \n# expression and return the evaluation of this expression.\n# The basic algebra operations:\n# Addition ( + ) \n# Subtraction ( - ) \n# Multiplication ( * ) \n# Floor division ( // ) \n# Exponentiation ( ** ) \n# Example:\n# operator['+', '*', '-']\n# array = [2, 3, 4, 5]\n# result = 2 + 3 * 4 - 5\n# => result = 9\n# Note:\n# The length of operator array is equal to the length of operand array minus one.\n# Operand is an array of of non-negative integers.\n# Operator array has at least one operator, and operand array has at least two operands.\ndef do_algebra(operator, operand)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_do_algebra\n    candidate = method(:do_algebra)\n    assert_equal(37, candidate.call([\"**\", \"*\", \"+\"], [2, 3, 4, 5]))\n    assert_equal(9, candidate.call([\"+\", \"*\", \"-\"], [2, 3, 4, 5]))\n    assert_equal(8, candidate.call([\"//\", \"*\"], [7, 3, 4]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_159_eat",
+          "seconds": 7.6,
+          "error": null,
+          "tokens": 662,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def eat(number, need, remaining)\n  if remaining >= need\n    [number + need, remaining - need]\n  else\n    [number + remaining, 0]\n  end\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_eat\n    candidate = method(:eat)\n    assert_equal([11, 4], candidate.call(5, 6, 10))\n    assert_equal([12, 1], candidate.call(4, 8, 9))\n    assert_equal([11, 0], candidate.call(1, 10, 10))\n    assert_equal([7, 0], candidate.call(2, 11, 5))\n    assert_equal([9, 2], candidate.call(4, 5, 7))\n    assert_equal([5, 0], candidate.call(4, 5, 1))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_138_is_equal_to_sum_even",
+          "seconds": 17.9,
+          "error": null,
+          "tokens": 1207,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def is_equal_to_sum_even(n)\n  n.even? && n >= 8\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_is_equal_to_sum_even\n    candidate = method(:is_equal_to_sum_even)\n    assert_equal(false, candidate.call(4))\n    assert_equal(false, candidate.call(6))\n    assert_equal(true, candidate.call(8))\n    assert_equal(true, candidate.call(10))\n    assert_equal(false, candidate.call(11))\n    assert_equal(true, candidate.call(12))\n    assert_equal(false, candidate.call(13))\n    assert_equal(true, candidate.call(16))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_49_modp",
+          "seconds": 7.4,
+          "error": null,
+          "tokens": 702,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def modp(n, p)\n  2.pow(n, p)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_modp\n    candidate = method(:modp)\n    assert_equal(3, candidate.call(3, 5))\n    assert_equal(2, candidate.call(1101, 101))\n    assert_equal(1, candidate.call(0, 101))\n    assert_equal(8, candidate.call(3, 11))\n    assert_equal(1, candidate.call(100, 101))\n    assert_equal(4, candidate.call(30, 5))\n    assert_equal(3, candidate.call(31, 5))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_156_int_to_mini_roman",
+          "seconds": 10.3,
+          "error": null,
+          "tokens": 988,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def int_to_mini_roman(number)\n  roman_map = [\n    [1000, \"m\"],\n    [900, \"cm\"],\n    [500, \"d\"],\n    [400, \"cd\"],\n    [100, \"c\"],\n    [90, \"xc\"],\n    [50, \"l\"],\n    [40, \"xl\"],\n    [10, \"x\"],\n    [9, \"ix\"],\n    [5, \"v\"],\n    [4, \"iv\"],\n    [1, \"i\"]\n  ]\n  \n  result = \"\"\n  roman_map.each do |value, symbol|\n    while number >= value\n      result += symbol\n      number -= value\n    end\n  end\n  \n  result\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_int_to_mini_roman\n    candidate = method(:int_to_mini_roman)\n    assert_equal(\"xix\", candidate.call(19))\n    assert_equal(\"clii\", candidate.call(152))\n    assert_equal(\"ccli\", candidate.call(251))\n    assert_equal(\"cdxxvi\", candidate.call(426))\n    assert_equal(\"d\", candidate.call(500))\n    assert_equal(\"i\", candidate.call(1))\n    assert_equal(\"iv\", candidate.call(4))\n    assert_equal(\"xliii\", candidate.call(43))\n    assert_equal(\"xc\", candidate.call(90))\n    assert_equal(\"xciv\", candidate.call(94))\n    assert_equal(\"dxxxii\", candidate.call(532))\n    assert_equal(\"cm\", candidate.call(900))\n    assert_equal(\"cmxciv\", candidate.call(994))\n    assert_equal(\"m\", candidate.call(1000))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_64_vowels_count",
+          "seconds": 13.9,
+          "error": null,
+          "tokens": 1244,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def vowels_count(s)\n  s.downcase.count(\"aeiou\") + (s.downcase.end_with?('y') ? 1 : 0)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_vowels_count\n    candidate = method(:vowels_count)\n    assert_equal(2, candidate.call(\"abcde\"))\n    assert_equal(3, candidate.call(\"Alone\"))\n    assert_equal(2, candidate.call(\"key\"))\n    assert_equal(1, candidate.call(\"bye\"))\n    assert_equal(2, candidate.call(\"keY\"))\n    assert_equal(1, candidate.call(\"bYe\"))\n    assert_equal(3, candidate.call(\"ACEDY\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_76_is_simple_power",
+          "seconds": 73.5,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Your task is to write a function that returns true if a number x is a simple\n# power of n and false in other cases.\n# x is a simple power of n if n**int=x\n# For example:\n# >>> is_simple_power.call(1, 4)\n# true\n# >>> is_simple_power.call(2, 2)\n# true\n# >>> is_simple_power.call(8, 2)\n# true\n# >>> is_simple_power.call(3, 2)\n# false\n# >>> is_simple_power.call(3, 1)\n# false\n# >>> is_simple_power.call(5, 3)\n# false\ndef is_simple_power(x, n)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_is_simple_power\n    candidate = method(:is_simple_power)\n    assert_equal(true, candidate.call(16, 2))\n    assert_equal(false, candidate.call(143214, 16))\n    assert_equal(true, candidate.call(4, 2))\n    assert_equal(true, candidate.call(9, 3))\n    assert_equal(true, candidate.call(16, 4))\n    assert_equal(false, candidate.call(24, 2))\n    assert_equal(false, candidate.call(128, 4))\n    assert_equal(false, candidate.call(12, 6))\n    assert_equal(true, candidate.call(1, 1))\n    assert_equal(true, candidate.call(1, 12))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_34_unique",
+          "seconds": 3.0,
+          "error": null,
+          "tokens": 305,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def unique(l)\n  l.uniq.sort\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_unique\n    candidate = method(:unique)\n    assert_equal([0, 2, 3, 5, 9, 123], candidate.call([5, 3, 5, 2, 3, 3, 9, 0, 123]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_123_get_odd_collatz",
+          "seconds": 35.2,
+          "error": null,
+          "tokens": 3307,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def get_odd_collatz(n)\n  sequence = [n]\n  while n > 1\n    if n.even?\n      n /= 2\n    else\n      n = 3 * n + 1\n    end\n    sequence << n\n  end\n  sequence.select(&:odd?).sort\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_get_odd_collatz\n    candidate = method(:get_odd_collatz)\n    assert_equal([1, 5, 7, 11, 13, 17], candidate.call(14))\n    assert_equal([1, 5], candidate.call(5))\n    assert_equal([1, 3, 5], candidate.call(12))\n    assert_equal([1], candidate.call(1))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_121_solution",
+          "seconds": 6.9,
+          "error": null,
+          "tokens": 767,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def solution(lst)\n  lst.select.with_index { |num, i| i.even? && num.odd? }.sum\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_solution\n    candidate = method(:solution)\n    assert_equal(12, candidate.call([5, 8, 7, 1]))\n    assert_equal(9, candidate.call([3, 3, 3, 3, 3]))\n    assert_equal(0, candidate.call([30, 13, 24, 321]))\n    assert_equal(5, candidate.call([5, 9]))\n    assert_equal(0, candidate.call([2, 4, 8]))\n    assert_equal(23, candidate.call([30, 13, 23, 32]))\n    assert_equal(3, candidate.call([3, 13, 2, 9]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_128_prod_signs",
+          "seconds": 91.6,
+          "error": null,
+          "tokens": 7002,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def prod_signs(arr)\n  return nil if arr.empty?\n  product = arr.reduce(1) { |prod, n| prod * (n <=> 0) }\n  sum_abs = arr.map(&:abs).sum\n  product.abs * sum_abs\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_prod_signs\n    candidate = method(:prod_signs)\n    assert_equal(-9, candidate.call([1, 2, 2, -4]))\n    assert_equal(0, candidate.call([0, 1]))\n    assert_equal(-10, candidate.call([1, 1, 1, 2, 3, -1, 1]))\n    assert_equal(nil, candidate.call([]))\n    assert_equal(20, candidate.call([2, 4, 1, 2, -1, -1, 9]))\n    assert_equal(4, candidate.call([-1, 1, -1, 1]))\n    assert_equal(-4, candidate.call([-1, 1, 1, 1]))\n    assert_equal(0, candidate.call([-1, 1, 1, 0]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_65_circular_shift",
+          "seconds": 29.8,
+          "error": null,
+          "tokens": 2794,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def circular_shift(x, shift)\n  digits = x.to_s\n  if shift > digits.length\n    digits.reverse\n  else\n    digits.rotate(shift).join\n  end\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_circular_shift\n    candidate = method(:circular_shift)\n    assert_equal(\"001\", candidate.call(100, 2))\n    assert_equal(\"12\", candidate.call(12, 2))\n    assert_equal(\"79\", candidate.call(97, 8))\n    assert_equal(\"21\", candidate.call(12, 1))\n    assert_equal(\"11\", candidate.call(11, 101))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_162_string_to_md5",
+          "seconds": 5.9,
+          "error": null,
+          "tokens": 427,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def string_to_md5(text)\n  return nil if text.empty?\n  Digest::MD5.hexdigest(text)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_string_to_md5\n    candidate = method(:string_to_md5)\n    assert_equal(\"3e25960a79dbc69b674cd4ec67a72c62\", candidate.call(\"Hello world\"))\n    assert_equal(nil, candidate.call(\"\"))\n    assert_equal(\"0ef78513b0cb8cef12743f5aeb35f888\", candidate.call(\"A B C\"))\n    assert_equal(\"5f4dcc3b5aa765d61d8327deb882cf99\", candidate.call(\"password\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_152_compare",
+          "seconds": 9.3,
+          "error": null,
+          "tokens": 777,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def compare(game, guess)\n  game.zip(guess).map { |g, gu| (g - gu).abs }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_compare\n    candidate = method(:compare)\n    assert_equal([0, 0, 0, 0, 3, 3], candidate.call([1, 2, 3, 4, 5, 1], [1, 2, 3, 4, 2, -2]))\n    assert_equal([0, 0, 0, 0, 0, 0], candidate.call([0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]))\n    assert_equal([2, 4, 6], candidate.call([1, 2, 3], [-1, -2, -3]))\n    assert_equal([2, 0, 0, 1], candidate.call([1, 2, 3, 5], [-1, 2, 3, 4]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_157_right_angle_triangle",
+          "seconds": 10.4,
+          "error": null,
+          "tokens": 792,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def right_angle_triangle(a, b, c)\n  sides = [a, b, c].sort\n  sides[0]**2 + sides[1]**2 == sides[2]**2\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_right_angle_triangle\n    candidate = method(:right_angle_triangle)\n    assert_equal(true, candidate.call(3, 4, 5))\n    assert_equal(false, candidate.call(1, 2, 3))\n    assert_equal(true, candidate.call(10, 6, 8))\n    assert_equal(false, candidate.call(2, 2, 2))\n    assert_equal(true, candidate.call(7, 24, 25))\n    assert_equal(false, candidate.call(10, 5, 7))\n    assert_equal(true, candidate.call(5, 12, 13))\n    assert_equal(true, candidate.call(15, 8, 17))\n    assert_equal(true, candidate.call(48, 55, 73))\n    assert_equal(false, candidate.call(1, 1, 1))\n    assert_equal(false, candidate.call(2, 2, 10))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_56_correct_bracketing",
+          "seconds": 7.9,
+          "error": null,
+          "tokens": 752,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def correct_bracketing(brackets)\n  count = 0\n  brackets.each_char do |c|\n    count += c == \"<\" ? 1 : -1\n    return false if count < 0\n  end\n  count == 0\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_correct_bracketing\n    candidate = method(:correct_bracketing)\n    assert_equal(true, candidate.call(\"<>\"))\n    assert_equal(true, candidate.call(\"<<><>>\"))\n    assert_equal(true, candidate.call(\"<><><<><>><>\"))\n    assert_equal(true, candidate.call(\"<><><<<><><>><>><<><><<>>>\"))\n    assert_equal(false, candidate.call(\"<<<><>>>>\"))\n    assert_equal(false, candidate.call(\"><<>\"))\n    assert_equal(false, candidate.call(\"<\"))\n    assert_equal(false, candidate.call(\"<<<<\"))\n    assert_equal(false, candidate.call(\">\"))\n    assert_equal(false, candidate.call(\"<<>\"))\n    assert_equal(false, candidate.call(\"<><><<><>><>><<>\"))\n    assert_equal(false, candidate.call(\"<><><<><>><>>><>\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_5_intersperse",
+          "seconds": 21.2,
+          "error": null,
+          "tokens": 1979,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def intersperse(numbers, delimeter)\n  return [] if numbers.empty?\n  numbers.reduce([]) do |result, num|\n    result << num << delimeter\n    result\n  end.pop\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_intersperse\n    candidate = method(:intersperse)\n    assert_equal([], candidate.call([], 7))\n    assert_equal([5, 8, 6, 8, 3, 8, 2], candidate.call([5, 6, 3, 2], 8))\n    assert_equal([2, 2, 2, 2, 2], candidate.call([2, 2, 2], 2))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_153_Strongest_Extension",
+          "seconds": 40.9,
+          "error": null,
+          "tokens": 2765,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def Strongest_Extension(class_name, extensions)\n  strongest = extensions.max_by { |ext| ext.count('A-Z') - ext.count('a-z') }\n  \"#{class_name}.#{strongest}\"\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_Strongest_Extension\n    candidate = method(:Strongest_Extension)\n    assert_equal(\"Watashi.eIGHt8OKe\", candidate.call(\"Watashi\", [\"tEN\", \"niNE\", \"eIGHt8OKe\"]))\n    assert_equal(\"Boku123.YEs.WeCaNe\", candidate.call(\"Boku123\", [\"nani\", \"NazeDa\", \"YEs.WeCaNe\", \"32145tggg\"]))\n    assert_equal(\"__YESIMHERE.NuLl__\", candidate.call(\"__YESIMHERE\", [\"t\", \"eMptY\", \"nothing\", \"zeR00\", \"NuLl__\", \"123NoooneB321\"]))\n    assert_equal(\"K.TAR\", candidate.call(\"K\", [\"Ta\", \"TAR\", \"t234An\", \"cosSo\"]))\n    assert_equal(\"__HAHA.123\", candidate.call(\"__HAHA\", [\"Tab\", \"123\", \"781345\", \"-_-\"]))\n    assert_equal(\"YameRore.okIWILL123\", candidate.call(\"YameRore\", [\"HhAas\", \"okIWILL123\", \"WorkOut\", \"Fails\", \"-_-\"]))\n    assert_equal(\"finNNalLLly.WoW\", candidate.call(\"finNNalLLly\", [\"Die\", \"NowW\", \"Wow\", \"WoW\"]))\n    assert_equal(\"_.Bb\", candidate.call(\"_\", [\"Bb\", \"91245\"]))\n    assert_equal(\"Sp.671235\", candidate.call(\"Sp\", [\"671235\", \"Bb\"]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_127_intersection",
+          "seconds": 33.9,
+          "error": null,
+          "tokens": 2085,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def intersection(interval1, interval2)\n  start = [interval1[0], interval2[0]].max\n  end_val = [interval1[1], interval2[1]].min\n  length = end_val - start\n  return \"NO\" if length <= 1\n  return \"YES\" if length == 2\n  return \"NO\" if length % 2 == 0\n  i = 3\n  while i * i <= length\n    return \"NO\" if length % i == 0\n    i += 2\n  end\n  \"YES\"\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_intersection\n    candidate = method(:intersection)\n    assert_equal(\"NO\", candidate.call([1, 2], [2, 3]))\n    assert_equal(\"NO\", candidate.call([-1, 1], [0, 4]))\n    assert_equal(\"YES\", candidate.call([-3, -1], [-5, 5]))\n    assert_equal(\"YES\", candidate.call([-2, 2], [-4, 0]))\n    assert_equal(\"NO\", candidate.call([-11, 2], [-1, -1]))\n    assert_equal(\"NO\", candidate.call([1, 2], [3, 5]))\n    assert_equal(\"NO\", candidate.call([1, 2], [1, 2]))\n    assert_equal(\"NO\", candidate.call([-2, -2], [-3, -2]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_52_below_threshold",
+          "seconds": 2.9,
+          "error": null,
+          "tokens": 291,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def below_threshold(l, t)\n  l.all? { |n| n < t }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_below_threshold\n    candidate = method(:below_threshold)\n    assert_equal(true, candidate.call([1, 2, 4, 10], 100))\n    assert_equal(false, candidate.call([1, 20, 4, 10], 5))\n    assert_equal(true, candidate.call([1, 20, 4, 10], 21))\n    assert_equal(true, candidate.call([1, 20, 4, 10], 22))\n    assert_equal(true, candidate.call([1, 8, 4, 10], 11))\n    assert_equal(false, candidate.call([1, 8, 4, 10], 10))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_36_fizz_buzz",
+          "seconds": 14.1,
+          "error": null,
+          "tokens": 1123,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def fizz_buzz(n)\n  count = 0\n  (1...n).each do |i|\n    if i % 11 == 0 || i % 13 == 0\n      count += i.to_s.count('7')\n    end\n  end\n  count\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_fizz_buzz\n    candidate = method(:fizz_buzz)\n    assert_equal(0, candidate.call(50))\n    assert_equal(2, candidate.call(78))\n    assert_equal(3, candidate.call(79))\n    assert_equal(3, candidate.call(100))\n    assert_equal(6, candidate.call(200))\n    assert_equal(192, candidate.call(4000))\n    assert_equal(639, candidate.call(10000))\n    assert_equal(8026, candidate.call(100000))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_83_starts_one_ends",
+          "seconds": 18.1,
+          "error": null,
+          "tokens": 1452,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def starts_one_ends(n)\n  if n == 1\n    1\n  else\n    18 * 10**(n - 2)\n  end\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_starts_one_ends\n    candidate = method(:starts_one_ends)\n    assert_equal(1, candidate.call(1))\n    assert_equal(18, candidate.call(2))\n    assert_equal(180, candidate.call(3))\n    assert_equal(1800, candidate.call(4))\n    assert_equal(18000, candidate.call(5))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_80_is_happy",
+          "seconds": 18.6,
+          "error": null,
+          "tokens": 1664,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def is_happy(s)\n  s.length >= 3 && s.chars.each_cons(3).all? { |a, b, c| a != b && b != c && a != c }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_is_happy\n    candidate = method(:is_happy)\n    assert_equal(false, candidate.call(\"a\"))\n    assert_equal(false, candidate.call(\"aa\"))\n    assert_equal(true, candidate.call(\"abcd\"))\n    assert_equal(false, candidate.call(\"aabb\"))\n    assert_equal(true, candidate.call(\"adb\"))\n    assert_equal(false, candidate.call(\"xyy\"))\n    assert_equal(true, candidate.call(\"iopaxpoi\"))\n    assert_equal(false, candidate.call(\"iopaxioi\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_35_max_element",
+          "seconds": 2.3,
+          "error": null,
+          "tokens": 163,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def max_element(l)\n  l.max\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_max_element\n    candidate = method(:max_element)\n    assert_equal(3, candidate.call([1, 2, 3]))\n    assert_equal(124, candidate.call([5, 3, -5, 2, -3, 3, 9, 0, 124, 1, -10]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_48_is_palindrome",
+          "seconds": 2.1,
+          "error": null,
+          "tokens": 159,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def is_palindrome(text)\n  text == text.reverse\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_is_palindrome\n    candidate = method(:is_palindrome)\n    assert_equal(true, candidate.call(\"\"))\n    assert_equal(true, candidate.call(\"aba\"))\n    assert_equal(true, candidate.call(\"aaaaa\"))\n    assert_equal(false, candidate.call(\"zbcd\"))\n    assert_equal(true, candidate.call(\"xywyx\"))\n    assert_equal(false, candidate.call(\"xywyz\"))\n    assert_equal(false, candidate.call(\"xywzx\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_7_filter_by_substring",
+          "seconds": 2.7,
+          "error": null,
+          "tokens": 209,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def filter_by_substring(strings, substring)\n  strings.select { |s| s.include?(substring) }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_filter_by_substring\n    candidate = method(:filter_by_substring)\n    assert_equal([], candidate.call([], \"john\"))\n    assert_equal([\"xxx\", \"xxxAAA\", \"xxx\"], candidate.call([\"xxx\", \"asd\", \"xxy\", \"john doe\", \"xxxAAA\", \"xxx\"], \"xxx\"))\n    assert_equal([\"xxx\", \"aaaxxy\", \"xxxAAA\", \"xxx\"], candidate.call([\"xxx\", \"asd\", \"aaaxxy\", \"john doe\", \"xxxAAA\", \"xxx\"], \"xx\"))\n    assert_equal([\"grunt\", \"prune\"], candidate.call([\"grunt\", \"trumpet\", \"prune\", \"gruesome\"], \"run\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_45_triangle_area",
+          "seconds": 2.6,
+          "error": null,
+          "tokens": 224,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def triangle_area(a, h)\n  (a * h) / 2.0\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_triangle_area\n    candidate = method(:triangle_area)\n    assert_equal(7.5, candidate.call(5, 3))\n    assert_equal(2.0, candidate.call(2, 2))\n    assert_equal(40.0, candidate.call(10, 8))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_73_smallest_change",
+          "seconds": 10.5,
+          "error": null,
+          "tokens": 758,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def smallest_change(arr)\n  n = arr.length\n  count = 0\n  (0...n/2).each do |i|\n    count += 1 if arr[i] != arr[n-1-i]\n  end\n  count\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_smallest_change\n    candidate = method(:smallest_change)\n    assert_equal(4, candidate.call([1, 2, 3, 5, 4, 7, 9, 6]))\n    assert_equal(1, candidate.call([1, 2, 3, 4, 3, 2, 2]))\n    assert_equal(1, candidate.call([1, 4, 2]))\n    assert_equal(1, candidate.call([1, 4, 4, 2]))\n    assert_equal(0, candidate.call([1, 2, 3, 2, 1]))\n    assert_equal(0, candidate.call([3, 1, 1, 3]))\n    assert_equal(0, candidate.call([1]))\n    assert_equal(1, candidate.call([0, 1]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_125_split_words",
+          "seconds": 12.4,
+          "error": null,
+          "tokens": 1222,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def split_words(txt)\n  if txt.include?(' ')\n    txt.split\n  elsif txt.include?(',')\n    txt.split(',')\n  else\n    txt.count('bdfhjlnprtvxz')\n  end\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_split_words\n    candidate = method(:split_words)\n    assert_equal([\"Hello\", \"world!\"], candidate.call(\"Hello world!\"))\n    assert_equal([\"Hello\", \"world!\"], candidate.call(\"Hello,world!\"))\n    assert_equal([\"Hello\", \"world,!\"], candidate.call(\"Hello world,!\"))\n    assert_equal([\"Hello,Hello,world\", \"!\"], candidate.call(\"Hello,Hello,world !\"))\n    assert_equal(3, candidate.call(\"abcdef\"))\n    assert_equal(2, candidate.call(\"aaabb\"))\n    assert_equal(1, candidate.call(\"aaaBb\"))\n    assert_equal(0, candidate.call(\"\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_113_odd_count",
+          "seconds": 77.0,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Given an array of strings, where each string consists of only digits, return an array.\n# Each element i of the output should be \"the number of odd elements in the\n# string i of the input.\" where all the i's should be replaced by the number\n# of odd digits in the i'th string of the input.\n# >>> odd_count.call([\"1234567\"])\n# [\"the number of odd elements 4n the str4ng 4 of the 4nput.\"]\n# >>> odd_count.call([\"3\", \"11111111\"])\n# [\"the number of odd elements 1n the str1ng 1 of the 1nput.\", \"the number of odd elements 8n the str8ng 8 of the 8nput.\"]\ndef odd_count(lst)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_odd_count\n    candidate = method(:odd_count)\n    assert_equal([\"the number of odd elements 4n the str4ng 4 of the 4nput.\"], candidate.call([\"1234567\"]))\n    assert_equal([\"the number of odd elements 1n the str1ng 1 of the 1nput.\", \"the number of odd elements 8n the str8ng 8 of the 8nput.\"], candidate.call([\"3\", \"11111111\"]))\n    assert_equal([\"the number of odd elements 2n the str2ng 2 of the 2nput.\", \"the number of odd elements 3n the str3ng 3 of the 3nput.\", \"the number of odd elements 2n the str2ng 2 of the 2nput.\"], candidate.call([\"271\", \"137\", \"314\"]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_94_skjkasdkd",
+          "seconds": 95.8,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# You are given an array of integers.\n# You need to find the largest prime value and return the sum of its digits.\n# Examples:\n# >>> skjkasdkd.call([0, 3, 2, 1, 3, 5, 7, 4, 5, 5, 5, 2, 181, 32, 4, 32, 3, 2, 32, 324, 4, 3])\n# 10\n# >>> skjkasdkd.call([1, 0, 1, 8, 2, 4597, 2, 1, 3, 40, 1, 2, 1, 2, 4, 2, 5, 1])\n# 25\n# >>> skjkasdkd.call([1, 3, 1, 32, 5107, 34, 83278, 109, 163, 23, 2323, 32, 30, 1, 9, 3])\n# 13\n# >>> skjkasdkd.call([0, 724, 32, 71, 99, 32, 6, 0, 5, 91, 83, 0, 5, 6])\n# 11\n# >>> skjkasdkd.call([0, 81, 12, 3, 1, 21])\n# 3\n# >>> skjkasdkd.call([0, 8, 1, 2, 1, 7])\n# 7\ndef skjkasdkd(lst)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_skjkasdkd\n    candidate = method(:skjkasdkd)\n    assert_equal(10, candidate.call([0, 3, 2, 1, 3, 5, 7, 4, 5, 5, 5, 2, 181, 32, 4, 32, 3, 2, 32, 324, 4, 3]))\n    assert_equal(25, candidate.call([1, 0, 1, 8, 2, 4597, 2, 1, 3, 40, 1, 2, 1, 2, 4, 2, 5, 1]))\n    assert_equal(13, candidate.call([1, 3, 1, 32, 5107, 34, 83278, 109, 163, 23, 2323, 32, 30, 1, 9, 3]))\n    assert_equal(11, candidate.call([0, 724, 32, 71, 99, 32, 6, 0, 5, 91, 83, 0, 5, 6]))\n    assert_equal(3, candidate.call([0, 81, 12, 3, 1, 21]))\n    assert_equal(7, candidate.call([0, 8, 1, 2, 1, 7]))\n    assert_equal(19, candidate.call([8191]))\n    assert_equal(19, candidate.call([8191, 123456, 127, 7]))\n    assert_equal(10, candidate.call([127, 97, 8192]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_86_anti_shuffle",
+          "seconds": 26.7,
+          "error": null,
+          "tokens": 1776,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def anti_shuffle(s)\n  s.gsub(/\\S+/) { |word| word.chars.sort.join }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_anti_shuffle\n    candidate = method(:anti_shuffle)\n    assert_equal(\"Hi\", candidate.call(\"Hi\"))\n    assert_equal(\"ehllo\", candidate.call(\"hello\"))\n    assert_equal(\"bemnru\", candidate.call(\"number\"))\n    assert_equal(\"abcd\", candidate.call(\"abcd\"))\n    assert_equal(\"Hello !!!Wdlor\", candidate.call(\"Hello World!!!\"))\n    assert_equal(\"\", candidate.call(\"\"))\n    assert_equal(\".Hi My aemn is Meirst .Rboot How aer ?ouy\", candidate.call(\"Hi. My name is Mister Robot. How are you?\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_148_bf",
+          "seconds": 11.1,
+          "error": null,
+          "tokens": 1099,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def bf(planet1, planet2)\n  planets = [\"Mercury\", \"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\", \"Uranus\", \"Neptune\"]\n  return [] unless planets.include?(planet1) && planets.include?(planet2)\n  return [] if planet1 == planet2\n  \n  index1 = planets.index(planet1)\n  index2 = planets.index(planet2)\n  \n  if index1 < index2\n    planets[index1 + 1...index2]\n  else\n    planets[index2 + 1...index1]\n  end\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_bf\n    candidate = method(:bf)\n    assert_equal([\"Saturn\", \"Uranus\"], candidate.call(\"Jupiter\", \"Neptune\"))\n    assert_equal([\"Venus\"], candidate.call(\"Earth\", \"Mercury\"))\n    assert_equal([\"Venus\", \"Earth\", \"Mars\", \"Jupiter\", \"Saturn\"], candidate.call(\"Mercury\", \"Uranus\"))\n    assert_equal([\"Earth\", \"Mars\", \"Jupiter\", \"Saturn\", \"Uranus\"], candidate.call(\"Neptune\", \"Venus\"))\n    assert_equal([], candidate.call(\"Earth\", \"Earth\"))\n    assert_equal([], candidate.call(\"Mars\", \"Earth\"))\n    assert_equal([], candidate.call(\"Jupiter\", \"Makemake\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_149_sorted_list_sum",
+          "seconds": 9.2,
+          "error": null,
+          "tokens": 638,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def sorted_list_sum(lst)\n  lst.select { |s| s.length.even? }.sort_by { |s| [s.length, s] }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_sorted_list_sum\n    candidate = method(:sorted_list_sum)\n    assert_equal([\"aa\"], candidate.call([\"aa\", \"a\", \"aaa\"]))\n    assert_equal([\"AI\", \"asdf\", \"school\"], candidate.call([\"school\", \"AI\", \"asdf\", \"b\"]))\n    assert_equal([], candidate.call([\"d\", \"b\", \"c\", \"a\"]))\n    assert_equal([\"abcd\", \"dcba\"], candidate.call([\"d\", \"dcba\", \"abcd\", \"a\"]))\n    assert_equal([\"AI\", \"ai\", \"au\"], candidate.call([\"AI\", \"ai\", \"au\"]))\n    assert_equal([], candidate.call([\"a\", \"b\", \"b\", \"c\", \"c\", \"a\"]))\n    assert_equal([\"cc\", \"dd\", \"aaaa\", \"bbbb\"], candidate.call([\"aaaa\", \"bbbb\", \"dd\", \"cc\"]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_92_any_int",
+          "seconds": 9.4,
+          "error": null,
+          "tokens": 937,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def any_int(x, y, z)\n  x.integer? && y.integer? && z.integer? && (x == y + z || y == x + z || z == x + y)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_any_int\n    candidate = method(:any_int)\n    assert_equal(true, candidate.call(2, 3, 1))\n    assert_equal(false, candidate.call(2.5, 2, 3))\n    assert_equal(false, candidate.call(1.5, 5, 3.5))\n    assert_equal(false, candidate.call(2, 6, 2))\n    assert_equal(true, candidate.call(4, 2, 2))\n    assert_equal(false, candidate.call(2.2, 2.2, 2.2))\n    assert_equal(true, candidate.call(-4, 6, 2))\n    assert_equal(true, candidate.call(2, 1, 1))\n    assert_equal(true, candidate.call(3, 4, 7))\n    assert_equal(false, candidate.call(3.0, 4, 7))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_8_sum_product",
+          "seconds": 3.2,
+          "error": null,
+          "tokens": 309,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def sum_product(numbers)\n  [numbers.sum, numbers.reduce(1, :*)]\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_sum_product\n    candidate = method(:sum_product)\n    assert_equal([0, 1], candidate.call([]))\n    assert_equal([3, 1], candidate.call([1, 1, 1]))\n    assert_equal([100, 0], candidate.call([100, 0]))\n    assert_equal([15, 105], candidate.call([3, 5, 7]))\n    assert_equal([10, 10], candidate.call([10]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_116_sort_array",
+          "seconds": 72.4,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# In this Kata, you have to sort an array of non-negative integers according to\n# number of ones in their binary representation in ascending order.\n# For similar number of ones, sort based on decimal value.\n# It must be implemented like this:\n# >>> sort_array.call([1, 5, 2, 3, 4])\n# [1, 2, 3, 4, 5]\n# >>> sort_array.call([-2, -3, -4, -5, -6])\n# [-6, -5, -4, -3, -2]\n# >>> sort_array.call([1, 0, 2, 3, 4])\n# [0, 1, 2, 3, 4]\ndef sort_array(arr)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_sort_array\n    candidate = method(:sort_array)\n    assert_equal([1, 2, 4, 3, 5], candidate.call([1, 5, 2, 3, 4]))\n    assert_equal([-4, -2, -6, -5, -3], candidate.call([-2, -3, -4, -5, -6]))\n    assert_equal([0, 1, 2, 4, 3], candidate.call([1, 0, 2, 3, 4]))\n    assert_equal([], candidate.call([]))\n    assert_equal([2, 2, 4, 4, 3, 3, 5, 5, 5, 7, 77], candidate.call([2, 5, 77, 4, 5, 3, 5, 7, 2, 3, 4]))\n    assert_equal([32, 3, 5, 6, 12, 44], candidate.call([3, 6, 44, 12, 32, 5]))\n    assert_equal([2, 4, 8, 16, 32], candidate.call([2, 4, 8, 16, 32]))\n    assert_equal([2, 4, 8, 16, 32], candidate.call([2, 4, 8, 16, 32]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_13_greatest_common_divisor",
+          "seconds": 5.1,
+          "error": null,
+          "tokens": 467,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def greatest_common_divisor(a, b)\n  while b != 0\n    a, b = b, a % b\n  end\n  a\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_greatest_common_divisor\n    candidate = method(:greatest_common_divisor)\n    assert_equal(1, candidate.call(3, 7))\n    assert_equal(5, candidate.call(10, 15))\n    assert_equal(7, candidate.call(49, 14))\n    assert_equal(12, candidate.call(144, 60))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_62_derivative",
+          "seconds": 12.1,
+          "error": null,
+          "tokens": 1166,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def derivative(xs)\n  xs.each_with_index.map { |x, i| i * x }.drop(1)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_derivative\n    candidate = method(:derivative)\n    assert_equal([1, 4, 12, 20], candidate.call([3, 1, 2, 4, 5]))\n    assert_equal([2, 6], candidate.call([1, 2, 3]))\n    assert_equal([2, 2], candidate.call([3, 2, 1]))\n    assert_equal([2, 2, 0, 16], candidate.call([3, 2, 1, 0, 4]))\n    assert_equal([], candidate.call([1]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_141_file_name_check",
+          "seconds": 66.6,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Create a function which takes a string representing a file's name, and returns\n# 'Yes' if the the file's name is valid, and returns 'No' otherwise.\n# A file's name is considered to be valid if and only if all the following conditions \n# are met:\n# - There should not be more than three digits ('0'-'9') in the file's name.\n# - The file's name contains exactly one dot '.'\n# - The substring before the dot should not be empty, and it starts with a letter from \n# the latin alphapet ('a'-'z' and 'A'-'Z').\n# - The substring after the dot should be one of these: ['txt', 'exe', 'dll']\n# Examples:\n# >>> file_name_check.call(\"example.txt\")\n# \"Yes\"\n# >>> file_name_check.call(\"1example.dll\")\n# \"No\"\ndef file_name_check(file_name)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_file_name_check\n    candidate = method(:file_name_check)\n    assert_equal(\"Yes\", candidate.call(\"example.txt\"))\n    assert_equal(\"No\", candidate.call(\"1example.dll\"))\n    assert_equal(\"No\", candidate.call(\"s1sdf3.asd\"))\n    assert_equal(\"Yes\", candidate.call(\"K.dll\"))\n    assert_equal(\"Yes\", candidate.call(\"MY16FILE3.exe\"))\n    assert_equal(\"No\", candidate.call(\"His12FILE94.exe\"))\n    assert_equal(\"No\", candidate.call(\"_Y.txt\"))\n    assert_equal(\"No\", candidate.call(\"?aREYA.exe\"))\n    assert_equal(\"No\", candidate.call(\"/this_is_valid.dll\"))\n    assert_equal(\"No\", candidate.call(\"this_is_valid.wow\"))\n    assert_equal(\"Yes\", candidate.call(\"this_is_valid.txt\"))\n    assert_equal(\"No\", candidate.call(\"this_is_valid.txtexe\"))\n    assert_equal(\"No\", candidate.call(\"#this2_i4s_5valid.ten\"))\n    assert_equal(\"No\", candidate.call(\"@this1_is6_valid.exe\"))\n    assert_equal(\"No\", candidate.call(\"this_is_12valid.6exe4.txt\"))\n    assert_equal(\"No\", candidate.call(\"all.exe.txt\"))\n    assert_equal(\"Yes\", candidate.call(\"I563_No.exe\"))\n    assert_equal(\"Yes\", candidate.call(\"Is3youfault.txt\"))\n    assert_equal(\"Yes\", candidate.call(\"no_one#knows.dll\"))\n    assert_equal(\"No\", candidate.call(\"1I563_Yes3.exe\"))\n    assert_equal(\"No\", candidate.call(\"I563_Yes3.txtt\"))\n    assert_equal(\"No\", candidate.call(\"final..txt\"))\n    assert_equal(\"No\", candidate.call(\"final132\"))\n    assert_equal(\"No\", candidate.call(\"_f4indsartal132.\"))\n    assert_equal(\"No\", candidate.call(\".txt\"))\n    assert_equal(\"No\", candidate.call(\"s.\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_3_below_zero",
+          "seconds": 3.1,
+          "error": null,
+          "tokens": 254,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def below_zero(operations)\n  balance = 0\n  operations.each do |op|\n    balance += op\n    return true if balance < 0\n  end\n  false\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_below_zero\n    candidate = method(:below_zero)\n    assert_equal(false, candidate.call([]))\n    assert_equal(false, candidate.call([1, 2, -3, 1, 2, -3]))\n    assert_equal(true, candidate.call([1, 2, -4, 5, 6]))\n    assert_equal(false, candidate.call([1, -1, 2, -2, 5, -5, 4, -4]))\n    assert_equal(true, candidate.call([1, -1, 2, -2, 5, -5, 4, -5]))\n    assert_equal(true, candidate.call([1, -2, 2, -2, 5, -5, 4, -4]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_17_parse_music",
+          "seconds": 5.8,
+          "error": null,
+          "tokens": 516,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def parse_music(music_string)\n  music_string.split.map do |note|\n    case note\n    when 'o' then 4\n    when 'o|' then 2\n    when '.|' then 1\n    end\n  end\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_parse_music\n    candidate = method(:parse_music)\n    assert_equal([], candidate.call(\"\"))\n    assert_equal([4, 4, 4, 4], candidate.call(\"o o o o\"))\n    assert_equal([1, 1, 1, 1], candidate.call(\".| .| .| .|\"))\n    assert_equal([2, 2, 1, 1, 4, 4, 4, 4], candidate.call(\"o| o| .| .| o o o o\"))\n    assert_equal([2, 1, 2, 1, 4, 2, 4, 2], candidate.call(\"o| .| o| .| o o| o o|\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_40_triples_sum_to_zero",
+          "seconds": 32.4,
+          "error": null,
+          "tokens": 3198,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def triples_sum_to_zero(l)\n  sorted = l.sort\n  n = sorted.length\n  (0...n - 2).each do |i|\n    left = i + 1\n    right = n - 1\n    while left < right\n      sum = sorted[i] + sorted[left] + sorted[right]\n      if sum == 0\n        return true\n      elsif sum < 0\n        left += 1\n      else\n        right -= 1\n      end\n    end\n  end\n  false\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_triples_sum_to_zero\n    candidate = method(:triples_sum_to_zero)\n    assert_equal(false, candidate.call([1, 3, 5, 0]))\n    assert_equal(false, candidate.call([1, 3, 5, -1]))\n    assert_equal(true, candidate.call([1, 3, -2, 1]))\n    assert_equal(false, candidate.call([1, 2, 3, 7]))\n    assert_equal(false, candidate.call([1, 2, 5, 7]))\n    assert_equal(true, candidate.call([2, 4, -5, 3, 9, 7]))\n    assert_equal(false, candidate.call([1]))\n    assert_equal(false, candidate.call([1, 3, 5, -100]))\n    assert_equal(false, candidate.call([100, 3, 5, -100]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_75_is_multiply_prime",
+          "seconds": 38.5,
+          "error": null,
+          "tokens": 3673,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def is_multiply_prime(a)\n  count = 0\n  i = 2\n  while i <= a\n    while a % i == 0\n      count += 1\n      a /= i\n    end\n    i += 1\n  end\n  count == 3\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_is_multiply_prime\n    candidate = method(:is_multiply_prime)\n    assert_equal(false, candidate.call(5))\n    assert_equal(true, candidate.call(30))\n    assert_equal(true, candidate.call(8))\n    assert_equal(false, candidate.call(10))\n    assert_equal(true, candidate.call(125))\n    assert_equal(true, candidate.call(105))\n    assert_equal(false, candidate.call(126))\n    assert_equal(false, candidate.call(729))\n    assert_equal(false, candidate.call(891))\n    assert_equal(true, candidate.call(1001))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_144_simplify",
+          "seconds": 11.0,
+          "error": null,
+          "tokens": 1244,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def simplify(x, n)\n  a, b = x.split('/').map(&:to_i)\n  c, d = n.split('/').map(&:to_i)\n  (a * c) % (b * d) == 0\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_simplify\n    candidate = method(:simplify)\n    assert_equal(true, candidate.call(\"1/5\", \"5/1\"))\n    assert_equal(false, candidate.call(\"1/6\", \"2/1\"))\n    assert_equal(true, candidate.call(\"5/1\", \"3/1\"))\n    assert_equal(false, candidate.call(\"7/10\", \"10/2\"))\n    assert_equal(true, candidate.call(\"2/10\", \"50/10\"))\n    assert_equal(true, candidate.call(\"7/2\", \"4/2\"))\n    assert_equal(true, candidate.call(\"11/6\", \"6/1\"))\n    assert_equal(false, candidate.call(\"2/3\", \"5/2\"))\n    assert_equal(false, candidate.call(\"5/2\", \"3/5\"))\n    assert_equal(true, candidate.call(\"2/4\", \"8/4\"))\n    assert_equal(true, candidate.call(\"2/4\", \"4/2\"))\n    assert_equal(true, candidate.call(\"1/5\", \"5/1\"))\n    assert_equal(false, candidate.call(\"1/5\", \"1/5\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_137_compare_one",
+          "seconds": 62.4,
+          "error": null,
+          "tokens": 4282,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def compare_one(a, b)\n  na = a.is_a?(String) ? a.gsub(',', '.').to_f : a.to_f\n  nb = b.is_a?(String) ? b.gsub(',', '.').to_f : b.to_f\n  na > nb ? a : nb > na ? b : nil\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_compare_one\n    candidate = method(:compare_one)\n    assert_equal(2, candidate.call(1, 2))\n    assert_equal(2.5, candidate.call(1, 2.5))\n    assert_equal(3, candidate.call(2, 3))\n    assert_equal(6, candidate.call(5, 6))\n    assert_equal(\"2,3\", candidate.call(1, \"2,3\"))\n    assert_equal(\"6\", candidate.call(\"5,1\", \"6\"))\n    assert_equal(\"2\", candidate.call(\"1\", \"2\"))\n    assert_equal(nil, candidate.call(\"1\", 1))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_150_x_or_y",
+          "seconds": 17.7,
+          "error": null,
+          "tokens": 1864,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def x_or_y(n, x, y)\n  is_prime = n > 1 && (n == 2 || (n.odd? && (3..Math.sqrt(n).to_i).step(2).none? { |i| n % i == 0 }))\n  is_prime ? x : y\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_x_or_y\n    candidate = method(:x_or_y)\n    assert_equal(34, candidate.call(7, 34, 12))\n    assert_equal(5, candidate.call(15, 8, 5))\n    assert_equal(33, candidate.call(3, 33, 5212))\n    assert_equal(3, candidate.call(1259, 3, 52))\n    assert_equal(-1, candidate.call(7919, -1, 12))\n    assert_equal(583, candidate.call(3609, 1245, 583))\n    assert_equal(129, candidate.call(91, 56, 129))\n    assert_equal(1234, candidate.call(6, 34, 1234))\n    assert_equal(0, candidate.call(1, 2, 0))\n    assert_equal(2, candidate.call(2, 2, 0))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_66_digitSum",
+          "seconds": 74.9,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Task\n# Write a function that takes a string as input and returns the sum of the upper characters only'\n# ASCII codes.\n# Examples:\n# >>> digitSum.call(\"\")\n# 0\n# >>> digitSum.call(\"abAB\")\n# 131\n# >>> digitSum.call(\"abcCd\")\n# 67\n# >>> digitSum.call(\"helloE\")\n# 69\n# >>> digitSum.call(\"woArBld\")\n# 131\n# >>> digitSum.call(\"aAaaaXa\")\n# 153\ndef digitSum(s)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_digitSum\n    candidate = method(:digitSum)\n    assert_equal(0, candidate.call(\"\"))\n    assert_equal(131, candidate.call(\"abAB\"))\n    assert_equal(67, candidate.call(\"abcCd\"))\n    assert_equal(69, candidate.call(\"helloE\"))\n    assert_equal(131, candidate.call(\"woArBld\"))\n    assert_equal(153, candidate.call(\"aAaaaXa\"))\n    assert_equal(151, candidate.call(\" How are yOu?\"))\n    assert_equal(327, candidate.call(\"You arE Very Smart\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_57_monotonic",
+          "seconds": 12.2,
+          "error": null,
+          "tokens": 1033,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def monotonic(l)\n  direction = nil\n  l.each_cons(2) do |a, b|\n    if a < b\n      return false if direction == :decreasing\n      direction = :increasing\n    elsif a > b\n      return false if direction == :increasing\n      direction = :decreasing\n    end\n  end\n  true\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_monotonic\n    candidate = method(:monotonic)\n    assert_equal(true, candidate.call([1, 2, 4, 10]))\n    assert_equal(true, candidate.call([1, 2, 4, 20]))\n    assert_equal(false, candidate.call([1, 20, 4, 10]))\n    assert_equal(true, candidate.call([4, 1, 0, -10]))\n    assert_equal(true, candidate.call([4, 1, 1, 0]))\n    assert_equal(false, candidate.call([1, 2, 3, 2, 5, 60]))\n    assert_equal(true, candidate.call([1, 2, 3, 4, 5, 60]))\n    assert_equal(true, candidate.call([9, 9, 9, 9]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_110_exchange",
+          "seconds": 94.4,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# In this problem, you will implement a function that takes two arrays of numbers,\n# and determines whether it is possible to perform an exchange of elements\n# between them to make lst1 an array of only even numbers.\n# There is no limit on the number of exchanged elements between lst1 and lst2.\n# If it is possible to exchange elements between the lst1 and lst2 to make\n# all the elements of lst1 to be even, return \"YES\".\n# Otherwise, return \"NO\".\n# For example:\n# >>> exchange.call([1, 2, 3, 4], [1, 2, 3, 4])\n# \"YES\"\n# >>> exchange.call([1, 2, 3, 4], [1, 5, 3, 4])\n# \"NO\"\n# It is assumed that the input arrays will be non-empty.\ndef exchange(lst1, lst2)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_exchange\n    candidate = method(:exchange)\n    assert_equal(\"YES\", candidate.call([1, 2, 3, 4], [1, 2, 3, 4]))\n    assert_equal(\"NO\", candidate.call([1, 2, 3, 4], [1, 5, 3, 4]))\n    assert_equal(\"YES\", candidate.call([1, 2, 3, 4], [2, 1, 4, 3]))\n    assert_equal(\"YES\", candidate.call([5, 7, 3], [2, 6, 4]))\n    assert_equal(\"NO\", candidate.call([5, 7, 3], [2, 6, 3]))\n    assert_equal(\"NO\", candidate.call([3, 2, 6, 1, 8, 9], [3, 5, 5, 1, 1, 1]))\n    assert_equal(\"YES\", candidate.call([100, 200], [200, 200]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_53_add",
+          "seconds": 1.2,
+          "error": null,
+          "tokens": 86,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def add(x, y)\n  x + y\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_add\n    candidate = method(:add)\n    assert_equal(1, candidate.call(0, 1))\n    assert_equal(1, candidate.call(1, 0))\n    assert_equal(5, candidate.call(2, 3))\n    assert_equal(12, candidate.call(5, 7))\n    assert_equal(12, candidate.call(7, 5))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_161_solve",
+          "seconds": 20.6,
+          "error": null,
+          "tokens": 1777,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def solve(s)\n  has_letters = s.match?(/[a-zA-Z]/)\n  result = s.swapcase\n  has_letters ? result : result.reverse\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_solve\n    candidate = method(:solve)\n    assert_equal(\"aSdF\", candidate.call(\"AsDf\"))\n    assert_equal(\"4321\", candidate.call(\"1234\"))\n    assert_equal(\"AB\", candidate.call(\"ab\"))\n    assert_equal(\"#A@c\", candidate.call(\"#a@C\"))\n    assert_equal(\"#aSDFw^45\", candidate.call(\"#AsdfW^45\"))\n    assert_equal(\"2@6#\", candidate.call(\"#6@2\"))\n    assert_equal(\"#$A^d\", candidate.call(\"#$a^D\"))\n    assert_equal(\"#CCC\", candidate.call(\"#ccc\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_61_correct_bracketing",
+          "seconds": 9.1,
+          "error": null,
+          "tokens": 802,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def correct_bracketing(brackets)\n  counter = 0\n  brackets.each_char do |char|\n    if char == '('\n      counter += 1\n    elsif char == ')'\n      counter -= 1\n    end\n    return false if counter < 0\n  end\n  counter == 0\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_correct_bracketing\n    candidate = method(:correct_bracketing)\n    assert_equal(true, candidate.call(\"()\"))\n    assert_equal(true, candidate.call(\"(()())\"))\n    assert_equal(true, candidate.call(\"()()(()())()\"))\n    assert_equal(true, candidate.call(\"()()((()()())())(()()(()))\"))\n    assert_equal(false, candidate.call(\"((()())))\"))\n    assert_equal(false, candidate.call(\")(()\"))\n    assert_equal(false, candidate.call(\"(\"))\n    assert_equal(false, candidate.call(\"((((\"))\n    assert_equal(false, candidate.call(\")\"))\n    assert_equal(false, candidate.call(\"(()\"))\n    assert_equal(false, candidate.call(\"()()(()())())(()\"))\n    assert_equal(false, candidate.call(\"()()(()())()))()\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_51_remove_vowels",
+          "seconds": 3.4,
+          "error": null,
+          "tokens": 275,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def remove_vowels(text)\n  text.delete(\"aeiouAEIOU\")\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_remove_vowels\n    candidate = method(:remove_vowels)\n    assert_equal(\"\", candidate.call(\"\"))\n    assert_equal(\"bcdf\nghjklm\", candidate.call(\"abcdef\nghijklm\"))\n    assert_equal(\"fdcb\", candidate.call(\"fedcba\"))\n    assert_equal(\"\", candidate.call(\"eeeee\"))\n    assert_equal(\"cB\", candidate.call(\"acBAA\"))\n    assert_equal(\"cB\", candidate.call(\"EcBOO\"))\n    assert_equal(\"ybcd\", candidate.call(\"ybcd\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_91_is_bored",
+          "seconds": 89.0,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# You'll be given a string of words, and your task is to count the number\n# of boredoms. A boredom is a sentence that starts with the word \"I\".\n# Sentences are delimited by '.', '?' or '!'.\n# For example:\n# >>> is_bored.call(\"Hello world\")\n# 0\n# >>> is_bored.call(\"The sky is blue. The sun is shining. I love this weather\")\n# 1\ndef is_bored(s)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_is_bored\n    candidate = method(:is_bored)\n    assert_equal(0, candidate.call(\"Hello world\"))\n    assert_equal(0, candidate.call(\"Is the sky blue?\"))\n    assert_equal(1, candidate.call(\"I love It !\"))\n    assert_equal(0, candidate.call(\"bIt\"))\n    assert_equal(2, candidate.call(\"I feel good today. I will be productive. will kill It\"))\n    assert_equal(0, candidate.call(\"You and I are going for a walk\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_21_rescale_to_unit",
+          "seconds": 74.8,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Given array of numbers (of at least two elements), apply a linear transform to that array,\n# such that the smallest number will become 0 and the largest will become 1\n# >>> rescale_to_unit.call([1.0, 2.0, 3.0, 4.0, 5.0])\n# [0.0, 0.25, 0.5, 0.75, 1.0]\ndef rescale_to_unit(numbers)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_rescale_to_unit\n    candidate = method(:rescale_to_unit)\n    assert_equal([0.0, 1.0], candidate.call([2.0, 49.9]))\n    assert_equal([1.0, 0.0], candidate.call([100.0, 49.9]))\n    assert_equal([0.0, 0.25, 0.5, 0.75, 1.0], candidate.call([1.0, 2.0, 3.0, 4.0, 5.0]))\n    assert_equal([0.25, 0.0, 1.0, 0.5, 0.75], candidate.call([2.0, 1.0, 5.0, 3.0, 4.0]))\n    assert_equal([0.25, 0.0, 1.0, 0.5, 0.75], candidate.call([12.0, 11.0, 15.0, 13.0, 14.0]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_60_sum_to_n",
+          "seconds": 3.4,
+          "error": null,
+          "tokens": 360,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def sum_to_n(n)\n  n * (n + 1) / 2\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_sum_to_n\n    candidate = method(:sum_to_n)\n    assert_equal(1, candidate.call(1))\n    assert_equal(21, candidate.call(6))\n    assert_equal(66, candidate.call(11))\n    assert_equal(465, candidate.call(30))\n    assert_equal(5050, candidate.call(100))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_158_find_max",
+          "seconds": 15.6,
+          "error": null,
+          "tokens": 1566,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def find_max(words)\n  words.max_by { |word| [-word.chars.uniq.size, word] }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_find_max\n    candidate = method(:find_max)\n    assert_equal(\"string\", candidate.call([\"name\", \"of\", \"string\"]))\n    assert_equal(\"enam\", candidate.call([\"name\", \"enam\", \"game\"]))\n    assert_equal(\"aaaaaaa\", candidate.call([\"aaaaaaa\", \"bb\", \"cc\"]))\n    assert_equal(\"abc\", candidate.call([\"abc\", \"cba\"]))\n    assert_equal(\"footbott\", candidate.call([\"play\", \"this\", \"game\", \"of\", \"footbott\"]))\n    assert_equal(\"gonna\", candidate.call([\"we\", \"are\", \"gonna\", \"rock\"]))\n    assert_equal(\"nation\", candidate.call([\"we\", \"are\", \"a\", \"mad\", \"nation\"]))\n    assert_equal(\"this\", candidate.call([\"this\", \"is\", \"a\", \"prrk\"]))\n    assert_equal(\"b\", candidate.call([\"b\"]))\n    assert_equal(\"play\", candidate.call([\"play\", \"play\", \"play\"]))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_132_is_nested",
+          "seconds": 119.0,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Create a function that takes a string as input which contains only square brackets.\n# The function should return true if and only if there is a valid subsequence of brackets \n# where at least one bracket in the subsequence is nested.\n# >>> is_nested.call(\"[[]]\")\n# true\n# >>> is_nested.call(\"[]]]]]]][[[[[]\")\n# false\n# >>> is_nested.call(\"[][]\")\n# false\n# >>> is_nested.call(\"[]\")\n# false\n# >>> is_nested.call(\"[[][]]\")\n# true\n# >>> is_nested.call(\"[[]][[\")\n# true\ndef is_nested(string)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_is_nested\n    candidate = method(:is_nested)\n    assert_equal(true, candidate.call(\"[[]]\"))\n    assert_equal(false, candidate.call(\"[]]]]]]][[[[[]\"))\n    assert_equal(false, candidate.call(\"[][]\"))\n    assert_equal(false, candidate.call(\"[]\"))\n    assert_equal(true, candidate.call(\"[[[[]]]]\"))\n    assert_equal(false, candidate.call(\"[]]]]]]]]]]\"))\n    assert_equal(true, candidate.call(\"[][][[]]\"))\n    assert_equal(false, candidate.call(\"[[]\"))\n    assert_equal(false, candidate.call(\"[]]\"))\n    assert_equal(true, candidate.call(\"[[]][[\"))\n    assert_equal(true, candidate.call(\"[[][]]\"))\n    assert_equal(false, candidate.call(\"\"))\n    assert_equal(false, candidate.call(\"[[[[[[[[\"))\n    assert_equal(false, candidate.call(\"]]]]]]]]\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_39_prime_fib",
+          "seconds": 114.4,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# prime_fib returns n-th number that is a Fibonacci number and it's also prime.\n# >>> prime_fib.call(1)\n# 2\n# >>> prime_fib.call(2)\n# 3\n# >>> prime_fib.call(3)\n# 5\n# >>> prime_fib.call(4)\n# 13\n# >>> prime_fib.call(5)\n# 89\ndef prime_fib(n)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_prime_fib\n    candidate = method(:prime_fib)\n    assert_equal(2, candidate.call(1))\n    assert_equal(3, candidate.call(2))\n    assert_equal(5, candidate.call(3))\n    assert_equal(13, candidate.call(4))\n    assert_equal(89, candidate.call(5))\n    assert_equal(233, candidate.call(6))\n    assert_equal(1597, candidate.call(7))\n    assert_equal(28657, candidate.call(8))\n    assert_equal(514229, candidate.call(9))\n    assert_equal(433494437, candidate.call(10))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_154_cycpattern_check",
+          "seconds": 89.9,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# You are given 2 words. You need to return true if the second word or any of its rotations is a substring in the first word\n# >>> cycpattern_check.call(\"abcd\", \"abd\")\n# false\n# >>> cycpattern_check.call(\"hello\", \"ell\")\n# true\n# >>> cycpattern_check.call(\"whassup\", \"psus\")\n# false\n# >>> cycpattern_check.call(\"abab\", \"baa\")\n# true\n# >>> cycpattern_check.call(\"efef\", \"eeff\")\n# false\n# >>> cycpattern_check.call(\"himenss\", \"simen\")\n# true\ndef cycpattern_check(a, b)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_cycpattern_check\n    candidate = method(:cycpattern_check)\n    assert_equal(false, candidate.call(\"xyzw\", \"xyw\"))\n    assert_equal(true, candidate.call(\"yello\", \"ell\"))\n    assert_equal(false, candidate.call(\"whattup\", \"ptut\"))\n    assert_equal(true, candidate.call(\"efef\", \"fee\"))\n    assert_equal(false, candidate.call(\"abab\", \"aabb\"))\n    assert_equal(true, candidate.call(\"winemtt\", \"tinem\"))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_1_separate_paren_groups",
+          "seconds": 10.8,
+          "error": null,
+          "tokens": 1109,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def separate_paren_groups(paren_string)\n  result = []\n  current = \"\"\n  count = 0\n  \n  paren_string.each_char do |char|\n    next if char == ' '\n    \n    if char == '('\n      count += 1\n      current << char\n    elsif char == ')'\n      count -= 1\n      current << char\n    end\n    \n    if count == 0 && !current.empty?\n      result << current\n      current = \"\"\n    end\n  end\n  \n  result\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_separate_paren_groups\n    candidate = method(:separate_paren_groups)\n    assert_equal([\"(()())\", \"((()))\", \"()\", \"((())()())\"], candidate.call(\"(()()) ((())) () ((())()())\"))\n    assert_equal([\"()\", \"(())\", \"((()))\", \"(((())))\"], candidate.call(\"() (()) ((())) (((())))\"))\n    assert_equal([\"(()(())((())))\"], candidate.call(\"(()(())((())))\"))\n    assert_equal([\"()\", \"(())\", \"(()())\"], candidate.call(\"( ) (( )) (( )( ))\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_55_fib",
+          "seconds": 19.5,
+          "error": null,
+          "tokens": 1685,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def fib(n)\n  a, b = 0, 1\n  n.times { a, b = b, a + b }\n  a\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_fib\n    candidate = method(:fib)\n    assert_equal(55, candidate.call(10))\n    assert_equal(1, candidate.call(1))\n    assert_equal(21, candidate.call(8))\n    assert_equal(89, candidate.call(11))\n    assert_equal(144, candidate.call(12))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_133_sum_squares",
+          "seconds": 7.9,
+          "error": null,
+          "tokens": 692,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def sum_squares(lst)\n  lst.map { |n| n.ceil ** 2 }.sum\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_sum_squares\n    candidate = method(:sum_squares)\n    assert_equal(14, candidate.call([1.0, 2.0, 3.0]))\n    assert_equal(14, candidate.call([1.0, 2.0, 3.0]))\n    assert_equal(84, candidate.call([1.0, 3.0, 5.0, 7.0]))\n    assert_equal(29, candidate.call([1.4, 4.2, 0.0]))\n    assert_equal(6, candidate.call([-2.4, 1.0, 1.0]))\n    assert_equal(10230, candidate.call([100.0, 1.0, 15.0, 2.0]))\n    assert_equal(200000000, candidate.call([10000.0, 10000.0]))\n    assert_equal(75, candidate.call([-1.4, 4.6, 6.3]))\n    assert_equal(1086, candidate.call([-1.4, 17.9, 18.9, 19.9]))\n    assert_equal(0, candidate.call([0.0]))\n    assert_equal(1, candidate.call([-1.0]))\n    assert_equal(2, candidate.call([-1.0, 1.0, 0.0]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_106_f",
+          "seconds": 11.9,
+          "error": null,
+          "tokens": 947,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def f(n)\n  (1..n).map do |i|\n    i.even? ? (1..i).reduce(1, :*) : (1..i).reduce(0, :+)\n  end\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_f\n    candidate = method(:f)\n    assert_equal([1, 2, 6, 24, 15], candidate.call(5))\n    assert_equal([1, 2, 6, 24, 15, 720, 28], candidate.call(7))\n    assert_equal([1], candidate.call(1))\n    assert_equal([1, 2, 6], candidate.call(3))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_102_choose_num",
+          "seconds": 14.3,
+          "error": null,
+          "tokens": 1203,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def choose_num(x, y)\n  y.even? ? (y >= x ? y : -1) : (y - 1 >= x ? y - 1 : -1)\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_choose_num\n    candidate = method(:choose_num)\n    assert_equal(14, candidate.call(12, 15))\n    assert_equal(-1, candidate.call(13, 12))\n    assert_equal(12354, candidate.call(33, 12354))\n    assert_equal(-1, candidate.call(5234, 5233))\n    assert_equal(28, candidate.call(6, 29))\n    assert_equal(-1, candidate.call(27, 10))\n    assert_equal(-1, candidate.call(7, 7))\n    assert_equal(546, candidate.call(546, 546))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_119_match_parens",
+          "seconds": 35.7,
+          "error": null,
+          "tokens": 2620,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def match_parens(lst)\n  balanced = ->(s) {\n    count = 0\n    s.each_char do |c|\n      count += c == '(' ? 1 : -1\n      return false if count < 0\n    end\n    count == 0\n  }\n  [lst[0] + lst[1], lst[1] + lst[0]].any?(&balanced) ? \"Yes\" : \"No\"\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_match_parens\n    candidate = method(:match_parens)\n    assert_equal(\"Yes\", candidate.call([\"()(\", \")\"]))\n    assert_equal(\"No\", candidate.call([\")\", \")\"]))\n    assert_equal(\"No\", candidate.call([\"(()(())\", \"())())\"]))\n    assert_equal(\"Yes\", candidate.call([\")())\", \"(()()(\"]))\n    assert_equal(\"Yes\", candidate.call([\"(())))\", \"(()())((\"]))\n    assert_equal(\"No\", candidate.call([\"()\", \"())\"]))\n    assert_equal(\"Yes\", candidate.call([\"(()(\", \"()))()\"]))\n    assert_equal(\"No\", candidate.call([\"((((\", \"((())\"]))\n    assert_equal(\"No\", candidate.call([\")(()\", \"(()(\"]))\n    assert_equal(\"No\", candidate.call([\")(\", \")(\"]))\n    assert_equal(\"Yes\", candidate.call([\"(\", \")\"]))\n    assert_equal(\"Yes\", candidate.call([\")\", \"(\"]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_90_next_smallest",
+          "seconds": 5.0,
+          "error": null,
+          "tokens": 548,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def next_smallest(lst)\n  unique = lst.uniq\n  return nil if unique.size < 2\n  unique.sort[1]\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_next_smallest\n    candidate = method(:next_smallest)\n    assert_equal(2, candidate.call([1, 2, 3, 4, 5]))\n    assert_equal(2, candidate.call([5, 1, 4, 3, 2]))\n    assert_equal(nil, candidate.call([]))\n    assert_equal(nil, candidate.call([1, 1]))\n    assert_equal(1, candidate.call([1, 1, 1, 1, 0]))\n    assert_equal(nil, candidate.call([1, 1]))\n    assert_equal(-35, candidate.call([-35, 34, 12, -45]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_77_iscube",
+          "seconds": 1.2,
+          "error": null,
+          "tokens": 75,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def iscube(a)\n  return true if a == 0\n  sign = a < 0 ? -1 : 1\n  abs_a = a.abs\n  cube_root = (abs_a ** (1.0/3.0)).round\n  sign * cube_root ** 3 == a\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_iscube\n    candidate = method(:iscube)\n    assert_equal(true, candidate.call(1))\n    assert_equal(false, candidate.call(2))\n    assert_equal(true, candidate.call(-1))\n    assert_equal(true, candidate.call(64))\n    assert_equal(false, candidate.call(180))\n    assert_equal(true, candidate.call(1000))\n    assert_equal(true, candidate.call(0))\n    assert_equal(false, candidate.call(1729))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_124_valid_date",
+          "seconds": 31.9,
+          "error": null,
+          "tokens": 3119,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def valid_date(date)\n  return false if date.nil? || date.empty?\n  \n  parts = date.split('-')\n  return false unless parts.length == 3\n  \n  month, day, year = parts\n  \n  month = month.to_i\n  day = day.to_i\n  year = year.to_i\n  \n  return false if month < 1 || month > 12\n  \n  if [1, 3, 5, 7, 8, 10, 12].include?(month)\n    return false if day < 1 || day > 31\n  elsif [4, 6, 9, 11].include?(month)\n    return false if day < 1 || day > 30\n  elsif month == 2\n    return false if day < 1 || day > 29\n  end\n  \n  true\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_valid_date\n    candidate = method(:valid_date)\n    assert_equal(true, candidate.call(\"03-11-2000\"))\n    assert_equal(false, candidate.call(\"15-01-2012\"))\n    assert_equal(false, candidate.call(\"04-0-2040\"))\n    assert_equal(true, candidate.call(\"06-04-2020\"))\n    assert_equal(true, candidate.call(\"01-01-2007\"))\n    assert_equal(false, candidate.call(\"03-32-2011\"))\n    assert_equal(false, candidate.call(\"\"))\n    assert_equal(false, candidate.call(\"04-31-3000\"))\n    assert_equal(true, candidate.call(\"06-06-2005\"))\n    assert_equal(false, candidate.call(\"21-31-2000\"))\n    assert_equal(true, candidate.call(\"04-12-2003\"))\n    assert_equal(false, candidate.call(\"04122003\"))\n    assert_equal(false, candidate.call(\"20030412\"))\n    assert_equal(false, candidate.call(\"2003-04\"))\n    assert_equal(false, candidate.call(\"2003-04-12\"))\n    assert_equal(false, candidate.call(\"04-2003\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_163_generate_integers",
+          "seconds": 69.1,
+          "error": null,
+          "tokens": 8192,
+          "hit_cap": true,
+          "finish_reason": "length",
+          "code": "# Given two positive integers a and b, return the even digits between a\n# and b, in ascending order.\n# For example:\n# >>> generate_integers.call(2, 8)\n# [2, 4, 6, 8]\n# >>> generate_integers.call(8, 2)\n# [2, 4, 6, 8]\n# >>> generate_integers.call(10, 14)\n# []\ndef generate_integers(a, b)\n\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_generate_integers\n    candidate = method(:generate_integers)\n    assert_equal([2, 4, 6, 8], candidate.call(2, 10))\n    assert_equal([2, 4, 6, 8], candidate.call(10, 2))\n    assert_equal([2, 4, 6, 8], candidate.call(132, 2))\n    assert_equal([], candidate.call(17, 89))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_20_find_closest_elements",
+          "seconds": 9.5,
+          "error": null,
+          "tokens": 858,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def find_closest_elements(numbers)\n  sorted = numbers.sort\n  min_diff = Float::INFINITY\n  result = nil\n  sorted.each_cons(2) do |a, b|\n    diff = b - a\n    if diff < min_diff\n      min_diff = diff\n      result = [a, b]\n    end\n  end\n  result\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_find_closest_elements\n    candidate = method(:find_closest_elements)\n    assert_equal([3.9, 4.0], candidate.call([1.0, 2.0, 3.9, 4.0, 5.0, 2.2]))\n    assert_equal([5.0, 5.9], candidate.call([1.0, 2.0, 5.9, 4.0, 5.0]))\n    assert_equal([2.0, 2.2], candidate.call([1.0, 2.0, 3.0, 4.0, 5.0, 2.2]))\n    assert_equal([2.0, 2.0], candidate.call([1.0, 2.0, 3.0, 4.0, 5.0, 2.0]))\n    assert_equal([2.2, 3.1], candidate.call([1.1, 2.2, 3.1, 4.1, 5.1]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_74_total_match",
+          "seconds": 8.1,
+          "error": null,
+          "tokens": 759,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def total_match(lst1, lst2)\n  total1 = lst1.sum(&:length)\n  total2 = lst2.sum(&:length)\n  total1 <= total2 ? lst1 : lst2\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_total_match\n    candidate = method(:total_match)\n    assert_equal([], candidate.call([], []))\n    assert_equal([\"hi\", \"hi\"], candidate.call([\"hi\", \"admin\"], [\"hi\", \"hi\"]))\n    assert_equal([\"hi\", \"admin\"], candidate.call([\"hi\", \"admin\"], [\"hi\", \"hi\", \"admin\", \"project\"]))\n    assert_equal([\"4\"], candidate.call([\"4\"], [\"1\", \"2\", \"3\", \"4\", \"5\"]))\n    assert_equal([\"hI\", \"Hi\"], candidate.call([\"hi\", \"admin\"], [\"hI\", \"Hi\"]))\n    assert_equal([\"hI\", \"hi\", \"hi\"], candidate.call([\"hi\", \"admin\"], [\"hI\", \"hi\", \"hi\"]))\n    assert_equal([\"hi\", \"admin\"], candidate.call([\"hi\", \"admin\"], [\"hI\", \"hi\", \"hii\"]))\n    assert_equal([], candidate.call([], [\"this\"]))\n    assert_equal([], candidate.call([\"this\"], []))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_109_move_one_ball",
+          "seconds": 45.7,
+          "error": null,
+          "tokens": 2912,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def move_one_ball(arr)\n  return true if arr.empty?\n  n = arr.size\n  count = 0\n  (0...n).each do |i|\n    count += 1 if arr[i] > arr[(i + 1) % n]\n  end\n  count <= 1\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_move_one_ball\n    candidate = method(:move_one_ball)\n    assert_equal(true, candidate.call([3, 4, 5, 1, 2]))\n    assert_equal(true, candidate.call([3, 5, 10, 1, 2]))\n    assert_equal(false, candidate.call([4, 3, 1, 2]))\n    assert_equal(false, candidate.call([3, 5, 4, 1, 2]))\n    assert_equal(true, candidate.call([]))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_14_all_prefixes",
+          "seconds": 5.5,
+          "error": null,
+          "tokens": 520,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def all_prefixes(string)\n  (1..string.length).map { |i| string[0...i] }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_all_prefixes\n    candidate = method(:all_prefixes)\n    assert_equal([], candidate.call(\"\"))\n    assert_equal([\"a\", \"as\", \"asd\", \"asdf\", \"asdfg\", \"asdfgh\"], candidate.call(\"asdfgh\"))\n    assert_equal([\"W\", \"WW\", \"WWW\"], candidate.call(\"WWW\"))\n  end\nend\n",
+          "passed": true
+        },
+        {
+          "name": "HumanEval_95_check_dict_case",
+          "seconds": 12.6,
+          "error": null,
+          "tokens": 1147,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def check_dict_case(dict)\n  return false if dict.empty?\n  keys = dict.keys\n  return false unless keys.all? { |k| k.is_a?(String) }\n  keys.all? { |k| k == k.downcase } || keys.all? { |k| k == k.upcase }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_check_dict_case\n    candidate = method(:check_dict_case)\n    assert_equal(true, candidate.call({\"p\" => \"pineapple\", \"b\" => \"banana\"}))\n    assert_equal(false, candidate.call({\"p\" => \"pineapple\", \"A\" => \"banana\", \"B\" => \"banana\"}))\n    assert_equal(false, candidate.call({\"p\" => \"pineapple\", \"5\" => \"banana\", \"a\" => \"apple\"}))\n    assert_equal(false, candidate.call({\"Name\" => \"John\", \"Age\" => \"36\", \"City\" => \"Houston\"}))\n    assert_equal(true, candidate.call({\"STATE\" => \"NC\", \"ZIP\" => \"12345\"}))\n    assert_equal(true, candidate.call({\"fruit\" => \"Orange\", \"taste\" => \"Sweet\"}))\n    assert_equal(false, candidate.call({}))\n  end\nend\n",
+          "passed": false
+        },
+        {
+          "name": "HumanEval_105_by_length",
+          "seconds": 6.8,
+          "error": null,
+          "tokens": 722,
+          "hit_cap": false,
+          "finish_reason": "stop",
+          "code": "def by_length(arr)\n  names = [\"One\", \"Two\", \"Three\", \"Four\", \"Five\", \"Six\", \"Seven\", \"Eight\", \"Nine\"]\n  arr.select { |n| n.between?(1, 9) }.sort.reverse.map { |n| names[n - 1] }\nend\n\n\nrequire 'test/unit'\nclass TestHumanEval < Test::Unit::TestCase\n  def test_by_length\n    candidate = method(:by_length)\n    assert_equal([\"Eight\", \"Five\", \"Four\", \"Three\", \"Two\", \"Two\", \"One\", \"One\"], candidate.call([2, 1, 1, 4, 5, 8, 2, 3]))\n    assert_equal([], candidate.call([]))\n    assert_equal([\"One\"], candidate.call([1, -1, 55]))\n    assert_equal([\"Three\", \"Two\", \"One\"], candidate.call([1, -1, 3, 2]))\n    assert_equal([\"Nine\", \"Eight\", \"Four\"], candidate.call([9, 4, 8]))\n  end\nend\n",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "load_seconds": 28.0,
+  "finished_at": "2026-10-20T09:14:03+11:00"
+}

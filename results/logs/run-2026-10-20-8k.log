@@ -1,0 +1,57 @@
+[08:01:09] run 2026-10-20-8k: 4 models, screens coding
+[08:01:38] Qwopus3.6-35B-A3B-Coder-8bit: loaded in 28.0s
+[08:06:45]   coding 10/161, pass 60% (6), 30.7 s/problem, ~77 min left at this pace
+[08:09:07]   coding 20/161, pass 70% (14), 22.4 s/problem, ~53 min left at this pace
+[08:11:44]   coding 30/161, pass 76% (23), 20.2 s/problem, ~44 min left at this pace
+[08:19:07]   coding 40/161, pass 67% (27), 26.2 s/problem, ~53 min left at this pace
+[08:24:15]   coding 50/161, pass 70% (35), 27.1 s/problem, ~50 min left at this pace
+[08:28:29]   coding 60/161, pass 71% (43), 26.8 s/problem, ~45 min left at this pace
+[08:32:25]   coding 70/161, pass 74% (52), 26.4 s/problem, ~40 min left at this pace
+[08:35:31]   coding 80/161, pass 76% (61), 25.4 s/problem, ~34 min left at this pace
+[08:40:04]   coding 90/161, pass 77% (70), 25.6 s/problem, ~30 min left at this pace
+[08:44:38]   coding 100/161, pass 76% (76), 25.8 s/problem, ~26 min left at this pace
+[08:47:16]   coding 110/161, pass 77% (85), 24.9 s/problem, ~21 min left at this pace
+[08:51:35]   coding 120/161, pass 77% (93), 25.0 s/problem, ~17 min left at this pace
+[08:56:45]   coding 130/161, pass 77% (101), 25.4 s/problem, ~13 min left at this pace
+[09:03:23]   coding 140/161, pass 76% (107), 26.5 s/problem, ~9 min left at this pace
+[09:10:11]   coding 150/161, pass 75% (113), 27.4 s/problem, ~5 min left at this pace
+[09:13:56]   coding 160/161, pass 75% (121), 27.1 s/problem, ~0 min left at this pace
+[09:14:03]   coding {attempted: 161, passed: 122, pass_rate: 0.758, seconds_per_problem: 26.9, solved_per_hour: 101.4, hit_cap: 26, stop: "completed"}
+[09:14:32] Qwen3.6-35B-A3B-8bit: loaded in 27.3s
+[09:19:28]   coding 10/161, pass 80% (8), 29.7 s/problem, ~75 min left at this pace
+[09:22:49]   coding 20/161, pass 80% (16), 24.9 s/problem, ~58 min left at this pace
+[09:26:56]   coding 30/161, pass 86% (26), 24.8 s/problem, ~54 min left at this pace
+[09:31:53]   coding 40/161, pass 87% (35), 26.0 s/problem, ~52 min left at this pace
+[09:37:20]   coding 50/161, pass 88% (44), 27.4 s/problem, ~51 min left at this pace
+[09:42:10]   coding 60/161, pass 90% (54), 27.6 s/problem, ~47 min left at this pace
+[09:46:26]   coding 70/161, pass 91% (64), 27.3 s/problem, ~41 min left at this pace
+[09:49:14]   coding 80/161, pass 92% (74), 26.0 s/problem, ~35 min left at this pace
+[09:52:41]   coding 90/161, pass 93% (84), 25.4 s/problem, ~30 min left at this pace
+[09:56:14]   coding 100/161, pass 93% (93), 25.0 s/problem, ~25 min left at this pace
+[10:00:39]   coding 110/161, pass 93% (103), 25.2 s/problem, ~21 min left at this pace
+[10:05:27]   coding 120/161, pass 93% (112), 25.5 s/problem, ~17 min left at this pace
+[10:10:24]   coding 130/161, pass 93% (122), 25.8 s/problem, ~13 min left at this pace
+[10:13:47]   coding 140/161, pass 94% (132), 25.4 s/problem, ~9 min left at this pace
+[10:19:19]   coding 150/161, pass 94% (141), 25.9 s/problem, ~5 min left at this pace
+[10:24:31]   coding 160/161, pass 93% (150), 26.2 s/problem, ~0 min left at this pace
+[10:24:46]   coding {attempted: 161, passed: 151, pass_rate: 0.938, seconds_per_problem: 26.1, solved_per_hour: 129.4, hit_cap: 1, stop: "completed"}
+[10:24:53] mlx-community--Qwen3.6-35B-A3B-4bit: loaded in 6.4s
+[10:31:30]   coding 10/161, pass 70% (7), 39.7 s/problem, ~100 min left at this pace
+[10:35:48]   coding 20/161, pass 75% (15), 32.7 s/problem, ~77 min left at this pace
+[10:41:09]   coding 30/161, pass 83% (25), 32.5 s/problem, ~71 min left at this pace
+[10:48:07]   coding 40/161, pass 87% (35), 34.8 s/problem, ~70 min left at this pace
+[10:54:38]   coding 50/161, pass 90% (45), 35.7 s/problem, ~66 min left at this pace
+[11:00:08]   coding 60/161, pass 91% (55), 35.2 s/problem, ~59 min left at this pace
+[11:05:59]   coding 70/161, pass 92% (65), 35.2 s/problem, ~53 min left at this pace
+[11:10:23]   coding 80/161, pass 93% (75), 34.1 s/problem, ~46 min left at this pace
+[11:16:34]   coding 90/161, pass 94% (85), 34.5 s/problem, ~41 min left at this pace
+[11:21:16]   coding 100/161, pass 94% (94), 33.8 s/problem, ~34 min left at this pace
+[11:26:23]   coding 110/161, pass 93% (103), 33.5 s/problem, ~29 min left at this pace
+[11:31:51]   coding 120/161, pass 93% (112), 33.5 s/problem, ~23 min left at this pace
+[11:38:23]   coding 130/161, pass 93% (121), 33.9 s/problem, ~18 min left at this pace
+[11:43:05]   coding 140/161, pass 93% (131), 33.5 s/problem, ~12 min left at this pace
+[11:50:30]   coding 150/161, pass 92% (139), 34.2 s/problem, ~6 min left at this pace
+[11:57:38]   coding 160/161, pass 92% (148), 34.8 s/problem, ~1 min left at this pace
+[11:58:09]   coding {attempted: 161, passed: 149, pass_rate: 0.925, seconds_per_problem: 34.7, solved_per_hour: 96.1, hit_cap: 2, stop: "completed"}
+[11:58:17] mlx-community--gemma-4-26b-a4b-it-4bit: loaded in 7.5s
+[12:11:53]   coding 10/161, pass 60% (6), 81.5 s/problem, ~205 min left at this pace

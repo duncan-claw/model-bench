@@ -1,0 +1,9 @@
+{
+  "model": "ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16",
+  "host": "mbp14-omlx",
+  "size_gb": 11,
+  "started_at": "2026-10-19T19:24:50+11:00",
+  "screens": {},
+  "error": "RuntimeError: load failed 500: {\"detail\" => \"Model 'ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16' failed to load: Splash exited with code 1 while loading ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16: error: omlx/ZQ-Dev-KAT-Coder-V2.5-Dev-oQ2e-fp16",
+  "finished_at": "2026-10-19T19:24:54+11:00"
+}

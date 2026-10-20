@@ -1,0 +1,184 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Stage 1+2 screens: speed, Ruby coding, tool calling, small agentic fix.
+# Usage: bin/bench [--only SUBSTR] [--run NAME] [--screens speed,coding,tools,agentic]
+# Results: results/<run>/<model>.json and results/<run>/RESULTS.md
+
+require "json"
+require "time"
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+require "yaml"
+require "open3"
+require "fileutils"
+require "net/http"
+require "optparse"
+require_relative "../lib/client"
+require_relative "../lib/screens/coding"
+require_relative "../lib/screens/tools"
+require_relative "../lib/screens/agentic"
+
+ROOT = File.expand_path("..", __dir__)
+BOX = { "coding" => 120, "tools" => 90, "agentic" => 120 }.freeze
+SPEED_PROMPT = "Explain, in about 300 words, how Rails' Solid Queue processes background jobs."
+
+opts = { screens: %w[speed coding tools agentic], run: Time.now.strftime("%Y-%m-%d") }
+OptionParser.new do |o|
+  o.on("--only S") { opts[:only] = _1 }
+  o.on("--run NAME") { opts[:run] = _1 }
+  o.on("--screens LIST") { opts[:screens] = _1.split(",") }
+  o.on("--include-pending") { opts[:pending] = true }
+  o.on("--host H") { opts[:host] = _1 }
+  # Extended mode: all problems, batch-tested, with early stops; longer agentic budget.
+  o.on("--extended") { opts[:extended] = true }
+  o.on("--models LIST") { opts[:models] = _1.split(",") }
+  o.on("--max-tokens N", Integer) { opts[:max_tokens] = _1 }
+  o.on("--max-minutes N", Integer) { opts[:max_minutes] = _1 }
+  o.on("--agentic-box S", Integer) { opts[:agentic_box] = _1 }
+  o.on("--agentic-turns N", Integer) { opts[:agentic_turns] = _1 }
+end.parse!
+
+config = YAML.load_file(File.join(ROOT, "config/models.yml"))
+# Host addresses live in config/hosts.yml (git-ignored; copy config/hosts.example.yml to start).
+hosts_file = File.join(ROOT, "config/hosts.yml")
+abort "missing config/hosts.yml: copy config/hosts.example.yml and fill in your hosts" unless File.exist?(hosts_file)
+config["hosts"] = YAML.load_file(hosts_file).fetch("hosts")
+out_dir = File.join(ROOT, "results", opts[:run])
+FileUtils.mkdir_p(out_dir)
+
+def log(msg) = $stdout.puts("[#{Time.now.strftime('%H:%M:%S')}] #{msg}").tap { $stdout.flush }
+
+# The oMLX key is read from the MBP's own settings over ssh, held in memory only.
+def omlx_key(host)
+  @omlx_key ||= {}
+  @omlx_key[host["ssh"]] ||= begin
+    cmd = %q(python3 -c 'import json,os;print(json.load(open(os.path.expanduser("~/.omlx/settings.json")))["auth"]["api_key"])')
+    out, st = Open3.capture2("ssh", "-o", "ConnectTimeout=5", host["ssh"], cmd)
+    raise "could not read oMLX key" unless st.success?
+
+    out.strip
+  end
+end
+
+def admin(host, method, path)
+  uri = URI(host["base"] + path)
+  http = Net::HTTP.new(uri.host, uri.port, nil)
+  http.read_timeout = 600
+  req = (method == :post ? Net::HTTP::Post : Net::HTTP::Get).new(uri)
+  req["Authorization"] = "Bearer #{omlx_key(host)}"
+  res = http.request(req)
+  [res.code.to_i, (JSON.parse(res.body) rescue res.body)]
+end
+
+def loaded_models(host)
+  _code, body = admin(host, :get, "/admin/api/models")
+  list = body.is_a?(Hash) ? body["models"] : body
+  Array(list).select { _1.is_a?(Hash) && _1["loaded"] }.map { _1["id"] }
+end
+
+# One model in memory at a time: unload everything, then load the target and time it.
+def prepare_omlx(host, load_id)
+  loaded_models(host).each { |id| admin(host, :post, "/admin/api/models/#{id}/unload") }
+  t = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+  code, body = admin(host, :post, "/admin/api/models/#{load_id}/load")
+  secs = Process.clock_gettime(Process::CLOCK_MONOTONIC) - t
+  raise "load failed #{code}: #{body.to_s[0, 200]}" unless code.between?(200, 299)
+
+  secs.round(1)
+end
+
+def lms(host, *args)
+  out, st = Open3.capture2e("ssh", "-o", "ConnectTimeout=5", host["ssh"], "~/.lmstudio/bin/lms", *args)
+  raise "lms #{args.first} failed: #{out[-300..] || out}" unless st.success?
+
+  out
+end
+
+# LM Studio shares the GPU with oMLX, so oMLX is emptied first; then one GGUF at a time.
+def prepare_lmstudio(host, omlx, id)
+  loaded_models(omlx).each { |mid| admin(omlx, :post, "/admin/api/models/#{mid}/unload") }
+  # Bind to the tailnet address only (not 0.0.0.0) so the Mini can reach it and the LAN cannot.
+  lms(host, "server", "start", "--port", "1234", "--bind", URI(host["base"]).host)
+  lms(host, "unload", "--all")
+  t = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+  lms(host, "load", id, "--context-length", "16384", "-y")
+  (Process.clock_gettime(Process::CLOCK_MONOTONIC) - t).round(1)
+end
+
+pinned = nil
+used_lmstudio = nil
+omlx_host = config["hosts"].values.find { _1["kind"] == "omlx" }
+models = config["models"].reject { (_1["pending"] && !opts[:pending]) || _1["parked"] }
+models = models.select { _1["id"].include?(opts[:only]) } if opts[:only]
+models = models.select { _1["host"] == opts[:host] } if opts[:host]
+if opts[:models]
+  by_id = config["models"].to_h { [_1["id"], _1] }
+  models = opts[:models].map { |id| by_id.fetch(id) { abort("unknown model #{id}") } }
+end
+log "run #{opts[:run]}: #{models.size} models, screens #{opts[:screens].join(',')}"
+
+models.each do |m|
+  host = config["hosts"].fetch(m["host"])
+  slug = m["id"].gsub(/[^\w.-]+/, "_")
+  result = { model: m["id"], host: m["host"], size_gb: m["size_gb"], started_at: Time.now.iso8601, screens: {} }
+  begin
+    key = nil
+    if host["kind"] == "omlx"
+      pinned ||= loaded_models(host)
+      result[:load_seconds] = prepare_omlx(host, m["load_id"] || m["id"])
+      key = omlx_key(host)
+      log "#{m['id']}: loaded in #{result[:load_seconds]}s"
+    elsif host["kind"] == "lmstudio"
+      pinned ||= loaded_models(omlx_host)
+      used_lmstudio = host
+      result[:load_seconds] = prepare_lmstudio(host, omlx_host, m["id"])
+      log "#{m['id']}: loaded in LM Studio in #{result[:load_seconds]}s"
+    end
+    client = Client.new(base: host["base"], model: m["id"], api_key: key)
+
+    if opts[:screens].include?("speed")
+      result[:screens][:speed] = client.stream([{ role: "user", content: SPEED_PROMPT }], max_tokens: 400, timeout: 90)
+      log "  speed #{result[:screens][:speed].slice(:ttft, :tok_per_s, :error)}"
+      raise "endpoint unreachable: #{result[:screens][:speed][:error]}" if result[:screens][:speed][:error]
+    end
+    { "coding" => Screens::Coding, "tools" => Screens::Tools, "agentic" => Screens::Agentic }.each do |name, klass|
+      next unless opts[:screens].include?(name)
+
+      r = case name
+          when "coding"
+            klass.new(client, box: BOX[name], max_tokens: opts[:max_tokens] || 1024, extended: opts[:extended],
+                              max_minutes: opts[:max_minutes] || 60, progress: ->(msg) { log "  #{msg}" }).run
+          when "agentic"
+            klass.new(client, box: opts[:agentic_box] || BOX[name], max_turns: opts[:agentic_turns] || 15,
+                              max_tokens: [opts[:max_tokens] || 2048, 2048].max).run
+          else
+            klass.new(client, box: BOX[name]).run
+          end
+      result[:screens][name.to_sym] = r
+      summary = r.slice(:attempted, :passed, :pass_rate, :seconds_per_problem, :solved_per_hour, :hit_cap, :solved, :turns, :stop)
+      log "  #{name} #{summary}"
+    end
+  rescue StandardError => e
+    result[:error] = "#{e.class}: #{e.message}"[0, 300]
+    log "  ERROR #{result[:error]}"
+  ensure
+    result[:finished_at] = Time.now.iso8601
+    File.write(File.join(out_dir, "#{slug}.json"), JSON.pretty_generate(result))
+  end
+end
+
+if used_lmstudio
+  lms(used_lmstudio, "unload", "--all")
+  lms(used_lmstudio, "server", "stop")
+  log "LM Studio unloaded and server stopped"
+end
+
+# Put back whatever was loaded (oMLX's pinned model) before the run started.
+omlx = omlx_host
+if pinned && omlx
+  loaded_models(omlx).each { |id| admin(omlx, :post, "/admin/api/models/#{id}/unload") }
+  pinned.each { |id| admin(omlx, :post, "/admin/api/models/#{id}/load") }
+  log "restored: #{pinned.join(', ')}"
+end
+system(File.join(ROOT, "bin/report"), opts[:run])

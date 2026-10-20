@@ -1,0 +1,11 @@
+#!/bin/sh
+# Copy run logs into results/logs/ with host addresses and home paths redacted, for publishing.
+# The originals in results/*.log stay local (git-ignored).
+cd "$(dirname "$0")/.." || exit 1
+for f in results/*.log; do
+  sed -E -e 's#(100|192\.168|10)\.[0-9]+\.[0-9]+(\.[0-9]+)?(:[0-9]+)?#<mac-host>\3#g' \
+         -e "s#$HOME#~#g" -e 's#/Users/[A-Za-z0-9._-]+#~#g' \
+         "$f" > "results/logs/$(basename "$f")"
+done
+grep -rlE '([0-9]{1,3}\.){3}[0-9]{1,3}|/Users/' results/logs && { echo "redaction incomplete"; exit 1; }
+echo "redacted $(ls results/logs | wc -l | tr -d ' ') logs into results/logs/"

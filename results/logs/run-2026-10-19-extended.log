@@ -1,0 +1,236 @@
+[20:30:34] run 2026-10-19-extended: 14 models, screens coding,agentic
+[20:30:47] mlx-community--Qwen3.6-35B-A3B-4bit: loaded in 11.5s
+[20:38:38]   coding 10/161, pass 70% (7), 47.0 s/problem, ~118 min left at this pace
+[20:43:58]   coding 20/161, pass 70% (14), 39.5 s/problem, ~93 min left at this pace
+[20:49:46]   coding 30/161, pass 80% (24), 38.0 s/problem, ~83 min left at this pace
+[20:56:37]   coding 40/161, pass 80% (32), 38.7 s/problem, ~78 min left at this pace
+[21:02:58]   coding 50/161, pass 78% (39), 38.6 s/problem, ~71 min left at this pace
+[21:08:37]   coding 60/161, pass 80% (48), 37.8 s/problem, ~64 min left at this pace
+[21:15:18]   coding 70/161, pass 80% (56), 38.1 s/problem, ~58 min left at this pace
+[21:20:31]   coding 80/161, pass 82% (66), 37.3 s/problem, ~50 min left at this pace
+[21:26:34]   coding 90/161, pass 82% (74), 37.2 s/problem, ~44 min left at this pace
+[21:30:53]   coding {attempted: 99, passed: 81, pass_rate: 0.818, seconds_per_problem: 36.3, solved_per_hour: 81.1, hit_cap: 14, stop: "time_cap (60 min)"}
+[21:31:59]   agentic {solved: false, turns: 5, stop: "no_tool_call"}
+[21:32:31] Qwopus3.6-35B-A3B-Coder-8bit: loaded in 31.8s
+[21:35:20]   coding 10/161, pass 60% (6), 16.8 s/problem, ~42 min left at this pace
+[21:37:02]   coding 20/161, pass 65% (13), 13.5 s/problem, ~32 min left at this pace
+[21:39:26]   coding 30/161, pass 73% (22), 13.8 s/problem, ~30 min left at this pace
+[21:43:08]   coding 40/161, pass 67% (27), 15.9 s/problem, ~32 min left at this pace
+[21:46:24]   coding 50/161, pass 68% (34), 16.6 s/problem, ~31 min left at this pace
+[21:49:37]   coding 60/161, pass 70% (42), 17.1 s/problem, ~29 min left at this pace
+[21:52:10]   coding 70/161, pass 71% (50), 16.8 s/problem, ~26 min left at this pace
+[21:54:19]   coding 80/161, pass 73% (59), 16.3 s/problem, ~22 min left at this pace
+[21:57:45]   coding 90/161, pass 74% (67), 16.8 s/problem, ~20 min left at this pace
+[22:00:54]   coding 100/161, pass 73% (73), 17.0 s/problem, ~17 min left at this pace
+[22:03:19]   coding 110/161, pass 74% (82), 16.8 s/problem, ~14 min left at this pace
+[22:06:07]   coding 120/161, pass 75% (90), 16.8 s/problem, ~11 min left at this pace
+[22:09:53]   coding 130/161, pass 74% (97), 17.2 s/problem, ~9 min left at this pace
+[22:13:33]   coding 140/161, pass 73% (103), 17.6 s/problem, ~6 min left at this pace
+[22:18:14]   coding 150/161, pass 72% (109), 18.3 s/problem, ~3 min left at this pace
+[22:21:23]   coding 160/161, pass 73% (117), 18.3 s/problem, ~0 min left at this pace
+[22:21:30]   coding {attempted: 161, passed: 118, pass_rate: 0.733, seconds_per_problem: 18.2, solved_per_hour: 145.2, hit_cap: 33, stop: "completed"}
+[22:21:50]   agentic {solved: true, turns: 8, stop: "finish"}
+[22:21:56] SrogiLesnik--Gemma-4-19B-mlx-4Bit: loaded in 5.2s
+[22:22:13]   coding 10/161, pass 60% (6), 1.8 s/problem, ~4 min left at this pace
+[22:23:42]   coding 20/161, pass 70% (14), 5.3 s/problem, ~12 min left at this pace
+[22:25:16]   coding 30/161, pass 80% (24), 6.7 s/problem, ~15 min left at this pace
+[22:30:33]   coding 40/161, pass 80% (32), 12.9 s/problem, ~26 min left at this pace
+[22:36:58]   coding 50/161, pass 76% (38), 18.0 s/problem, ~33 min left at this pace
+[22:40:59]   coding 60/161, pass 78% (47), 19.1 s/problem, ~32 min left at this pace
+[22:44:57]   coding 70/161, pass 78% (55), 19.7 s/problem, ~30 min left at this pace
+[22:50:07]   coding 80/161, pass 77% (62), 21.1 s/problem, ~29 min left at this pace
+[22:55:23]   coding 90/161, pass 77% (70), 22.3 s/problem, ~26 min left at this pace
+[22:59:45]   coding 100/161, pass 77% (77), 22.7 s/problem, ~23 min left at this pace
+[23:02:30]   coding 110/161, pass 77% (85), 22.1 s/problem, ~19 min left at this pace
+[23:06:40]   coding 120/161, pass 76% (92), 22.4 s/problem, ~15 min left at this pace
+[23:13:51]   coding 130/161, pass 76% (99), 24.0 s/problem, ~12 min left at this pace
+[23:16:55]   coding 140/161, pass 74% (104), 23.6 s/problem, ~8 min left at this pace
+[23:22:42]   coding {attempted: 148, passed: 110, pass_rate: 0.743, seconds_per_problem: 24.5, solved_per_hour: 109.0, hit_cap: 44, stop: "time_cap (60 min)"}
+[23:24:09]   agentic {solved: false, turns: 4, stop: "no_tool_call"}
+[23:24:45] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 35.9s
+[23:25:58]   coding 10/161, pass 70% (7), 7.3 s/problem, ~18 min left at this pace
+[23:26:32]   coding 20/161, pass 65% (13), 5.4 s/problem, ~13 min left at this pace
+[23:27:09]   coding 30/161, pass 76% (23), 4.8 s/problem, ~11 min left at this pace
+[23:27:54]   coding 40/161, pass 82% (33), 4.7 s/problem, ~10 min left at this pace
+[23:28:35]   coding 50/161, pass 84% (42), 4.6 s/problem, ~9 min left at this pace
+[23:30:11]   coding 60/161, pass 86% (52), 5.4 s/problem, ~9 min left at this pace
+[23:30:56]   coding 70/161, pass 87% (61), 5.3 s/problem, ~8 min left at this pace
+[23:31:29]   coding 80/161, pass 86% (69), 5.1 s/problem, ~7 min left at this pace
+[23:32:05]   coding 90/161, pass 84% (76), 4.9 s/problem, ~6 min left at this pace
+[23:32:42]   coding 100/161, pass 86% (86), 4.8 s/problem, ~5 min left at this pace
+[23:33:16]   coding 110/161, pass 83% (92), 4.6 s/problem, ~4 min left at this pace
+[23:33:58]   coding 120/161, pass 84% (101), 4.6 s/problem, ~3 min left at this pace
+[23:34:37]   coding 130/161, pass 85% (111), 4.6 s/problem, ~2 min left at this pace
+[23:35:10]   coding 140/161, pass 85% (119), 4.5 s/problem, ~2 min left at this pace
+[23:35:46]   coding 150/161, pass 84% (127), 4.4 s/problem, ~1 min left at this pace
+[23:36:40]   coding 160/161, pass 84% (135), 4.5 s/problem, ~0 min left at this pace
+[23:36:45]   coding {attempted: 161, passed: 136, pass_rate: 0.845, seconds_per_problem: 4.4, solved_per_hour: 692.5, hit_cap: 0, stop: "completed"}
+[23:37:30]   agentic {solved: true, turns: 6, stop: "finish"}
+[23:37:51] ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit: loaded in 20.8s
+[23:39:53]   coding 10/161, pass 90% (9), 12.2 s/problem, ~31 min left at this pace
+[23:40:30]   coding 20/161, pass 85% (17), 7.9 s/problem, ~19 min left at this pace
+[23:41:13]   coding 30/161, pass 86% (26), 6.7 s/problem, ~15 min left at this pace
+[23:43:21]   coding 40/161, pass 87% (35), 8.2 s/problem, ~17 min left at this pace
+[23:44:15]   coding 50/161, pass 90% (45), 7.7 s/problem, ~14 min left at this pace
+[23:45:59]   coding 60/161, pass 86% (52), 8.1 s/problem, ~14 min left at this pace
+[23:46:52]   coding 70/161, pass 87% (61), 7.7 s/problem, ~12 min left at this pace
+[23:47:38]   coding 80/161, pass 87% (70), 7.3 s/problem, ~10 min left at this pace
+[23:48:33]   coding 90/161, pass 85% (77), 7.1 s/problem, ~8 min left at this pace
+[23:50:31]   coding 100/161, pass 85% (85), 7.6 s/problem, ~8 min left at this pace
+[23:51:56]   coding 110/161, pass 85% (94), 7.7 s/problem, ~7 min left at this pace
+[23:53:01]   coding 120/161, pass 85% (103), 7.6 s/problem, ~5 min left at this pace
+[23:54:34]   coding 130/161, pass 84% (110), 7.7 s/problem, ~4 min left at this pace
+[23:55:42]   coding 140/161, pass 85% (119), 7.6 s/problem, ~3 min left at this pace
+[23:57:35]   coding 150/161, pass 83% (125), 7.9 s/problem, ~1 min left at this pace
+[23:58:36]   coding 160/161, pass 83% (134), 7.8 s/problem, ~0 min left at this pace
+[23:58:42]   coding {attempted: 161, passed: 135, pass_rate: 0.839, seconds_per_problem: 7.7, solved_per_hour: 392.8, hit_cap: 7, stop: "completed"}
+[00:00:01]   agentic {solved: true, turns: 8, stop: "finish"}
+[00:00:08] kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit: loaded in 6.6s
+[00:00:49]   coding 10/161, pass 40% (4), 4.1 s/problem, ~10 min left at this pace
+[00:01:25]   coding 20/161, pass 50% (10), 3.9 s/problem, ~9 min left at this pace
+[00:02:11]   coding 30/161, pass 60% (18), 4.1 s/problem, ~9 min left at this pace
+[00:03:08]   coding 40/161, pass 62% (25), 4.5 s/problem, ~9 min left at this pace
+[00:03:56]   coding 50/161, pass 64% (32), 4.6 s/problem, ~8 min left at this pace
+[00:04:53]   coding 60/161, pass 66% (40), 4.7 s/problem, ~8 min left at this pace
+[00:05:44]   coding 70/161, pass 67% (47), 4.8 s/problem, ~7 min left at this pace
+[00:06:24]   coding 80/161, pass 67% (54), 4.7 s/problem, ~6 min left at this pace
+[00:07:07]   coding 90/161, pass 70% (63), 4.7 s/problem, ~6 min left at this pace
+[00:07:47]   coding 100/161, pass 71% (71), 4.6 s/problem, ~5 min left at this pace
+[00:08:29]   coding 110/161, pass 70% (78), 4.6 s/problem, ~4 min left at this pace
+[00:09:17]   coding 120/161, pass 71% (86), 4.6 s/problem, ~3 min left at this pace
+[00:10:14]   coding 130/161, pass 72% (94), 4.7 s/problem, ~2 min left at this pace
+[00:10:56]   coding 140/161, pass 73% (103), 4.6 s/problem, ~2 min left at this pace
+[00:11:39]   coding 150/161, pass 73% (110), 4.6 s/problem, ~1 min left at this pace
+[00:12:35]   coding 160/161, pass 72% (116), 4.7 s/problem, ~0 min left at this pace
+[00:12:41]   coding {attempted: 161, passed: 117, pass_rate: 0.727, seconds_per_problem: 4.6, solved_per_hour: 571.8, hit_cap: 0, stop: "completed"}
+[00:16:24]   agentic {solved: false, turns: 3, stop: "no_tool_call"}
+[00:16:55] Qwen3.6-35B-A3B-8bit: loaded in 30.4s
+[00:21:14]   coding 10/161, pass 70% (7), 25.9 s/problem, ~65 min left at this pace
+[00:24:37]   coding 20/161, pass 75% (15), 23.1 s/problem, ~54 min left at this pace
+[00:28:05]   coding 30/161, pass 83% (25), 22.4 s/problem, ~49 min left at this pace
+[00:33:22]   coding 40/161, pass 80% (32), 24.7 s/problem, ~50 min left at this pace
+[00:37:52]   coding 50/161, pass 78% (39), 25.1 s/problem, ~47 min left at this pace
+[00:41:51]   coding 60/161, pass 80% (48), 24.9 s/problem, ~42 min left at this pace
+[00:45:45]   coding 70/161, pass 81% (57), 24.7 s/problem, ~37 min left at this pace
+[00:48:35]   coding 80/161, pass 83% (67), 23.8 s/problem, ~32 min left at this pace
+[00:52:02]   coding 90/161, pass 85% (77), 23.4 s/problem, ~28 min left at this pace
+[00:55:34]   coding 100/161, pass 86% (86), 23.2 s/problem, ~24 min left at this pace
+[00:59:42]   coding 110/161, pass 84% (93), 23.3 s/problem, ~20 min left at this pace
+[01:03:46]   coding 120/161, pass 85% (102), 23.4 s/problem, ~16 min left at this pace
+[01:08:18]   coding 130/161, pass 85% (111), 23.7 s/problem, ~12 min left at this pace
+[01:11:32]   coding 140/161, pass 86% (121), 23.4 s/problem, ~8 min left at this pace
+[01:16:42]   coding 150/161, pass 85% (128), 23.9 s/problem, ~4 min left at this pace
+[01:17:26]   coding {attempted: 151, passed: 128, pass_rate: 0.848, seconds_per_problem: 24.0, solved_per_hour: 127.3, hit_cap: 18, stop: "time_cap (60 min)"}
+[01:18:32]   agentic {solved: true, turns: 8, stop: "finish"}
+[01:18:40] mlx-community--gemma-4-26b-a4b-it-4bit: loaded in 7.1s
+[01:27:30]   coding 10/161, pass 60% (6), 53.1 s/problem, ~134 min left at this pace
+[01:35:18]   coding 20/161, pass 65% (13), 49.9 s/problem, ~117 min left at this pace
+[01:41:53]   coding 30/161, pass 73% (22), 46.4 s/problem, ~101 min left at this pace
+[01:51:51]   coding 40/161, pass 62% (25), 49.8 s/problem, ~100 min left at this pace
+[02:01:47]   coding 50/161, pass 60% (30), 51.7 s/problem, ~96 min left at this pace
+[02:09:47]   coding 60/161, pass 63% (38), 51.1 s/problem, ~86 min left at this pace
+[02:16:39]   coding 70/161, pass 67% (47), 49.7 s/problem, ~75 min left at this pace
+[02:19:38]   coding {attempted: 74, passed: 50, pass_rate: 0.676, seconds_per_problem: 49.4, solved_per_hour: 49.3, hit_cap: 24, stop: "time_cap (60 min)"}
+[02:20:23]   agentic {solved: true, turns: 7, stop: "finish"}
+[02:20:34] mlx-community--Qwen3.8-27B-8bit: loaded in 10.8s
+[02:22:05]   coding 10/161, pass 80% (8), 9.1 s/problem, ~23 min left at this pace
+[02:23:33]   coding 20/161, pass 85% (17), 8.9 s/problem, ~21 min left at this pace
+[02:25:19]   coding 30/161, pass 86% (26), 9.5 s/problem, ~21 min left at this pace
+[02:29:09]   coding 40/161, pass 87% (35), 12.9 s/problem, ~26 min left at this pace
+[02:31:17]   coding 50/161, pass 88% (44), 12.9 s/problem, ~24 min left at this pace
+[02:34:55]   coding 60/161, pass 90% (54), 14.4 s/problem, ~24 min left at this pace
+[02:37:14]   coding 70/161, pass 88% (62), 14.3 s/problem, ~22 min left at this pace
+[02:38:46]   coding 80/161, pass 88% (71), 13.7 s/problem, ~18 min left at this pace
+[02:40:37]   coding 90/161, pass 87% (79), 13.4 s/problem, ~16 min left at this pace
+[02:42:22]   coding 100/161, pass 89% (89), 13.1 s/problem, ~13 min left at this pace
+[02:44:00]   coding 110/161, pass 87% (96), 12.8 s/problem, ~11 min left at this pace
+[02:45:55]   coding 120/161, pass 87% (105), 12.7 s/problem, ~9 min left at this pace
+[02:48:00]   coding 130/161, pass 87% (114), 12.7 s/problem, ~7 min left at this pace
+[02:49:30]   coding 140/161, pass 87% (122), 12.4 s/problem, ~4 min left at this pace
+[02:51:16]   coding 150/161, pass 86% (130), 12.3 s/problem, ~2 min left at this pace
+[02:54:18]   coding 160/161, pass 85% (137), 12.7 s/problem, ~0 min left at this pace
+[02:54:37]   coding {attempted: 161, passed: 138, pass_rate: 0.857, seconds_per_problem: 12.6, solved_per_hour: 244.7, hit_cap: 0, stop: "completed"}
+[02:55:55]   agentic {solved: true, turns: 5, stop: "finish"}
+[02:56:16] DeepSeek-V4-Pro-Qwen3.5-9B-8bit: loaded in 21.4s
+[03:05:00]   coding 10/161, pass 70% (7), 52.4 s/problem, ~132 min left at this pace
+[03:07:32]   coding 20/161, pass 75% (15), 33.8 s/problem, ~79 min left at this pace
+[03:09:44]   coding 30/161, pass 80% (24), 26.9 s/problem, ~59 min left at this pace
+[03:21:57]   coding 40/161, pass 72% (29), 38.5 s/problem, ~78 min left at this pace
+[03:28:14]   coding 50/161, pass 70% (35), 38.4 s/problem, ~71 min left at this pace
+[03:34:18]   coding 60/161, pass 73% (44), 38.0 s/problem, ~64 min left at this pace
+[03:40:48]   coding 70/161, pass 71% (50), 38.2 s/problem, ~58 min left at this pace
+[03:43:18]   coding 80/161, pass 72% (58), 35.3 s/problem, ~48 min left at this pace
+[03:49:04]   coding 90/161, pass 72% (65), 35.2 s/problem, ~42 min left at this pace
+[03:55:43]   coding 100/161, pass 73% (73), 35.7 s/problem, ~36 min left at this pace
+[03:56:40]   coding {attempted: 102, passed: 74, pass_rate: 0.725, seconds_per_problem: 35.4, solved_per_hour: 73.7, hit_cap: 12, stop: "time_cap (60 min)"}
+[04:03:10]   agentic {solved: false, turns: 21, stop: "no_tool_call"}
+[04:03:24] qwen3-coder-30b-rails: loaded in LM Studio in 11.4s
+[04:03:38]   coding 10/161, pass 40% (4), 1.3 s/problem, ~3 min left at this pace
+[04:03:53]   coding 20/161, pass 45% (9), 1.4 s/problem, ~3 min left at this pace
+[04:03:53]   coding {attempted: 20, passed: 9, pass_rate: 0.45, seconds_per_problem: 1.4, solved_per_hour: 1195.6, hit_cap: 0, stop: "low_pass_rate (45% after 20)"}
+[04:05:04]   agentic {solved: false, turns: 30, stop: "max_turns"}
+[04:05:23] fullstack-learn-lm-30b-a3b-i1: loaded in LM Studio in 15.1s
+[04:05:40]   coding 10/161, pass 40% (4), 1.7 s/problem, ~4 min left at this pace
+[04:05:55]   coding 20/161, pass 50% (10), 1.6 s/problem, ~4 min left at this pace
+[04:06:16]   coding 30/161, pass 66% (20), 1.8 s/problem, ~4 min left at this pace
+[04:06:41]   coding 40/161, pass 70% (28), 1.9 s/problem, ~4 min left at this pace
+[04:07:04]   coding 50/161, pass 72% (36), 2.0 s/problem, ~4 min left at this pace
+[04:07:32]   coding 60/161, pass 75% (45), 2.1 s/problem, ~4 min left at this pace
+[04:08:09]   coding 70/161, pass 75% (53), 2.4 s/problem, ~4 min left at this pace
+[04:08:26]   coding 80/161, pass 76% (61), 2.3 s/problem, ~3 min left at this pace
+[04:08:49]   coding 90/161, pass 76% (69), 2.3 s/problem, ~3 min left at this pace
+[04:09:07]   coding 100/161, pass 78% (78), 2.2 s/problem, ~2 min left at this pace
+[04:09:26]   coding 110/161, pass 77% (85), 2.2 s/problem, ~2 min left at this pace
+[04:09:48]   coding 120/161, pass 79% (95), 2.2 s/problem, ~2 min left at this pace
+[04:10:17]   coding 130/161, pass 80% (105), 2.3 s/problem, ~1 min left at this pace
+[04:10:40]   coding 140/161, pass 81% (114), 2.3 s/problem, ~1 min left at this pace
+[04:11:00]   coding 150/161, pass 82% (123), 2.2 s/problem, ~0 min left at this pace
+[04:11:27]   coding 160/161, pass 81% (130), 2.3 s/problem, ~0 min left at this pace
+[04:11:31]   coding {attempted: 161, passed: 131, pass_rate: 0.814, seconds_per_problem: 2.2, solved_per_hour: 1331.1, hit_cap: 0, stop: "completed"}
+[04:15:56]   agentic {solved: false, turns: 26, stop: "finish"}
+[04:16:09] gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2: loaded in LM Studio in 7.4s
+[04:18:59]   coding 10/161, pass 60% (6), 17.0 s/problem, ~43 min left at this pace
+[04:21:35]   coding 20/161, pass 65% (13), 16.3 s/problem, ~38 min left at this pace
+[04:24:31]   coding 30/161, pass 73% (22), 16.7 s/problem, ~37 min left at this pace
+[04:27:34]   coding 40/161, pass 62% (25), 17.1 s/problem, ~35 min left at this pace
+[04:31:16]   coding 50/161, pass 56% (28), 18.1 s/problem, ~34 min left at this pace
+[04:34:14]   coding 60/161, pass 56% (34), 18.1 s/problem, ~30 min left at this pace
+[04:37:40]   coding 70/161, pass 58% (41), 18.4 s/problem, ~28 min left at this pace
+[04:40:19]   coding 80/161, pass 62% (50), 18.1 s/problem, ~24 min left at this pace
+[04:43:29]   coding 90/161, pass 65% (59), 18.2 s/problem, ~22 min left at this pace
+[04:46:10]   coding 100/161, pass 68% (68), 18.0 s/problem, ~18 min left at this pace
+[04:53:15]   coding 110/161, pass 68% (75), 20.2 s/problem, ~17 min left at this pace
+[04:56:05]   coding 120/161, pass 70% (84), 20.0 s/problem, ~14 min left at this pace
+[05:00:16]   coding 130/161, pass 71% (93), 20.4 s/problem, ~11 min left at this pace
+[05:03:07]   coding 140/161, pass 72% (101), 20.1 s/problem, ~7 min left at this pace
+[05:06:06]   coding 150/161, pass 71% (107), 20.0 s/problem, ~4 min left at this pace
+[05:09:00]   coding 160/161, pass 71% (114), 19.8 s/problem, ~0 min left at this pace
+[05:09:16]   coding {attempted: 161, passed: 115, pass_rate: 0.714, seconds_per_problem: 19.7, solved_per_hour: 130.5, hit_cap: 1, stop: "completed"}
+[05:14:47]   agentic {solved: false, turns: 30, stop: "max_turns"}
+[05:15:08] ornith-1.5-35b-a3b: loaded in LM Studio in 18.3s
+[05:20:23]   coding 10/161, pass 80% (8), 31.5 s/problem, ~79 min left at this pace
+[05:21:51]   coding 20/161, pass 80% (16), 20.2 s/problem, ~47 min left at this pace
+[05:23:21]   coding 30/161, pass 86% (26), 16.4 s/problem, ~36 min left at this pace
+[05:28:23]   coding 40/161, pass 82% (33), 19.9 s/problem, ~40 min left at this pace
+[05:32:04]   coding 50/161, pass 86% (43), 20.3 s/problem, ~38 min left at this pace
+[05:35:04]   coding 60/161, pass 88% (53), 19.9 s/problem, ~34 min left at this pace
+[05:37:49]   coding 70/161, pass 88% (62), 19.4 s/problem, ~29 min left at this pace
+[05:39:36]   coding 80/161, pass 90% (72), 18.4 s/problem, ~25 min left at this pace
+[05:42:13]   coding 90/161, pass 87% (79), 18.1 s/problem, ~21 min left at this pace
+[05:47:23]   coding 100/161, pass 87% (87), 19.3 s/problem, ~20 min left at this pace
+[05:49:26]   coding 110/161, pass 88% (97), 18.7 s/problem, ~16 min left at this pace
+[05:51:36]   coding 120/161, pass 88% (106), 18.2 s/problem, ~12 min left at this pace
+[05:55:08]   coding 130/161, pass 88% (115), 18.5 s/problem, ~10 min left at this pace
+[05:56:56]   coding 140/161, pass 87% (123), 17.9 s/problem, ~6 min left at this pace
+[06:01:51]   coding 150/161, pass 88% (133), 18.7 s/problem, ~3 min left at this pace
+[06:06:04]   coding 160/161, pass 88% (142), 19.1 s/problem, ~0 min left at this pace
+[06:06:13]   coding {attempted: 161, passed: 143, pass_rate: 0.888, seconds_per_problem: 19.0, solved_per_hour: 168.7, hit_cap: 4, stop: "completed"}
+[06:08:42]   agentic {solved: true, turns: 6, stop: "finish"}
+[06:08:48] LM Studio unloaded and server stopped
+[06:09:25] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+~/.rbenv/versions/3.4.1/lib/ruby/gems/3.4.0/gems/json-3.0.2/lib/json/common.rb:302:in 'String#encode': "\xE2" on US-ASCII (Encoding::InvalidByteSequenceError)
+	from ~/.rbenv/versions/3.4.1/lib/ruby/gems/3.4.0/gems/json-3.0.2/lib/json/common.rb:302:in 'JSON::Ext::Parser.parse'
+	from ~/.rbenv/versions/3.4.1/lib/ruby/gems/3.4.0/gems/json-3.0.2/lib/json/common.rb:302:in 'JSON.parse'
+	from ~/Development/repos/tr-solutions/model-bench/bin/report:10:in 'block in <main>'
+	from ~/Development/repos/tr-solutions/model-bench/bin/report:10:in 'Array#map'
+	from ~/Development/repos/tr-solutions/model-bench/bin/report:10:in '<main>'

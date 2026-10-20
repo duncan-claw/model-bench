@@ -1,0 +1,24 @@
+# Models under test. host: key into `hosts`. Order = run order (smaller first).
+# Stage 1+2 covers models of 9B and above; smaller models wait for the assistant/research stage.
+# vision: the weights include an image encoder (checked from the model files 2026-10-20, not yet by sending an image).
+# Hosts are defined in config/hosts.yml (see config/hosts.example.yml).
+models:
+  - { id: DeepSeek-V4-Pro-Qwen3.5-9B-8bit, host: mbp14-omlx, size_gb: 9.7, family: "Qwen3.5 (fine-tunes/distills)", vision: true }
+  - { id: SrogiLesnik--Gemma-4-19B-mlx-4Bit, host: mbp14-omlx, size_gb: 9.7, family: "Gemma 4", vision: false }
+  - { id: ZQ-Dev--KAT-Coder-V2.5-Dev-oQ2e-fp16, host: mbp14-omlx, size_gb: 11, parked: "oMLX loads it as a vision model (no vision tower); parked 2026-10-19, deleted from MBP-14 2026-10-20", family: "Qwen3.5 (fine-tunes/distills)", vision: false }
+  - { id: kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit, host: mbp14-omlx, size_gb: 12, family: "Gemma 4", vision: false }
+  - { id: mlx-community--gemma-4-26b-a4b-it-4bit, host: mbp14-omlx, size_gb: 14, family: "Gemma 4", vision: true }
+  - { id: mlx-community--IQuest-Coder-V1-14B-Instruct-8bit, host: mbp14-omlx, size_gb: 14, family: "IQuest Coder V1", vision: false }
+  - { id: "mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct", load_id: mlx-community--Qwen3.8-27B-4bit, host: mbp14-omlx, size_gb: 15, family: "Qwen3.8-27B", vision: true }
+  - { id: ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit, host: mbp14-omlx, size_gb: 18, family: "Qwen3.5 (fine-tunes/distills)", vision: false }
+  - { id: ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit, host: mbp14-omlx, size_gb: 37, family: "Qwen3.5 (fine-tunes/distills)", vision: false }
+  - { id: mlx-community--Qwen3.6-35B-A3B-4bit, host: mbp14-omlx, size_gb: 19, family: "Qwen3.6-35B-A3B", vision: true }
+  - { id: mlx-community--Qwen3.8-27B-8bit, host: mbp14-omlx, size_gb: 28, family: "Qwen3.8-27B", vision: true }
+  - { id: Qwen3.6-35B-A3B-8bit, host: mbp14-omlx, size_gb: 35, family: "Qwen3.6-35B-A3B", vision: true }
+  - { id: Qwopus3.6-35B-A3B-Coder-8bit, host: mbp14-omlx, size_gb: 35, family: "Qwen3.6-35B-A3B", vision: true }
+  - { id: mlx-community--IQuest-Coder-V1-40B-Loop-Instruct-8bit, host: mbp14-omlx, size_gb: 39, family: "IQuest Coder V1", vision: false }
+  # GGUF via LM Studio on MBP-14 (needs the LM Studio server running, oMLX idle)
+  - { id: fullstack-learn-lm-30b-a3b-i1, host: mbp14-lmstudio, size_gb: 23, pending: true, parked: "deleted from MBP-14 2026-10-20 at Mark's request", family: "Qwen3 30B-A3B MoE (fine-tunes)", vision: false }
+  - { id: gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2, host: mbp14-lmstudio, size_gb: 12, pending: true, parked: "GGUF deleted from MBP-14 2026-10-20; MLX copy kept", family: "Gemma 4", vision: false }
+  - { id: ornith-1.5-35b-a3b, host: mbp14-lmstudio, size_gb: 27.9, pending: true, parked: "GGUF deleted 2026-10-20 (MLX-only preference)", family: "Qwen3.5 (fine-tunes/distills)", vision: true }
+  - { id: qwen3-coder-30b-rails, host: mbp14-lmstudio, size_gb: 20, pending: true, family: "Qwen3 30B-A3B MoE (fine-tunes)", vision: false }

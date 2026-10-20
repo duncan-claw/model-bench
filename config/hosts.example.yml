@@ -1,0 +1,12 @@
+# Copy to config/hosts.yml (git-ignored) and fill in your own hosts.
+# kind: omlx (oMLX server; the runner reads its API key over ssh from ~/.omlx/settings.json)
+#       lmstudio (LM Studio server; started and stopped over ssh with `lms`)
+hosts:
+  mbp14-omlx:
+    base: http://YOUR-MAC.tailnet:10240
+    kind: omlx
+    ssh: user@YOUR-MAC.tailnet
+  mbp14-lmstudio:
+    base: http://YOUR-MAC.tailnet:1234
+    kind: lmstudio
+    ssh: user@YOUR-MAC.tailnet

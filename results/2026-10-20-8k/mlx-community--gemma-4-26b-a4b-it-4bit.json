@@ -1,0 +1,9 @@
+{
+  "model": "mlx-community--gemma-4-26b-a4b-it-4bit",
+  "host": "mbp14-omlx",
+  "size_gb": 14,
+  "started_at": "2026-10-20T11:58:09+11:00",
+  "screens": {},
+  "load_seconds": 7.5,
+  "finished_at": "2026-10-20T12:14:59+11:00"
+}
