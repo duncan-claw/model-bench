@@ -96,7 +96,7 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 - **Pass rate**: pass ÷ attempted. Accuracy only; ignores speed.
 - **Pass rate excl. cut-off**: pass rate over only the answers that finished inside the token limit. A big gap from Pass rate means the model is accurate but too verbose for the limit.
 - **s / problem**: average seconds per answer, including any reasoning. The real pace, unlike tok/s.
-- **Solved per hour**: correct answers per hour of generation (passed × 3600 ÷ total answer seconds). Speed and accuracy in one number.
+- **Solve rate (/hr)**: projected correct answers per hour of Mac time at the measured pace (passed × 3600 ÷ total answer seconds). A rate, not a count: there are only 161 problems. Speed and accuracy in one number.
 - **Hit token cap**: answers that ran into the per-answer limit of **4096 tokens** (reasoning plus code) and were cut off; those count as failures, so a high number means the pass rate is understated.
 - **Token limits used in this run**: coding 4096 tokens per answer; agentic 4096 tokens per turn.
 - **Stop**: `completed` (all 161), `time_cap (60 min)`, or `low_pass_rate` (below 50% after 20 problems).
@@ -105,7 +105,7 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 
 ##### By model name
 
-| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|
 | DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
 | fullstack-learn-lm-30b-a3b-i1 | 131/161 | 81% | 81% (131 of 161 finished) | 2.2 | 1331.1 | 0 | completed | not solved | 26 / finish / 265.1 |
@@ -125,7 +125,7 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 
 ##### By pass rate (most accurate first)
 
-| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|
 | ornith-1.5-35b-a3b | 143/161 | 89% | 91% (143 of 157 finished) | 19.0 | 168.7 | 4 | completed | **solved** | 6 / finish / 148.7 |
 | ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 141/161 | 88% | 90% (141 of 156 finished) | 12.1 | 261.2 | 5 | completed | not solved | 8 / no_tool_call / 167.0 |
@@ -143,9 +143,9 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 | mlx-community--gemma-4-26b-a4b-it-4bit | 50/74 | 68% | 98% (49 of 50 finished) | 49.4 | 49.3 | 24 | time_cap (60 min) | **solved** | 7 / finish / 44.9 |
 | qwen3-coder-30b-rails | 9/20 | 45% | 45% (9 of 20 finished) | 1.4 | 1195.6 | 0 | low_pass_rate (45% after 20) | not solved | 30 / max_turns / 70.7 |
 
-##### By solved per hour (speed × accuracy)
+##### By solve rate (speed × accuracy)
 
-| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|
 | fullstack-learn-lm-30b-a3b-i1 | 131/161 | 81% | 81% (131 of 161 finished) | 2.2 | 1331.1 | 0 | completed | not solved | 26 / finish / 265.1 |
 | qwen3-coder-30b-rails | 9/20 | 45% | 45% (9 of 20 finished) | 1.4 | 1195.6 | 0 | low_pass_rate (45% after 20) | not solved | 30 / max_turns / 70.7 |
@@ -163,9 +163,9 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 | DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
 | mlx-community--gemma-4-26b-a4b-it-4bit | 50/74 | 68% | 98% (49 of 50 finished) | 49.4 | 49.3 | 24 | time_cap (60 min) | **solved** | 7 / finish / 44.9 |
 
-##### Grouped by agentic result, then solved per hour
+##### Grouped by agentic result, then solve rate
 
-| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|
 | mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.4 | 692.5 | 0 | completed | **solved** | 6 / finish / 44.6 |
 | ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 135/161 | 84% | 88% (135 of 154 finished) | 7.7 | 392.8 | 7 | completed | **solved** | 8 / finish / 79.0 |
@@ -183,9 +183,9 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 | mlx-community--Qwen3.6-35B-A3B-4bit | 81/99 | 82% | 95% (81 of 85 finished) | 36.3 | 81.1 | 14 | time_cap (60 min) | not solved | 5 / no_tool_call / 66.6 |
 | DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
 
-##### Grouped by family (Qwen newest first, then Gemma), then solved per hour
+##### Grouped by family (Qwen newest first, then Gemma), then solve rate
 
-| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|
 | **Qwen3.8-27B** | | | | | | | | | |
 | mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.4 | 692.5 | 0 | completed | **solved** | 6 / finish / 44.6 |
@@ -216,17 +216,17 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 - **Score** = 100 × the sum of (weight × component). Each component is on a 0–1 scale; the tables show each one.
 - **agentic**: 1 if the agentic task was solved, else 0. One attempt per model, so treat it as a coin flip until repeated.
 - **accuracy**: Pass rate (cut-off answers count as wrong).
-- **throughput**: log(1 + solved per hour) ÷ log(1 + best solved per hour in this run). The log stops one very fast model swamping the rest.
+- **throughput**: log(1 + solve rate) ÷ log(1 + best solve rate in this run). The log stops one very fast model swamping the rest.
 - **memory**: 1 − size ÷ largest size in this run, so smaller scores higher.
 - **vision**: 1 if the model's weights include an image encoder, else 0 (from the model files; not yet tested with a real image).
 - **<sup>(d)</sup>** after a model name: deleted from the MBP-14 since this run (the MBP-16 may still hold a copy). Kept here as history.
-- **Net per hour**: (passed − failed) ÷ hours of answering. Counts every wrong answer as cancelling a right one, because wrong code costs review or rework. Negative means it produces more wrong code than right.
+- **Net solve rate (/hr)**: projected (correct − wrong) answers per hour of Mac time, i.e. (passed − failed) ÷ hours of answering. Counts every wrong answer as cancelling a right one, because wrong code costs review or rework. Negative means it produces more wrong code than right.
 
 ##### Weights v2 (2026-10-20): adds vision, taken from memory
 
 Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.05 × memory + 0.05 × vision). A model that reads images avoids handing screenshots to a second model, which costs time and memory.
 
-| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.05) | Vision (×0.05) | **Score** | Solved per hour | Net per hour |
+| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.05) | Vision (×0.05) | **Score** | Solve rate (/hr) | Net solve rate (/hr) |
 |---|---|---|---|---|---|---|---|---|
 | mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 1.0 | 0.85 | 0.91 | 0.59 | 1.0 | **91.5** | 692.5 | 565 |
 | mlx-community--Qwen3.8-27B-8bit | 1.0 | 0.86 | 0.77 | 0.24 | 1.0 | **87.2** | 244.7 | 204 |
@@ -248,7 +248,7 @@ Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.05 × m
 
 Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.1 × memory).
 
-| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.1) | **Score** | Solved per hour | Net per hour |
+| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.1) | **Score** | Solve rate (/hr) | Net solve rate (/hr) |
 |---|---|---|---|---|---|---|---|
 | mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 1.0 | 0.85 | 0.91 | 0.59 | **89.5** | 692.5 | 565 |
 | ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 1.0 | 0.84 | 0.83 | 0.51 | **86.9** | 392.8 | 317 |
@@ -302,7 +302,7 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 - **Pass rate**: pass ÷ attempted. Accuracy only; ignores speed.
 - **Pass rate excl. cut-off**: pass rate over only the answers that finished inside the token limit. A big gap from Pass rate means the model is accurate but too verbose for the limit.
 - **s / problem**: average seconds per answer, including any reasoning. The real pace, unlike tok/s.
-- **Solved per hour**: correct answers per hour of generation (passed × 3600 ÷ total answer seconds). Speed and accuracy in one number.
+- **Solve rate (/hr)**: projected correct answers per hour of Mac time at the measured pace (passed × 3600 ÷ total answer seconds). A rate, not a count: there are only 161 problems. Speed and accuracy in one number.
 - **Hit token cap**: answers that ran into the per-answer limit of **8192 tokens** (reasoning plus code) and were cut off; those count as failures, so a high number means the pass rate is understated.
 - **Token limits used in this run**: coding 8192 tokens per answer; agentic 4096 tokens per turn.
 - **Stop**: `completed` (all 161), `time_cap (60 min)`, or `low_pass_rate` (below 50% after 20 problems).
@@ -311,7 +311,7 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 
 ##### By model name
 
-| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|
 | mlx-community--Qwen3.6-35B-A3B-4bit | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | — | — |
 | Qwen3.6-35B-A3B-8bit | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | — | — |
@@ -319,31 +319,31 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 
 ##### By pass rate (most accurate first)
 
-| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|
 | Qwen3.6-35B-A3B-8bit | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | — | — |
 | mlx-community--Qwen3.6-35B-A3B-4bit | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | — | — |
 | Qwopus3.6-35B-A3B-Coder-8bit | 122/161 | 76% | 90% (122 of 135 finished) | 26.9 | 101.4 | 26 | completed | — | — |
 
-##### By solved per hour (speed × accuracy)
+##### By solve rate (speed × accuracy)
 
-| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|
 | Qwen3.6-35B-A3B-8bit | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | — | — |
 | Qwopus3.6-35B-A3B-Coder-8bit | 122/161 | 76% | 90% (122 of 135 finished) | 26.9 | 101.4 | 26 | completed | — | — |
 | mlx-community--Qwen3.6-35B-A3B-4bit | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | — | — |
 
-##### Grouped by agentic result, then solved per hour
+##### Grouped by agentic result, then solve rate
 
-| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|
 | Qwen3.6-35B-A3B-8bit | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | — | — |
 | Qwopus3.6-35B-A3B-Coder-8bit | 122/161 | 76% | 90% (122 of 135 finished) | 26.9 | 101.4 | 26 | completed | — | — |
 | mlx-community--Qwen3.6-35B-A3B-4bit | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | — | — |
 
-##### Grouped by family (Qwen newest first, then Gemma), then solved per hour
+##### Grouped by family (Qwen newest first, then Gemma), then solve rate
 
-| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|
 | **Qwen3.6-35B-A3B** | | | | | | | | | |
 | Qwen3.6-35B-A3B-8bit | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | — | — |
@@ -358,17 +358,17 @@ Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
 - **Score** = 100 × the sum of (weight × component). Each component is on a 0–1 scale; the tables show each one.
 - **agentic**: 1 if the agentic task was solved, else 0. One attempt per model, so treat it as a coin flip until repeated.
 - **accuracy**: Pass rate (cut-off answers count as wrong).
-- **throughput**: log(1 + solved per hour) ÷ log(1 + best solved per hour in this run). The log stops one very fast model swamping the rest.
+- **throughput**: log(1 + solve rate) ÷ log(1 + best solve rate in this run). The log stops one very fast model swamping the rest.
 - **memory**: 1 − size ÷ largest size in this run, so smaller scores higher.
 - **vision**: 1 if the model's weights include an image encoder, else 0 (from the model files; not yet tested with a real image).
 - **<sup>(d)</sup>** after a model name: deleted from the MBP-14 since this run (the MBP-16 may still hold a copy). Kept here as history.
-- **Net per hour**: (passed − failed) ÷ hours of answering. Counts every wrong answer as cancelling a right one, because wrong code costs review or rework. Negative means it produces more wrong code than right.
+- **Net solve rate (/hr)**: projected (correct − wrong) answers per hour of Mac time, i.e. (passed − failed) ÷ hours of answering. Counts every wrong answer as cancelling a right one, because wrong code costs review or rework. Negative means it produces more wrong code than right.
 
 ##### Weights v2 (2026-10-20): adds vision, taken from memory
 
 Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.05 × memory + 0.05 × vision). A model that reads images avoids handing screenshots to a second model, which costs time and memory.
 
-| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.05) | Vision (×0.05) | **Score** | Solved per hour | Net per hour |
+| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.05) | Vision (×0.05) | **Score** | Solve rate (/hr) | Net solve rate (/hr) |
 |---|---|---|---|---|---|---|---|---|
 | mlx-community--Qwen3.6-35B-A3B-4bit | 0.0 | 0.93 | 0.94 | 0.46 | 1.0 | **53.8** | 96.1 | 88 |
 | Qwen3.6-35B-A3B-8bit | 0.0 | 0.94 | 1.0 | 0.0 | 1.0 | **53.1** | 129.4 | 121 |
@@ -378,7 +378,7 @@ Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.05 × m
 
 Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.1 × memory).
 
-| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.1) | **Score** | Solved per hour | Net per hour |
+| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.1) | **Score** | Solve rate (/hr) | Net solve rate (/hr) |
 |---|---|---|---|---|---|---|---|
 | mlx-community--Qwen3.6-35B-A3B-4bit | 0.0 | 0.93 | 0.94 | 0.46 | **51.1** | 96.1 | 88 |
 | Qwen3.6-35B-A3B-8bit | 0.0 | 0.94 | 1.0 | 0.0 | **48.1** | 129.4 | 121 |
@@ -443,7 +443,13 @@ to a second model, which costs time and memory.
 Latest results: coding from Run 3 (8,192-token answers, no time cap) for the models it covered, otherwise Run 2;
 agentic from Run 2. The Source column says which. Throughput and memory are scaled against the best in this table.
 
-| Model | Source | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.05) | Vision (×0.05) | **Score** | Solved per hour | Net per hour |
+- **Solve rate (/hr)**: projected correct answers per hour of Mac time at the measured pace. A rate, not a count:
+  there are only 161 problems (e.g. 136 right in 12 minutes ≈ 693 an hour).
+- **Net solve rate (/hr)**: the same, minus the wrong answers in that hour; each wrong answer cancels a right one.
+  Negative means it produces more wrong code than right. Small samples exaggerate both (qwen3-coder-rails answered
+  only 20 problems).
+
+| Model | Source | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.05) | Vision (×0.05) | **Score** | Solve rate (/hr) | Net solve rate (/hr) |
 |---|---|---|---|---|---|---|---|---|---|
 | mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | Run 2 | 1.0 | 0.85 | 0.91 | 0.59 | 1.0 | **91.5** | 692.5 | 565 |
 | mlx-community--Qwen3.8-27B-8bit | Run 2 | 1.0 | 0.86 | 0.77 | 0.24 | 1.0 | **87.2** | 244.7 | 204 |
@@ -463,7 +469,7 @@ agentic from Run 2. The Source column says which. Throughput and memory are scal
 
 ### By model name, with the latest results
 
-| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|---|
 | DeepSeek-V4-Pro-Qwen3.5-9B-8bit | Run 2 | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
 | fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | Run 2 | 131/161 | 81% | 81% (131 of 161 finished) | 2.2 | 1331.1 | 0 | completed | not solved | 26 / finish / 265.1 |
@@ -483,7 +489,7 @@ agentic from Run 2. The Source column says which. Throughput and memory are scal
 
 ### By pass rate (most accurate first), with the latest results
 
-| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|---|
 | Qwen3.6-35B-A3B-8bit | Run 3 | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | **solved** | 8 / finish / 65.4 |
 | mlx-community--Qwen3.6-35B-A3B-4bit | Run 3 | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | not solved | 5 / no_tool_call / 66.6 |
@@ -501,9 +507,9 @@ agentic from Run 2. The Source column says which. Throughput and memory are scal
 | mlx-community--gemma-4-26b-a4b-it-4bit | Run 2 | 50/74 | 68% | 98% (49 of 50 finished) | 49.4 | 49.3 | 24 | time_cap (60 min) | **solved** | 7 / finish / 44.9 |
 | qwen3-coder-30b-rails | Run 2 | 9/20 | 45% | 45% (9 of 20 finished) | 1.4 | 1195.6 | 0 | low_pass_rate (45% after 20) | not solved | 30 / max_turns / 70.7 |
 
-### By solved per hour (speed × accuracy), with the latest results
+### By solve rate (speed × accuracy), with the latest results
 
-| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|---|
 | fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | Run 2 | 131/161 | 81% | 81% (131 of 161 finished) | 2.2 | 1331.1 | 0 | completed | not solved | 26 / finish / 265.1 |
 | qwen3-coder-30b-rails | Run 2 | 9/20 | 45% | 45% (9 of 20 finished) | 1.4 | 1195.6 | 0 | low_pass_rate (45% after 20) | not solved | 30 / max_turns / 70.7 |
@@ -521,9 +527,9 @@ agentic from Run 2. The Source column says which. Throughput and memory are scal
 | DeepSeek-V4-Pro-Qwen3.5-9B-8bit | Run 2 | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
 | mlx-community--gemma-4-26b-a4b-it-4bit | Run 2 | 50/74 | 68% | 98% (49 of 50 finished) | 49.4 | 49.3 | 24 | time_cap (60 min) | **solved** | 7 / finish / 44.9 |
 
-### Grouped by agentic result, then solved per hour, with the latest results
+### Grouped by agentic result, then solve rate, with the latest results
 
-| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|---|
 | mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | Run 2 | 136/161 | 85% | 84% (136 of 161 finished) | 4.4 | 692.5 | 0 | completed | **solved** | 6 / finish / 44.6 |
 | ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | Run 2 | 135/161 | 84% | 88% (135 of 154 finished) | 7.7 | 392.8 | 7 | completed | **solved** | 8 / finish / 79.0 |
@@ -541,9 +547,9 @@ agentic from Run 2. The Source column says which. Throughput and memory are scal
 | mlx-community--Qwen3.6-35B-A3B-4bit | Run 3 | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | not solved | 5 / no_tool_call / 66.6 |
 | DeepSeek-V4-Pro-Qwen3.5-9B-8bit | Run 2 | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
 
-### Grouped by family (Qwen newest first, then Gemma), then solved per hour, with the latest results
+### Grouped by family (Qwen newest first, then Gemma), then solve rate, with the latest results
 
-| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
 |---|---|---|---|---|---|---|---|---|---|---|
 | **Qwen3.8-27B** | | | | | | | | | | |
 | mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | Run 2 | 136/161 | 85% | 84% (136 of 161 finished) | 4.4 | 692.5 | 0 | completed | **solved** | 6 / finish / 44.6 |

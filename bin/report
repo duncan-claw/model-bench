@@ -70,7 +70,7 @@ unless ext.empty?
   lines << "- **Pass rate**: pass ÷ attempted. Accuracy only; ignores speed."
   lines << "- **Pass rate excl. cut-off**: pass rate over only the answers that finished inside the token limit. A big gap from Pass rate means the model is accurate but too verbose for the limit."
   lines << "- **s / problem**: average seconds per answer, including any reasoning. The real pace, unlike tok/s."
-  lines << "- **Solved per hour**: correct answers per hour of generation (passed × 3600 ÷ total answer seconds). Speed and accuracy in one number."
+  lines << "- **Solve rate (/hr)**: projected correct answers per hour of Mac time at the measured pace (passed × 3600 ÷ total answer seconds). A rate, not a count: there are only 161 problems. Speed and accuracy in one number."
   caps = ext.map { _1.dig("screens", "coding", "max_tokens") }.compact.uniq.join(", ")
   agent_caps = ext.map { _1.dig("screens", "agentic", "max_tokens") }.compact.uniq.join(", ")
   lines << "- **Hit token cap**: answers that ran into the per-answer limit of **#{caps} tokens** (reasoning plus code) and were cut off; " \
@@ -80,7 +80,7 @@ unless ext.empty?
   lines << "- **Agentic**: whether the slugify task's 4 tests pass at the end (10-minute box, 30 turns)."
   lines << "- **Agentic turns / stop / s**: turns used, why it stopped (see the screen-table legend), and seconds taken."
   lines << ""
-  lines << "| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |"
+  lines << "| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |"
   lines << "|---|---|---|---|---|---|---|---|---|---|"
   row = lambda do |r|
     c = r.dig("screens", "coding")
@@ -98,13 +98,13 @@ unless ext.empty?
   views = [
     ["By model name", ext],
     ["By pass rate (most accurate first)", ext.sort_by { [-rate.(_1), -per_hour.(_1)] }],
-    ["By solved per hour (speed × accuracy)", ext.sort_by { [-per_hour.(_1), -rate.(_1)] }],
-    ["Grouped by agentic result, then solved per hour", ext.sort_by { [-solved.(_1), -per_hour.(_1)] }],
+    ["By solve rate (speed × accuracy)", ext.sort_by { [-per_hour.(_1), -rate.(_1)] }],
+    ["Grouped by agentic result, then solve rate", ext.sort_by { [-solved.(_1), -per_hour.(_1)] }],
     [:family, ext]
   ]
   views.each do |title, list|
     if title == :family
-      lines << "### Grouped by family (Qwen newest first, then Gemma), then solved per hour" << ""
+      lines << "### Grouped by family (Qwen newest first, then Gemma), then solve rate" << ""
       lines.concat(header)
       list.group_by { family.(_1) }.sort_by { |fam, ms| [FAMILY_ORDER.index { fam.start_with?(_1) } || FAMILY_ORDER.size, fam] }.each do |fam, ms|
         lines << "| **#{fam}** | | | | | | | | | |"
@@ -150,17 +150,17 @@ unless ext.empty?
   lines << "- **Score** = 100 × the sum of (weight × component). Each component is on a 0–1 scale; the tables show each one."
   lines << "- **agentic**: 1 if the agentic task was solved, else 0. One attempt per model, so treat it as a coin flip until repeated."
   lines << "- **accuracy**: Pass rate (cut-off answers count as wrong)."
-  lines << "- **throughput**: log(1 + solved per hour) ÷ log(1 + best solved per hour in this run). The log stops one very fast model swamping the rest."
+  lines << "- **throughput**: log(1 + solve rate) ÷ log(1 + best solve rate in this run). The log stops one very fast model swamping the rest."
   lines << "- **memory**: 1 − size ÷ largest size in this run, so smaller scores higher."
   lines << "- **vision**: 1 if the model's weights include an image encoder, else 0 (from the model files; not yet tested with a real image)."
   lines << "- **<sup>(d)</sup>** after a model name: deleted from the MBP-14 since this run (the MBP-16 may still hold a copy). Kept here as history."
-  lines << "- **Net per hour**: (passed − failed) ÷ hours of answering. Counts every wrong answer as cancelling a right one, " \
+  lines << "- **Net solve rate (/hr)**: projected (correct − wrong) answers per hour of Mac time, i.e. (passed − failed) ÷ hours of answering. Counts every wrong answer as cancelling a right one, " \
            "because wrong code costs review or rework. Negative means it produces more wrong code than right."
   versions.each do |v|
     w = v[:w]
     lines << "" << "### Weights #{v[:name]}" << ""
     lines << "Score = 100 × (#{w.map { |k, x| "#{x} × #{k}" }.join(' + ')})." + (v[:why] ? " #{v[:why]}" : "") << ""
-    lines << "| Model | #{w.map { |k, x| "#{k.to_s.capitalize} (×#{x})" }.join(' | ')} | **Score** | Solved per hour | Net per hour |"
+    lines << "| Model | #{w.map { |k, x| "#{k.to_s.capitalize} (×#{x})" }.join(' | ')} | **Score** | Solve rate (/hr) | Net solve rate (/hr) |"
     lines << "|#{'---|' * (w.size + 4)}"
     base.map { |r, comp, net| [r, comp, net, w.sum { |k, x| x * comp[k] } * 100] }.sort_by { -_4 }.each do |r, comp, net, score|
       name = DELETED.include?(r["model"]) ? "#{r['model']} <sup>(d)</sup>" : r["model"]

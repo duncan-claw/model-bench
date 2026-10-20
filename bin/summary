@@ -103,7 +103,13 @@ out << ""
 out << "Latest results: coding from Run 3 (8,192-token answers, no time cap) for the models it covered, otherwise Run 2;"
 out << "agentic from Run 2. The Source column says which. Throughput and memory are scaled against the best in this table."
 out << ""
-out << "| Model | Source | #{W.map { |k, x| "#{k.to_s.capitalize} (×#{x})" }.join(' | ')} | **Score** | Solved per hour | Net per hour |"
+out << "- **Solve rate (/hr)**: projected correct answers per hour of Mac time at the measured pace. A rate, not a count:"
+out << "  there are only 161 problems (e.g. 136 right in 12 minutes ≈ 693 an hour)."
+out << "- **Net solve rate (/hr)**: the same, minus the wrong answers in that hour; each wrong answer cancels a right one."
+out << "  Negative means it produces more wrong code than right. Small samples exaggerate both (qwen3-coder-rails answered"
+out << "  only 20 problems)."
+out << ""
+out << "| Model | Source | #{W.map { |k, x| "#{k.to_s.capitalize} (×#{x})" }.join(' | ')} | **Score** | Solve rate (/hr) | Net solve rate (/hr) |"
 out << "|#{'---|' * (W.size + 5)}"
 rows.sort_by { -_1[:score] }.each do |r|
   name = "#{r[:model]}#{deleted.(r[:model])}"
@@ -124,20 +130,20 @@ view_row = lambda do |r|
     "#{f.(c['seconds_per_problem'])} | #{f.(c['solved_per_hour'])} | #{c['hit_cap']} | #{c['stop']} | " \
     "#{a.empty? ? '—' : (a['solved'] ? '**solved**' : 'not solved')} | #{a.empty? ? '—' : "#{a['turns']} / #{a['stop']} / #{f.(a['seconds'])}"} |"
 end
-view_head = ["| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |",
+view_head = ["| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |",
              "|---|---|---|---|---|---|---|---|---|---|---|"]
 rate = ->(r) { r[:c]["pass_rate"].to_f }
 per_hour = ->(r) { r[:c]["solved_per_hour"].to_f }
 views = [
   ["By model name", rows.sort_by { _1[:model].downcase }],
   ["By pass rate (most accurate first)", rows.sort_by { [-rate.(_1), -per_hour.(_1)] }],
-  ["By solved per hour (speed × accuracy)", rows.sort_by { [-per_hour.(_1), -rate.(_1)] }],
-  ["Grouped by agentic result, then solved per hour", rows.sort_by { [-_1[:agentic], -per_hour.(_1)] }],
+  ["By solve rate (speed × accuracy)", rows.sort_by { [-per_hour.(_1), -rate.(_1)] }],
+  ["Grouped by agentic result, then solve rate", rows.sort_by { [-_1[:agentic], -per_hour.(_1)] }],
   [:family, rows]
 ]
 views.each do |title, list|
   if title == :family
-    out << "### Grouped by family (Qwen newest first, then Gemma), then solved per hour, with the latest results" << ""
+    out << "### Grouped by family (Qwen newest first, then Gemma), then solve rate, with the latest results" << ""
     out.concat(view_head)
     list.group_by { family.(_1) }.sort_by { |fam, _| [FAMILY_ORDER.index { fam.start_with?(_1) } || FAMILY_ORDER.size, fam] }.each do |fam, ms|
       out << "| **#{fam}** | | | | | | | | | | |"
