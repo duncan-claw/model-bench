@@ -5,6 +5,9 @@ factory: a frontier model plans, and a local model on a Mac builds. The aim is *
 keep/cut decisions**, not a leaderboard. Every keep/cut call and the reasoning behind it is in
 [`DECISIONS.md`](DECISIONS.md).
 
+**Full results tables: [`RESULTS.md`](RESULTS.md)**: every model, sorted by accuracy, by throughput, by family and by
+weighted score, with legends.
+
 **Hardware:** MacBook Pro M1 Max, 64 GB, one model loaded at a time, served by
 [oMLX](https://github.com/jundot/omlx) (MLX). A few GGUF models were run through LM Studio for comparison.
 
@@ -12,7 +15,7 @@ keep/cut decisions**, not a leaderboard. Every keep/cut call and the reasoning b
 
 Ruby coding is all 161 [MultiPL-E](https://github.com/nuprl/MultiPL-E) HumanEval-Ruby problems, one attempt
 each at temperature 0. The agentic task is a small multi-turn fix: make 4 failing Minitest tests pass
-using file and test tools. Full tables: [`results/2026-10-19-extended/RESULTS.md`](results/2026-10-19-extended/RESULTS.md)
+using file and test tools. Full tables: [`RESULTS.md`](RESULTS.md)
 and [`results/2026-10-20-8k/`](results/2026-10-20-8k/). The data and tasks are linked under
 [Evaluation data, tasks and models](#evaluation-data-tasks-and-models), so you can judge how relevant they are to your own work.
 

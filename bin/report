@@ -7,7 +7,8 @@ require "yaml"
 require "set"
 
 root = File.expand_path("..", __dir__)
-run = ARGV[0] || abort("usage: bin/report RUN")
+run = ARGV[0] || abort("usage: bin/report RUN [--root]")
+to_root = ARGV.include?("--root")
 dir = File.join(root, "results", run)
 rows = Dir[File.join(dir, "*.json")].map { JSON.parse(File.read(_1, encoding: "UTF-8")) }.sort_by { [_1["model"].downcase, _1["size_gb"].to_f] }
 
@@ -170,4 +171,13 @@ unless ext.empty?
   end
 end
 File.write(File.join(dir, "RESULTS.md"), lines.join("\n") + "\n")
+# --root also publishes this run as the project's headline results page.
+if to_root
+  banner = ["> **Headline results page.** Generated from [`results/#{run}/`](results/#{run}/) by `bin/report #{run} --root`.",
+            "> Later runs that refine some of these numbers: [`results/2026-10-20-8k/`](results/2026-10-20-8k/) (Qwen3.6 and Qwopus",
+            "> with 8,192-token answers) and [`results/2026-10-20-gemma32k/`](results/2026-10-20-gemma32k/README.md) (Gemma-4-26B at",
+            "> 32,768 tokens). Summary and caveats: [`README.md`](README.md).", ""]
+  body = lines.join("\n").gsub("](results/", "](results/").gsub(/\]\((?!https?:|#|results\/|README|DECISIONS|docs\/)([^)]+)\)/) { "](results/#{run}/#{$1})" }
+  File.write(File.join(root, "RESULTS.md"), banner.join("\n") + "\n" + body + "\n")
+end
 puts lines
