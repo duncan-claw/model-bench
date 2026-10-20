@@ -1,0 +1,184 @@
+[17:28:23] run 2026-10-20-run9-tools: 4 models, screens speed,tools
+[17:28:52] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 28.7s
+[17:29:38]   speed {ttft: 29.491217000002507, tok_per_s: 24.21410987661161}
+[17:30:30]   tools {attempted: 12, passed: 12}
+[17:30:46] Qwen3.6-35B-A3B-8bit: loaded in 16.0s
+[17:30:54]   speed {ttft: 2.9034990000072867, tok_per_s: 78.79720789960992}
+[17:31:48]   tools {attempted: 12, passed: 12}
+[17:32:07] mlx-community--Qwen3.6-35B-A3B-4bit: loaded in 18.1s
+[17:32:12]   speed {ttft: 0.13228199997683987, tok_per_s: 70.39196173804149}
+[17:32:20]   tools {attempted: 12, passed: 12}
+[17:32:37] ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit: loaded in 16.7s
+[17:32:44]   speed {ttft: 0.5393689999473281, tok_per_s: 64.08008472657077}
+[17:32:53]   tools {attempted: 12, passed: 12}
+[17:33:11] restored: mlx-community--Qwen3.6-35B-A3B-4bit, nomicai-modernbert-embed-base-8bit, MarkItDown
+# Results — 2026-10-20-run9-tools
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 2048 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.6-35B-A3B-4bit | 19 | 18.1 | 0.13 | 70.4 | — | 12/12 | — | — |  |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 28.7 | 29.49 | 24.2 | — | 12/12 | — | — |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 16.7 | 0.54 | 64.1 | — | 12/12 | — | — |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 16.0 | 2.9 | 78.8 | — | 12/12 | — | — |  |
+[17:33:11] run 2026-10-20-run9-a6: 2 models, screens agentic
+[17:33:41] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 28.7s
+[17:37:55]   agentic {solved: false, turns: 30, stop: "max_turns"}
+[17:38:11] Qwen3.6-35B-A3B-8bit: loaded in 15.6s
+[17:40:19]   agentic {solved: false, turns: 15, stop: "no_tool_call"}
+[17:40:38] restored: mlx-community--Qwen3.6-35B-A3B-4bit, nomicai-modernbert-embed-base-8bit, MarkItDown
+# Results — 2026-10-20-run9-a6
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 28.7 | — | — | — | — | not solved | 30 / max_turns |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 15.6 | — | — | — | — | not solved | 15 / no_tool_call |  |
+[17:40:38] run 2026-10-20-run9-a7: 2 models, screens agentic
+[17:41:09] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 28.8s
+[17:42:19]   agentic {solved: true, turns: 8, stop: "finish"}
+[17:42:37] Qwen3.6-35B-A3B-8bit: loaded in 16.7s
+[17:43:55]   agentic {solved: true, turns: 8, stop: "finish"}
+[17:44:13] restored: mlx-community--Qwen3.6-35B-A3B-4bit, nomicai-modernbert-embed-base-8bit, MarkItDown
+# Results — 2026-10-20-run9-a7
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 28.8 | — | — | — | — | **solved** | 8 / finish |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 16.7 | — | — | — | — | **solved** | 8 / finish |  |
+[17:44:14] run 2026-10-20-run9-a8: 2 models, screens agentic
+[17:44:44] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 28.7s
+[17:45:45]   agentic {solved: true, turns: 6, stop: "finish"}
+[17:46:03] Qwen3.6-35B-A3B-8bit: loaded in 17.4s
+[17:47:19]   agentic {solved: true, turns: 9, stop: "finish"}
+[17:47:37] restored: mlx-community--Qwen3.6-35B-A3B-4bit, nomicai-modernbert-embed-base-8bit, MarkItDown
+# Results — 2026-10-20-run9-a8
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 28.7 | — | — | — | — | **solved** | 6 / finish |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 17.4 | — | — | — | — | **solved** | 9 / finish |  |
+[17:47:37] run 2026-10-20-run9-a9: 2 models, screens agentic
+[17:48:07] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 28.7s
+[17:49:05]   agentic {solved: true, turns: 6, stop: "finish"}
+[17:49:22] Qwen3.6-35B-A3B-8bit: loaded in 16.5s
+[17:50:18]   agentic {solved: true, turns: 8, stop: "finish"}
+[17:50:36] restored: mlx-community--Qwen3.6-35B-A3B-4bit, nomicai-modernbert-embed-base-8bit, MarkItDown
+# Results — 2026-10-20-run9-a9
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 28.7 | — | — | — | — | **solved** | 6 / finish |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 16.5 | — | — | — | — | **solved** | 8 / finish |  |
+[17:50:37] run 2026-10-20-run9-a10: 2 models, screens agentic
+[17:51:06] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 28.7s
+[17:52:03]   agentic {solved: true, turns: 6, stop: "finish"}
+[17:52:21] Qwen3.6-35B-A3B-8bit: loaded in 17.2s
+[17:53:17]   agentic {solved: true, turns: 9, stop: "finish"}
+[17:53:35] restored: mlx-community--Qwen3.6-35B-A3B-4bit, nomicai-modernbert-embed-base-8bit, MarkItDown
+# Results — 2026-10-20-run9-a10
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 28.7 | — | — | — | — | **solved** | 6 / finish |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 17.2 | — | — | — | — | **solved** | 9 / finish |  |

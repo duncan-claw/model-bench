@@ -1,0 +1,26 @@
+{
+  "model": "deepseek/deepseek-v4.1-flash-1017",
+  "host": "openrouter",
+  "size_gb": null,
+  "started_at": "2026-10-20T17:53:11+11:00",
+  "screens": {
+    "agentic": {
+      "turns": 7,
+      "stop": "finish",
+      "seconds": 8.8,
+      "tool_counts": {
+        "list_files": 1,
+        "read_file": 3,
+        "run_tests": 2,
+        "write_file": 1,
+        "finish": 1
+      },
+      "solved": true,
+      "final_tests": "4 runs, 4 assertions, 0 failures, 0 errors, 0 skips",
+      "box_seconds": 600,
+      "max_turns": 30,
+      "max_tokens": 4096
+    }
+  },
+  "finished_at": "2026-10-20T17:53:20+11:00"
+}

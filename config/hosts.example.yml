@@ -10,3 +10,8 @@ hosts:
     base: http://YOUR-MAC.tailnet:1234
     kind: lmstudio
     ssh: user@YOUR-MAC.tailnet
+  # Cloud comparison (OpenAI-compatible). The key is read from this environment variable.
+  openrouter:
+    base: https://openrouter.ai/api
+    kind: cloud
+    key_env: OPENROUTER_API_KEY

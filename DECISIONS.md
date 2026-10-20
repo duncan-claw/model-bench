@@ -5,6 +5,44 @@ The numbers live in `results/<run>/RESULTS.md`; this file records the reasoning.
 
 ## 2026-10-20
 
+- **Run 8: cloud comparison, overriding the 2026-10-19 "no cloud baseline" scope rule** (Mark's request;
+  `results/2026-10-20-cloud/`). Three low-cost OpenRouter models under the same rules, with
+  `data_collection: deny` on every request because MultiPL-E forbids training use. **GLM-5.3 Flash 154/161 (96%)**
+  and **DeepSeek V4.1 Flash 152/161 (94%)**, both 12/12 tools and 5 of 5 agentic, at 9–11 s per answer and a few
+  cents for the whole run. MiniMax M3.1 Flash (free) 141/161, 11/12, 5 of 5. Reading: on these puzzles the cheap cloud
+  models match or beat the best local model (Qwen3.6-35B-A3B 8-bit, 151/161 at 26 s) and run several jobs at once. The
+  case for the local Macs now rests on cost at volume, privacy, and the real-spec slice ladder, which should include a
+  cloud builder as the control. No keep/sell call yet.
+- **Run 7: 8,192-token coding for the candidates last measured at 4,096** (`results/2026-10-20-8k-b/`). Qwen3.8-27B
+  4-bit unchanged at 136/161 (it never needed the room); Ornith MLX 4-bit 135 → 137; Ornith MLX 8-bit 141 → 143.
+  Every candidate now has coding at 8,192 tokens. No ranking change among the local models.
+- **Run 9 on the MBP-16** (`results/2026-10-20-run9-mbp16/`): the same Qwen3.8-27B 4-bit coding run passed and failed
+  **exactly the same 161 problems** as on the MBP-14, so either Mac's coding results are comparable. All four candidates on
+  that Mac passed **12/12** tool-calling cases with a long enough box. Agentic attempts 6–10: both finalists 4 of 5,
+  **9 of 10 overall**; both failures were attempt 6, on the MBP-16 under different oMLX settings (below).
+- **New summary table** in RESULTS.md: the candidates and cloud models on one footing (8,192 tokens, agentic over every
+  Run-2-rules attempt, full tools), sorted by review minutes per 100 answers. The existing summary tables, including
+  Weights v2, are unchanged. Whether Weights v2 should use agentic over all attempts is still open.
+- **Correction: the MBP-16 was kernel-panicking, not restarting oMLX.** Earlier today (Run 6) this log said oMLX
+  restarted and the Mac was serving other jobs. Both were wrong: 10 kernel panics since 2026-10-19 15:08, each a sleep
+  transition timing out in the Thunderbolt driver, with the lid closed; no other client during the run. Fix (Mark,
+  2026-10-20): unplugged the Thunderbolt cable to the Mac mini, and `pmset -a disablesleep 1 hibernatemode 0 standby 0`.
+  No panics since. The MBP-16 runs headless with the lid closed by choice.
+- **The two MBPs' oMLX model settings differ** and should match before any split run: Qwen3.6-35B-A3B 8-bit runs on
+  Splash on the MBP-14 but oMLX's own engine on the MBP-16; Qwen3.8-27B 4-bit has TurboQuant KV on only on the MBP-14.
+  Splash on the MBP-16 was set up first (2026-10-18, Qwen3.8-27B 4-bit); the MBP-14 got its later per-model tuning.
+  Not changed yet: being decided with Mark.
+- **Harness changes:** a `cloud` host kind (OpenAI-compatible, goes through the Gateway's egress proxy, which supplies the
+  protected API key only inside a live agent session, so cloud runs can't be detached jobs); per-model extra request
+  fields (`request:` in `config/models.yml`); `--tools-box` so the tools screen can reach all 12 cases. And
+  `bin/ladder`, the slice-ladder runner (one rung, one builder, one attempt, through pi in its own git worktree,
+  verified by the runner, not the builder), tested on the slugify task (Qwen3.8-27B 4-bit on the MBP-16: passed, 55 s).
+  The spec-writing prompt for the ladder is `docs/LADDER_SPEC_PROMPT.md`.
+- **MultiPL-E Ruby audit** (`docs/MULTIPLE_RUBY_AUDIT.md`): 3 problems broken or unfair (`151_double_the_difference`,
+  `103_rounded_avg`, `95_check_dict_case`), and 17 correct answers failed by the harness (6 unclosed code fences, 11
+  lambdas or renamed methods swallowed by the `def` wrapper). Top ranking unchanged; best corrected score 154/161.
+  **Open:** whether to fix the extractor and publish corrected scores as an extra column (old figures kept).
+
 - **Run 6: agentic ×5 for the five builder candidates** (`results/2026-10-20-agentic5/`, Run 2 settings, Run 2 and
   Run 5 attempts counted, Run 1 not). Mark asked for 5 attempts each so the agentic result means something.
   **Qwen3.8-27B 4-bit 5 of 5** (6 turns every time) and **Qwen3.6-35B-A3B 8-bit 5 of 5**; Ornith MLX 4-bit 4 of 5;

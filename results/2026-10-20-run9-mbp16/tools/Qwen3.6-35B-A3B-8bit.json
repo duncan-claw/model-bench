@@ -1,0 +1,131 @@
+{
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "host": "mbp14-omlx",
+  "size_gb": 35,
+  "started_at": "2026-10-20T17:30:30+11:00",
+  "screens": {
+    "speed": {
+      "ttft": 2.9034990000072867,
+      "total": 7.979821000015363,
+      "completion_tokens": 400,
+      "tok_per_s": 78.79720789960992,
+      "chars": 1817
+    },
+    "tools": {
+      "attempted": 12,
+      "passed": 12,
+      "total_cases": 12,
+      "box_seconds": 900,
+      "gen_seconds": 53.9,
+      "cases": [
+        {
+          "case": 1,
+          "seconds": 2.6,
+          "error": null,
+          "calls": [
+            "get_weather({\"city\":\"Melbourne\",\"unit\":\"celsius\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 2,
+          "seconds": 5.4,
+          "error": null,
+          "calls": [
+            "create_calendar_event({\"title\":\"Roadmap review\",\"start\":\"2026-10-21T15:00:00\",\"duration_minutes\":30})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 3,
+          "seconds": 3.0,
+          "error": null,
+          "calls": [
+            "send_email({\"body\":\"Attached is the invoice.\",\"subject\":\"Invoice\",\"to\":\"leah@example.com\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 4,
+          "seconds": 2.7,
+          "error": null,
+          "calls": [],
+          "passed": true
+        },
+        {
+          "case": 5,
+          "seconds": 2.3,
+          "error": null,
+          "calls": [
+            "read_file({\"path\":\"config/database.yml\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 6,
+          "seconds": 4.9,
+          "error": null,
+          "calls": [
+            "search_web({\"query\":\"Rails 8.1 release news\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 7,
+          "seconds": 2.1,
+          "error": null,
+          "calls": [
+            "run_tests({\"path\":\"test/models\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 8,
+          "seconds": 3.4,
+          "error": null,
+          "calls": [
+            "get_weather({\"city\":\"Sydney\"})",
+            "get_weather({\"city\":\"Perth\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 9,
+          "seconds": 11.3,
+          "error": null,
+          "calls": [],
+          "passed": true
+        },
+        {
+          "case": 10,
+          "seconds": 3.5,
+          "error": null,
+          "calls": [
+            "create_issue({\"labels\":[\"bug\"],\"repo\":\"duncan-claw/outlook-tools\",\"title\":\"Sender filter dry-run\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 11,
+          "seconds": 9.3,
+          "error": null,
+          "calls": [
+            "create_reminder({\"text\":\"call Mum\",\"time\":\"18:00\"})"
+          ],
+          "passed": true
+        },
+        {
+          "case": 12,
+          "seconds": 3.3,
+          "error": null,
+          "calls": [
+            "list_orders({\"customer_id\":1042,\"limit\":5})"
+          ],
+          "passed": true
+        }
+      ]
+    }
+  },
+  "load_seconds": 16.0,
+  "finished_at": "2026-10-20T17:31:48+11:00"
+}

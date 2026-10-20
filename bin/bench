@@ -37,6 +37,7 @@ OptionParser.new do |o|
   o.on("--max-minutes N", Integer) { opts[:max_minutes] = _1 }
   o.on("--agentic-box S", Integer) { opts[:agentic_box] = _1 }
   o.on("--agentic-turns N", Integer) { opts[:agentic_turns] = _1 }
+  o.on("--tools-box S", Integer) { opts[:tools_box] = _1 }
 end.parse!
 
 config = YAML.load_file(File.join(ROOT, "config/models.yml"))
@@ -137,8 +138,13 @@ models.each do |m|
       used_lmstudio = host
       result[:load_seconds] = prepare_lmstudio(host, omlx_host, m["id"])
       log "#{m['id']}: loaded in LM Studio in #{result[:load_seconds]}s"
+    elsif host["kind"] == "cloud"
+      # The key env var holds a sentinel; the Gateway egress proxy swaps in the real key.
+      key = ENV.fetch(host["key_env"]) { raise "missing #{host['key_env']}" }
+      log "#{m['id']}: cloud (#{host['base']})"
     end
-    client = Client.new(base: host["base"], model: m["id"], api_key: key)
+    client = Client.new(base: host["base"], model: m["id"], api_key: key,
+                        proxy: host["kind"] == "cloud", extra: m["request"] || {})
 
     if opts[:screens].include?("speed")
       result[:screens][:speed] = client.stream([{ role: "user", content: SPEED_PROMPT }], max_tokens: 400, timeout: 90)
@@ -160,7 +166,7 @@ models.each do |m|
             klass.new(client, box: opts[:agentic_box] || BOX[name], max_turns: opts[:agentic_turns] || 15,
                               max_tokens: [opts[:max_tokens] || 2048, 2048].max).run
           else
-            klass.new(client, box: BOX[name]).run
+            klass.new(client, box: name == "tools" ? (opts[:tools_box] || BOX[name]) : BOX[name]).run
           end
       result[:screens][name.to_sym] = r
       summary = r.slice(:attempted, :passed, :pass_rate, :seconds_per_problem, :solved_per_hour, :hit_cap, :solved, :turns, :stop)

@@ -22,3 +22,8 @@ models:
   - { id: gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2, host: mbp14-lmstudio, size_gb: 12, pending: true, parked: "GGUF deleted from MBP-14 2026-10-20; MLX copy kept", family: "Gemma 4", vision: false }
   - { id: ornith-1.5-35b-a3b, host: mbp14-lmstudio, size_gb: 27.9, pending: true, parked: "GGUF deleted 2026-10-20 (MLX-only preference)", family: "Qwen3.5 (fine-tunes/distills)", vision: true }
   - { id: qwen3-coder-30b-rails, host: mbp14-lmstudio, size_gb: 20, pending: true, family: "Qwen3 30B-A3B MoE (fine-tunes)", vision: false }
+  # Cloud comparison (Run 8, 2026-10-20, at Mark's request). Run with --models; pending keeps them out of default runs.
+  # data_collection: deny = only providers that don't store or train on prompts (MultiPL-E forbids training use).
+  - { id: deepseek/deepseek-v4.1-flash-1017, host: openrouter, pending: "cloud comparison", family: "Cloud (OpenRouter)", vision: false, request: { provider: { data_collection: deny } } }
+  - { id: z-ai/glm-5.3-flash, host: openrouter, pending: "cloud comparison", family: "Cloud (OpenRouter)", vision: false, request: { provider: { data_collection: deny } } }
+  - { id: "minimax/minimax-m3.1-flash:free", host: openrouter, pending: "cloud comparison", family: "Cloud (OpenRouter)", vision: false, request: { provider: { data_collection: deny } } }

@@ -522,6 +522,244 @@ rerun on the MBP-14, `mbp16` = the stopped MBP-16 lane).
 - The Weights v2 summary below still uses Run 2's single agentic result. Whether to score agentic as solved ÷ attempts
   is an open decision.
 
+#### Correction (added later on 2026-10-20)
+
+Two statements above about the MBP-16 were wrong, and are corrected here rather than edited, to keep the record:
+- **It wasn't an oMLX restart.** The whole Mac kernel-panicked and rebooted at 15:59 ("Sleep transition timed out …
+  Suspected bundle: IOThunderboltFamily"), one of 10 such panics since 2026-10-19 15:08. Cause and fix: Run 9's page.
+- **It wasn't serving other jobs during this run.** Its log shows no other client between 15:54 and 15:59; the
+  newsletter job had last called it at 08:26.
+- Also found later: its oMLX settings for Qwen3.6-35B-A3B 8-bit (no Splash) and Qwen3.8-27B 4-bit (TurboQuant KV off)
+  differ from the MBP-14's. The interrupted attempt is kept in `mbp16-stopped/` and is not counted.
+
+---
+
+### Run 7: 8k re-run for the other candidates (coding only, 8,192-token answers, no time cap; Qwen3.8-27B 4-bit and both Ornith MLX builds)
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 8192 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 32.9 | — | — | 136/161 | — | — | — |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 23.0 | — | — | 137/161 | — | — | — |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 37 | 19.3 | — | — | 143/161 | — | — | — |  |
+
+#### Extended coding (all 161 problems, early stop below 50% after 20, or at the time cap)
+
+**Legend: extended tables**
+
+- **Pass / attempted**: Ruby problems whose unit tests passed / problems answered before the run stopped (161 = all).
+- **Pass rate**: pass ÷ attempted. Accuracy only; ignores speed.
+- **Pass rate excl. cut-off**: pass rate over only the answers that finished inside the token limit. A big gap from Pass rate means the model is accurate but too verbose for the limit.
+- **s / problem**: average seconds per answer, including any reasoning. The real pace, unlike tok/s.
+- **Solve rate (/hr)**: projected correct answers per hour of Mac time at the measured pace (passed × 3600 ÷ total answer seconds). A rate, not a count: there are only 161 problems. Speed and accuracy in one number.
+- **Hit token cap**: answers that ran into the per-answer limit of **8192 tokens** (reasoning plus code) and were cut off; those count as failures, so a high number means the pass rate is understated.
+- **Token limits used in this run**: coding 8192 tokens per answer; agentic 4096 tokens per turn.
+- **Stop**: `completed` (all 161), `time_cap (60 min)`, or `low_pass_rate` (below 50% after 20 problems).
+- **Agentic**: whether the slugify task's 4 tests pass at the end (10-minute box, 30 turns).
+- **Agentic turns / stop / s**: turns used, why it stopped (see the screen-table legend), and seconds taken.
+
+##### By model name
+
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.5 | 671.9 | 0 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 137/161 | 85% | 88% (137 of 156 finished) | 10.0 | 306.2 | 5 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 143/161 | 89% | 91% (143 of 158 finished) | 15.5 | 206.3 | 3 | completed | — | — |
+
+##### By pass rate (most accurate first)
+
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 143/161 | 89% | 91% (143 of 158 finished) | 15.5 | 206.3 | 3 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 137/161 | 85% | 88% (137 of 156 finished) | 10.0 | 306.2 | 5 | completed | — | — |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.5 | 671.9 | 0 | completed | — | — |
+
+##### By solve rate (speed × accuracy)
+
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.5 | 671.9 | 0 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 137/161 | 85% | 88% (137 of 156 finished) | 10.0 | 306.2 | 5 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 143/161 | 89% | 91% (143 of 158 finished) | 15.5 | 206.3 | 3 | completed | — | — |
+
+##### Grouped by agentic result, then solve rate
+
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.5 | 671.9 | 0 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 137/161 | 85% | 88% (137 of 156 finished) | 10.0 | 306.2 | 5 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 143/161 | 89% | 91% (143 of 158 finished) | 15.5 | 206.3 | 3 | completed | — | — |
+
+##### Grouped by family (Qwen newest first, then Gemma), then solve rate
+
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|
+| **Qwen3.8-27B** | | | | | | | | | |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.5 | 671.9 | 0 | completed | — | — |
+| **Qwen3.5 (fine-tunes/distills)** | | | | | | | | | |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 137/161 | 85% | 88% (137 of 156 finished) | 10.0 | 306.2 | 5 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 143/161 | 89% | 91% (143 of 158 finished) | 15.5 | 206.3 | 3 | completed | — | — |
+
+
+#### Weighted score: overnight builder (worked example, weights not yet agreed)
+
+**How it is worked out**
+
+- **Score** = 100 × the sum of (weight × component). Each component is on a 0–1 scale; the tables show each one.
+- **agentic**: 1 if the agentic task was solved, else 0. One attempt per model, so treat it as a coin flip until repeated.
+- **accuracy**: Pass rate (cut-off answers count as wrong).
+- **throughput**: log(1 + solve rate) ÷ log(1 + best solve rate in this run). The log stops one very fast model swamping the rest.
+- **memory**: 1 − size ÷ largest size in this run, so smaller scores higher.
+- **vision**: 1 if the model's weights include an image encoder, else 0 (from the model files; not yet tested with a real image).
+- **<sup>(d)</sup>** after a model name: deleted from the MBP-14 since this run (the MBP-16 may still hold a copy). Kept here as history.
+- **Net solve rate (/hr)**: projected (correct − wrong) answers per hour of Mac time, i.e. (passed − failed) ÷ hours of answering. Counts every wrong answer as cancelling a right one, because wrong code costs review or rework. Negative means it produces more wrong code than right.
+
+##### Weights v2 (2026-10-20): adds vision, taken from memory
+
+Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.05 × memory + 0.05 × vision). A model that reads images avoids handing screenshots to a second model, which costs time and memory.
+
+| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.05) | Vision (×0.05) | **Score** | Solve rate (/hr) | Net solve rate (/hr) |
+|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 0.0 | 0.85 | 1.0 | 0.59 | 1.0 | **53.3** | 671.9 | 548 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 0.0 | 0.85 | 0.88 | 0.51 | 0.0 | **45.7** | 306.2 | 253 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 0.0 | 0.89 | 0.82 | 0.0 | 0.0 | **43.0** | 206.3 | 180 |
+
+##### Weights v1 (2026-10-20): first worked example
+
+Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.1 × memory).
+
+| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.1) | **Score** | Solve rate (/hr) | Net solve rate (/hr) |
+|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 0.0 | 0.85 | 1.0 | 0.59 | **51.3** | 671.9 | 548 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 0.0 | 0.85 | 0.88 | 0.51 | **48.3** | 306.2 | 253 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 0.0 | 0.89 | 0.82 | 0.0 | **43.0** | 206.3 | 180 |
+
+---
+
+### Run 8: cloud comparison (OpenRouter) (three low-cost cloud models, same rules as the local candidates)
+
+**What:** three low-cost cloud models, chosen by Mark, through the same harness and rules as the local candidates:
+speed, all 161 HumanEval-Ruby problems at 8,192 tokens (no time cap), the 12 tool-calling cases, and the agentic task
+5 times under Run 2 rules (10-minute box, 30 turns, 4,096 tokens per turn).
+
+**Why:** to see what the local builders have to beat. This overrides the 2026-10-19 scope rule "no cloud baseline",
+at Mark's request (`DECISIONS.md`, 2026-10-20).
+
+**How:** OpenRouter's OpenAI-compatible API (`config/hosts.yml` kind `cloud`). Every request carried
+`provider: { data_collection: "deny" }`, so only providers that don't store or train on prompts were used
+(MultiPL-E's licence forbids training use). Temperature 0, as for the local models. The cloud models ran in parallel
+with each other; the Macs weren't involved. Cost: a few US cents in total for the two paid models; MiniMax was free.
+
+#### Result
+
+| Model | Ruby pass | Pass excl. cut-off | s / answer | Cut off | Tokens / answer | Tools | Agentic (5 attempts) | First token | tok/s |
+|---|---|---|---|---|---|---|---|---|---|
+| z-ai/glm-5.3-flash | **154/161 (96%)** | 154/160 | 9.3 | 1 | 672 | 12/12 | **5 of 5** (7–9 turns, 60–109 s) | 0.8 s | 86 |
+| deepseek/deepseek-v4.1-flash-1017 | **152/161 (94%)** | 152/159 | 11.0 | 2 | 641 | 12/12 | **5 of 5** (6–8 turns, 7–10 s) | 1.5 s | 50 |
+| minimax/minimax-m3.1-flash:free | 141/161 (88%) | 141/155 | 9.2 | 6 | 850 | 11/12 | **5 of 5** (6–26 turns, 26–122 s) | 1.4 s | 45 |
+
+For comparison, the best local model (Qwen3.6-35B-A3B 8-bit) is 151/161 at 26.1 s per answer, and the fastest
+(Qwen3.8-27B 4-bit) 136/161 at 4.5 s.
+
+#### Every agentic attempt
+
+| Model | a1 | a2 | a3 | a4 | a5 |
+|---|---|---|---|---|---|
+| GLM-5.3 Flash | ✓ 7 turns, 60 s | ✓ 9, 91 s | ✓ 9, 79 s | ✓ 9, 109 s | ✓ 7, 82 s |
+| DeepSeek V4.1 Flash | ✓ 8, 9 s | ✓ 6, 9 s | ✓ 6, 7 s | ✓ 7, 9 s | ✓ 6, 10 s |
+| MiniMax M3.1 Flash | ✓ 6, 38 s | ✓ 7, 36 s | ✓ 7, 26 s | ✓ 10, 41 s | ✓ 26, 122 s |
+
+Attempt 1 is in this folder's JSON files (with the coding, tools and speed screens); attempts 2–5 are in `a2/`–`a5/`.
+
+#### Notes
+
+- **Cloud speed isn't comparable to a Mac's in one way:** these calls share a provider's GPUs, and several can run at
+  once. The Macs do one job at a time (README, "One job at a time").
+- The first launch failed with `407 Proxy Authentication Required`: the OpenRouter key is a protected secret that the
+  Gateway's egress proxy adds only for processes in a live agent session, so a job detached from the Gateway can't
+  use it. Those results were discarded and the run restarted inside a session. Local runs don't use the proxy.
+- Puzzles only. Real feature work is the slice-size ladder (`docs/PLANNER_BUILDER_PLAN.md`).
+
+---
+
+### Run 9: MBP-16 check, full tools, agentic attempts 6–10 (on the MBP-16; its oMLX settings differed from the MBP-14's)
+
+All on the **MBP-16** (M1 Max, 64 GB, oMLX 0.7.1rc1), after it was stabilised the same afternoon (see Notes).
+
+#### 1. Same-hardware check (`check/`)
+
+Qwen3.8-27B 4-bit, all 161 problems at 8,192 tokens, the same settings as its Run 7 row on the MBP-14.
+
+| Mac | Pass | s / answer |
+|---|---|---|
+| MBP-14 (Run 7) | 136/161 | 4.5 |
+| MBP-16 | 136/161 | 3.2 |
+
+**Every one of the 161 problems passed or failed the same way on both Macs**, so coding results from either Mac are
+comparable for this model. The MBP-16 was faster per answer.
+
+#### 2. Speed and all 12 tool-calling cases (`tools/`)
+
+The tools screen ran with a 15-minute box (`--tools-box 900`) instead of 90 s, so every case was reached. In Run 1
+the 90-second box stopped Qwen3.8-27B 4-bit at 6 of 12 and the 8-bit at 4 of 12.
+
+| Model | Tools | Load s | First token | tok/s |
+|---|---|---|---|---|
+| Qwen3.8-27B 4-bit | **12/12** | 28.7 | 29.5 s* | 24.2* |
+| Qwen3.6-35B-A3B 8-bit | **12/12** | 16.0 | 2.9 s | 78.8 |
+| Qwen3.6-35B-A3B 4-bit | **12/12** | 18.1 | 0.1 s | 70.4 |
+| Ornith-1.5-35B-A3B MLX 4-bit | **12/12** | 16.7 | 0.5 s | 64.1 |
+
+\* The speed screen is the first request after a load. Qwen3.8-27B 4-bit's figure looks like warm-up, not its working
+speed (Splash measured about 48–50 tok/s on this Mac on 2026-10-18). Treat these as cold-start readings.
+
+#### 3. Agentic attempts 6–10 for the two finalists (`a6/`–`a10/`)
+
+Run 2 rules (10-minute box, 30 turns, 4,096 tokens per turn), continuing Run 6's attempts 1–5.
+
+| Model | a6 | a7 | a8 | a9 | a10 | This run | **All 10 attempts** |
+|---|---|---|---|---|---|---|---|
+| Qwen3.8-27B 4-bit | ✗ 30 turns, `max_turns` | ✓ 8 | ✓ 6 | ✓ 6 | ✓ 6 | 4 of 5 | **9 of 10** |
+| Qwen3.6-35B-A3B 8-bit | ✗ 15 turns, `no_tool_call` | ✓ 8 | ✓ 9 | ✓ 8 | ✓ 9 | 4 of 5 | **9 of 10** |
+
+**Caveat: the MBP-16's oMLX model settings differ from the MBP-14's,** found during this run:
+
+| Model | Setting | MBP-14 | MBP-16 |
+|---|---|---|---|
+| Qwen3.6-35B-A3B 8-bit | `external_engine` | `splash` | (none: oMLX's own engine) |
+| Qwen3.8-27B 4-bit | `turboquant_kv_enabled` | true | false |
+
+So these attempts aren't a like-for-like repeat of Run 6, which ran on the MBP-14. Both failures were the first
+attempt of the run; attempts 7–10 all passed.
+
+#### Notes
+
+- **The MBP-16 had been kernel-panicking**, not "restarting oMLX" as first recorded for Run 6: 10 panics between
+  2026-10-19 15:08 and 2026-10-20 15:59, each "Sleep transition timed out … Suspected bundle: IOThunderboltFamily /
+  AppleThunderboltIP". The lid is closed (it runs headless) and it kept entering maintenance sleep. A Thunderbolt
+  cable to a Mac mini (from the August exo cluster) was unplugged, and Mark set `pmset -a disablesleep 1
+  hibernatemode 0 standby 0`. No panics since.
+- No other client called the MBP-16 during Runs 6 or 9 (its log shows the sports-surfaces newsletter job overnight
+  until 08:26 and the pi agent at 11:59, nothing else).
+- These runs used a copy of the harness pointed at the MBP-16 (the harness then supported one oMLX host); results were
+  moved into this folder.
+
 ---
 
 ## Summary across runs
@@ -688,6 +926,24 @@ room, not that it got better: Run 1 stopped after 2 minutes, Run 2 cut answers a
 | gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | 83% (5/6) | 71% (115/161) | — | — | **71% (115/161)** · Run 2 |
 | qwen3-coder-30b-rails | 67% (37/55) | 45% (9/20) | — | — | **45% (9/20)** · Run 2 |
 
+### Builder candidates and cloud comparison (2026-10-20 evening): all at 8,192 tokens, agentic over every attempt
+
+Coding: all 161 problems at 8,192-token answers, no time cap (Runs 3, 7 and 8). Agentic: every attempt under Run 2
+rules (10-minute box, 30 turns), Runs 2, 5, 6, 8 and 9. Tools: all 12 cases (Runs 8 and 9). Review minutes assume 10
+minutes of a person's time per wrong answer (README). The local finalists' failures in attempts 6 came on the MBP-16
+under different oMLX settings (Run 9 page). Cloud models run several requests at once; a Mac does one at a time.
+
+| Model | Where | Pass / 161 | Pass rate | s / answer | Cut off | **Review min / 100** | Tools (of 12) | Agentic | Reads images |
+|---|---|---|---|---|---|---|---|---|---|
+| GLM-5.3 Flash | cloud | 154 | 96% | 9.3 | 1 | **43** | 12 | 5 of 5 | not tested |
+| DeepSeek V4.1 Flash | cloud | 152 | 94% | 11.0 | 2 | **56** | 12 | 5 of 5 | not tested |
+| Qwen3.6-35B-A3B 8-bit | local | 151 | 94% | 26.1 | 1 | **62** | 12 | 9 of 10 | yes |
+| Qwen3.6-35B-A3B 4-bit | local | 149 | 93% | 34.7 | 2 | **75** | 12 | 3 of 5 | yes |
+| Ornith-1.5-35B-A3B MLX 8-bit | local | 143 | 89% | 15.5 | 3 | **112** | — | 3 of 5 | no |
+| MiniMax M3.1 Flash (free) | cloud | 141 | 88% | 9.2 | 6 | **124** | 11 | 5 of 5 | not tested |
+| Ornith-1.5-35B-A3B MLX 4-bit | local | 137 | 85% | 10.0 | 5 | **149** | 12 | 4 of 5 | no |
+| Qwen3.8-27B 4-bit | local | 136 | 85% | 4.5 | 0 | **155** | 12 | 9 of 10 | yes |
+
 ### Where each run's page lives
 
 - **Run 1: screen** (2-min coding box, 1,024-token answers, 2-min agentic box): [`results/2026-10-19/RESULTS.md`](results/2026-10-19/RESULTS.md)
@@ -696,6 +952,9 @@ room, not that it got better: Run 1 stopped after 2 minutes, Run 2 cut answers a
 - **Run 4: Gemma 32k** (coding only, 32,768-token answers; stopped at problem 30): [`results/2026-10-20-gemma32k/README.md`](results/2026-10-20-gemma32k/README.md)
 - **Run 5: Ornith 8-bit agentic re-test** (agentic task only, Run 2 settings: 10-min box, 30 turns, 4,096 tokens per turn): [`results/2026-10-20-ornith8-agentic/RESULTS.md`](results/2026-10-20-ornith8-agentic/RESULTS.md)
 - **Run 6: agentic ×5 for the builder candidates** (agentic task only, Run 2 settings; 5 attempts per candidate including earlier ones): [`results/2026-10-20-agentic5/README.md`](results/2026-10-20-agentic5/README.md)
+- **Run 7: 8k re-run for the other candidates** (coding only, 8,192-token answers, no time cap; Qwen3.8-27B 4-bit and both Ornith MLX builds): [`results/2026-10-20-8k-b/RESULTS.md`](results/2026-10-20-8k-b/RESULTS.md)
+- **Run 8: cloud comparison (OpenRouter)** (three low-cost cloud models, same rules as the local candidates): [`results/2026-10-20-cloud/README.md`](results/2026-10-20-cloud/README.md)
+- **Run 9: MBP-16 check, full tools, agentic attempts 6–10** (on the MBP-16; its oMLX settings differed from the MBP-14's): [`results/2026-10-20-run9-mbp16/README.md`](results/2026-10-20-run9-mbp16/README.md)
 - **Run logs** for all of them (host addresses redacted): [`results/logs/`](results/logs/)
 
 Run 2's page also has the weighted scores (v1 and v2), the family grouping and the sorted views.

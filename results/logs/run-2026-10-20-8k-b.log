@@ -1,0 +1,171 @@
+[16:56:13] run 2026-10-20-8k-b: 3 models, screens coding
+[16:56:47] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 32.9s
+[16:57:57]   coding 10/161, pass 70% (7), 7.0 s/problem, ~18 min left at this pace
+[16:58:34]   coding 20/161, pass 65% (13), 5.3 s/problem, ~13 min left at this pace
+[16:59:12]   coding 30/161, pass 76% (23), 4.8 s/problem, ~11 min left at this pace
+[16:59:59]   coding 40/161, pass 82% (33), 4.8 s/problem, ~10 min left at this pace
+[17:00:42]   coding 50/161, pass 84% (42), 4.7 s/problem, ~9 min left at this pace
+[17:02:16]   coding 60/161, pass 86% (52), 5.5 s/problem, ~9 min left at this pace
+[17:03:01]   coding 70/161, pass 87% (61), 5.3 s/problem, ~8 min left at this pace
+[17:03:34]   coding 80/161, pass 86% (69), 5.1 s/problem, ~7 min left at this pace
+[17:04:14]   coding 90/161, pass 84% (76), 5.0 s/problem, ~6 min left at this pace
+[17:04:54]   coding 100/161, pass 86% (86), 4.9 s/problem, ~5 min left at this pace
+[17:05:30]   coding 110/161, pass 83% (92), 4.8 s/problem, ~4 min left at this pace
+[17:06:14]   coding 120/161, pass 84% (101), 4.7 s/problem, ~3 min left at this pace
+[17:06:55]   coding 130/161, pass 85% (111), 4.7 s/problem, ~2 min left at this pace
+[17:07:29]   coding 140/161, pass 85% (119), 4.6 s/problem, ~2 min left at this pace
+[17:08:06]   coding 150/161, pass 84% (127), 4.5 s/problem, ~1 min left at this pace
+[17:09:03]   coding 160/161, pass 84% (135), 4.6 s/problem, ~0 min left at this pace
+[17:09:09]   coding {attempted: 161, passed: 136, pass_rate: 0.845, seconds_per_problem: 4.5, solved_per_hour: 671.9, hit_cap: 0, stop: "completed"}
+[17:09:33] ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit: loaded in 23.0s
+[17:12:09]   coding 10/161, pass 100% (10), 15.7 s/problem, ~39 min left at this pace
+[17:12:47]   coding 20/161, pass 90% (18), 9.7 s/problem, ~23 min left at this pace
+[17:13:31]   coding 30/161, pass 90% (27), 7.9 s/problem, ~17 min left at this pace
+[17:16:37]   coding 40/161, pass 90% (36), 10.6 s/problem, ~21 min left at this pace
+[17:17:32]   coding 50/161, pass 92% (46), 9.6 s/problem, ~18 min left at this pace
+[17:20:13]   coding 60/161, pass 88% (53), 10.7 s/problem, ~18 min left at this pace
+[17:21:09]   coding 70/161, pass 88% (62), 9.9 s/problem, ~15 min left at this pace
+[17:21:59]   coding 80/161, pass 88% (71), 9.3 s/problem, ~13 min left at this pace
+[17:22:58]   coding 90/161, pass 86% (78), 8.9 s/problem, ~11 min left at this pace
+[17:26:10]   coding 100/161, pass 86% (86), 10.0 s/problem, ~10 min left at this pace
+[17:28:11]   coding 110/161, pass 86% (95), 10.2 s/problem, ~9 min left at this pace
+[17:29:20]   coding 120/161, pass 86% (104), 9.9 s/problem, ~7 min left at this pace
+[17:31:37]   coding 130/161, pass 85% (111), 10.2 s/problem, ~5 min left at this pace
+[17:32:53]   coding 140/161, pass 85% (120), 10.0 s/problem, ~4 min left at this pace
+[17:35:21]   coding 150/161, pass 84% (127), 10.3 s/problem, ~2 min left at this pace
+[17:36:30]   coding 160/161, pass 85% (136), 10.1 s/problem, ~0 min left at this pace
+[17:36:37]   coding {attempted: 161, passed: 137, pass_rate: 0.851, seconds_per_problem: 10.0, solved_per_hour: 306.2, hit_cap: 5, stop: "completed"}
+[17:36:57] ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit: loaded in 19.3s
+[17:41:49]   coding 10/161, pass 80% (8), 29.2 s/problem, ~74 min left at this pace
+[17:43:09]   coding 20/161, pass 80% (16), 18.6 s/problem, ~44 min left at this pace
+[17:44:15]   coding 30/161, pass 86% (26), 14.6 s/problem, ~32 min left at this pace
+[17:49:41]   coding 40/161, pass 85% (34), 19.1 s/problem, ~39 min left at this pace
+[17:51:47]   coding 50/161, pass 88% (44), 17.8 s/problem, ~33 min left at this pace
+[17:56:00]   coding 60/161, pass 88% (53), 19.1 s/problem, ~32 min left at this pace
+[17:57:43]   coding 70/161, pass 90% (63), 17.8 s/problem, ~27 min left at this pace
+[17:58:42]   coding 80/161, pass 90% (72), 16.3 s/problem, ~22 min left at this pace
+[18:00:02]   coding 90/161, pass 91% (82), 15.4 s/problem, ~18 min left at this pace
+[18:04:25]   coding 100/161, pass 90% (90), 16.5 s/problem, ~17 min left at this pace
+[18:05:50]   coding 110/161, pass 89% (98), 15.8 s/problem, ~13 min left at this pace
+[18:07:39]   coding 120/161, pass 89% (107), 15.4 s/problem, ~10 min left at this pace
+[18:09:55]   coding 130/161, pass 89% (116), 15.2 s/problem, ~8 min left at this pace
+[18:11:27]   coding 140/161, pass 89% (125), 14.8 s/problem, ~5 min left at this pace
+[18:15:27]   coding 150/161, pass 88% (133), 15.4 s/problem, ~3 min left at this pace
+[18:18:40]   coding 160/161, pass 88% (142), 15.6 s/problem, ~0 min left at this pace
+[18:18:46]   coding {attempted: 161, passed: 143, pass_rate: 0.888, seconds_per_problem: 15.5, solved_per_hour: 206.3, hit_cap: 3, stop: "completed"}
+[18:19:22] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+# Results — 2026-10-20-8k-b
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 8192 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 32.9 | — | — | 136/161 | — | — | — |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 23.0 | — | — | 137/161 | — | — | — |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 37 | 19.3 | — | — | 143/161 | — | — | — |  |
+
+## Extended coding (all 161 problems, early stop below 50% after 20, or at the time cap)
+
+**Legend: extended tables**
+
+- **Pass / attempted**: Ruby problems whose unit tests passed / problems answered before the run stopped (161 = all).
+- **Pass rate**: pass ÷ attempted. Accuracy only; ignores speed.
+- **Pass rate excl. cut-off**: pass rate over only the answers that finished inside the token limit. A big gap from Pass rate means the model is accurate but too verbose for the limit.
+- **s / problem**: average seconds per answer, including any reasoning. The real pace, unlike tok/s.
+- **Solve rate (/hr)**: projected correct answers per hour of Mac time at the measured pace (passed × 3600 ÷ total answer seconds). A rate, not a count: there are only 161 problems. Speed and accuracy in one number.
+- **Hit token cap**: answers that ran into the per-answer limit of **8192 tokens** (reasoning plus code) and were cut off; those count as failures, so a high number means the pass rate is understated.
+- **Token limits used in this run**: coding 8192 tokens per answer; agentic 4096 tokens per turn.
+- **Stop**: `completed` (all 161), `time_cap (60 min)`, or `low_pass_rate` (below 50% after 20 problems).
+- **Agentic**: whether the slugify task's 4 tests pass at the end (10-minute box, 30 turns).
+- **Agentic turns / stop / s**: turns used, why it stopped (see the screen-table legend), and seconds taken.
+
+### By model name
+
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.5 | 671.9 | 0 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 137/161 | 85% | 88% (137 of 156 finished) | 10.0 | 306.2 | 5 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 143/161 | 89% | 91% (143 of 158 finished) | 15.5 | 206.3 | 3 | completed | — | — |
+
+### By pass rate (most accurate first)
+
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 143/161 | 89% | 91% (143 of 158 finished) | 15.5 | 206.3 | 3 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 137/161 | 85% | 88% (137 of 156 finished) | 10.0 | 306.2 | 5 | completed | — | — |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.5 | 671.9 | 0 | completed | — | — |
+
+### By solve rate (speed × accuracy)
+
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.5 | 671.9 | 0 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 137/161 | 85% | 88% (137 of 156 finished) | 10.0 | 306.2 | 5 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 143/161 | 89% | 91% (143 of 158 finished) | 15.5 | 206.3 | 3 | completed | — | — |
+
+### Grouped by agentic result, then solve rate
+
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.5 | 671.9 | 0 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 137/161 | 85% | 88% (137 of 156 finished) | 10.0 | 306.2 | 5 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 143/161 | 89% | 91% (143 of 158 finished) | 15.5 | 206.3 | 3 | completed | — | — |
+
+### Grouped by family (Qwen newest first, then Gemma), then solve rate
+
+| Model | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solve rate (/hr) | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|
+| **Qwen3.8-27B** | | | | | | | | | |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 136/161 | 85% | 84% (136 of 161 finished) | 4.5 | 671.9 | 0 | completed | — | — |
+| **Qwen3.5 (fine-tunes/distills)** | | | | | | | | | |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 137/161 | 85% | 88% (137 of 156 finished) | 10.0 | 306.2 | 5 | completed | — | — |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 143/161 | 89% | 91% (143 of 158 finished) | 15.5 | 206.3 | 3 | completed | — | — |
+
+
+## Weighted score: overnight builder (worked example, weights not yet agreed)
+
+**How it is worked out**
+
+- **Score** = 100 × the sum of (weight × component). Each component is on a 0–1 scale; the tables show each one.
+- **agentic**: 1 if the agentic task was solved, else 0. One attempt per model, so treat it as a coin flip until repeated.
+- **accuracy**: Pass rate (cut-off answers count as wrong).
+- **throughput**: log(1 + solve rate) ÷ log(1 + best solve rate in this run). The log stops one very fast model swamping the rest.
+- **memory**: 1 − size ÷ largest size in this run, so smaller scores higher.
+- **vision**: 1 if the model's weights include an image encoder, else 0 (from the model files; not yet tested with a real image).
+- **<sup>(d)</sup>** after a model name: deleted from the MBP-14 since this run (the MBP-16 may still hold a copy). Kept here as history.
+- **Net solve rate (/hr)**: projected (correct − wrong) answers per hour of Mac time, i.e. (passed − failed) ÷ hours of answering. Counts every wrong answer as cancelling a right one, because wrong code costs review or rework. Negative means it produces more wrong code than right.
+
+### Weights v2 (2026-10-20): adds vision, taken from memory
+
+Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.05 × memory + 0.05 × vision). A model that reads images avoids handing screenshots to a second model, which costs time and memory.
+
+| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.05) | Vision (×0.05) | **Score** | Solve rate (/hr) | Net solve rate (/hr) |
+|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 0.0 | 0.85 | 1.0 | 0.59 | 1.0 | **53.3** | 671.9 | 548 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 0.0 | 0.85 | 0.88 | 0.51 | 0.0 | **45.7** | 306.2 | 253 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 0.0 | 0.89 | 0.82 | 0.0 | 0.0 | **43.0** | 206.3 | 180 |
+
+### Weights v1 (2026-10-20): first worked example
+
+Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.1 × memory).
+
+| Model | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.1) | **Score** | Solve rate (/hr) | Net solve rate (/hr) |
+|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 0.0 | 0.85 | 1.0 | 0.59 | **51.3** | 671.9 | 548 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 0.0 | 0.85 | 0.88 | 0.51 | **48.3** | 306.2 | 253 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 0.0 | 0.89 | 0.82 | 0.0 | **43.0** | 206.3 | 180 |

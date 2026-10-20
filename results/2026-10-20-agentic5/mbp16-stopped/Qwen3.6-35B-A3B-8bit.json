@@ -1,0 +1,10 @@
+{
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "host": "mbp14-omlx",
+  "size_gb": 35,
+  "started_at": "2026-10-20T15:56:47+11:00",
+  "screens": {},
+  "load_seconds": 17.9,
+  "error": "Interrupt: SIGTERM",
+  "finished_at": "2026-10-20T16:06:18+11:00"
+}

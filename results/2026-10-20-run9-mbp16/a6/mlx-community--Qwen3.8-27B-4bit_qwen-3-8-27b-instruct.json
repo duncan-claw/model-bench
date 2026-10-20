@@ -1,0 +1,26 @@
+{
+  "model": "mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct",
+  "host": "mbp14-omlx",
+  "size_gb": 15,
+  "started_at": "2026-10-20T17:33:11+11:00",
+  "screens": {
+    "agentic": {
+      "turns": 30,
+      "stop": "max_turns",
+      "seconds": 253.4,
+      "tool_counts": {
+        "list_files": 1,
+        "read_file": 2,
+        "run_tests": 14,
+        "write_file": 14
+      },
+      "solved": false,
+      "final_tests": "4 runs, 4 assertions, 1 failures, 0 errors, 0 skips",
+      "box_seconds": 600,
+      "max_turns": 30,
+      "max_tokens": 4096
+    }
+  },
+  "load_seconds": 28.7,
+  "finished_at": "2026-10-20T17:37:55+11:00"
+}

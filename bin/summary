@@ -15,7 +15,10 @@ RUNS = [
   { id: "2026-10-20-8k", label: "Run 3: 8k re-run", note: "coding only, 8,192-token answers, no time cap; verbose models only" },
   { id: "2026-10-20-gemma32k", label: "Run 4: Gemma 32k", note: "coding only, 32,768-token answers; stopped at problem 30" },
   { id: "2026-10-20-ornith8-agentic", label: "Run 5: Ornith 8-bit agentic re-test", note: "agentic task only, Run 2 settings: 10-min box, 30 turns, 4,096 tokens per turn" },
-  { id: "2026-10-20-agentic5", label: "Run 6: agentic ×5 for the builder candidates", note: "agentic task only, Run 2 settings; 5 attempts per candidate including earlier ones" }
+  { id: "2026-10-20-agentic5", label: "Run 6: agentic ×5 for the builder candidates", note: "agentic task only, Run 2 settings; 5 attempts per candidate including earlier ones" },
+  { id: "2026-10-20-8k-b", label: "Run 7: 8k re-run for the other candidates", note: "coding only, 8,192-token answers, no time cap; Qwen3.8-27B 4-bit and both Ornith MLX builds" },
+  { id: "2026-10-20-cloud", label: "Run 8: cloud comparison (OpenRouter)", note: "three low-cost cloud models, same rules as the local candidates" },
+  { id: "2026-10-20-run9-mbp16", label: "Run 9: MBP-16 check, full tools, agentic attempts 6–10", note: "on the MBP-16; its oMLX settings differed from the MBP-14's" }
 ].freeze
 
 def load_run(id)
@@ -181,6 +184,49 @@ prog = models.map do |m|
 end
 prog.sort_by { [-_1[:rate], _1[:m].downcase] }.each do |p|
   out << "| #{short.(p[:m])}#{deleted.(p[:m])} | #{p[:cells].join(' | ')} | #{p[:latest]} |"
+end
+out << ""
+
+# 2b. Builder candidates and cloud comparison, everything on one footing (added 2026-10-20 evening).
+# Coding at 8,192 tokens with no cap (Run 3, 7 or 8); agentic = every attempt under Run 2 rules (Runs 2, 5, 6, 8, 9);
+# tools = all 12 cases (Run 9's long box, or Run 8). The tables above are left as they were.
+load_dir = ->(dir) { Dir[File.join(ROOT, "results", dir, "*.json")].to_h { (r = JSON.parse(File.read(_1, encoding: "UTF-8"))); [r["model"], r] } }
+FINAL = [
+  ["Qwen3.6-35B-A3B-8bit", "2026-10-20-8k", "Qwen3.6-35B-A3B 8-bit", "local"],
+  ["mlx-community--Qwen3.6-35B-A3B-4bit", "2026-10-20-8k", "Qwen3.6-35B-A3B 4-bit", "local"],
+  ["mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct", "2026-10-20-8k-b", "Qwen3.8-27B 4-bit", "local"],
+  ["ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit", "2026-10-20-8k-b", "Ornith-1.5-35B-A3B MLX 4-bit", "local"],
+  ["ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit", "2026-10-20-8k-b", "Ornith-1.5-35B-A3B MLX 8-bit", "local"],
+  ["z-ai/glm-5.3-flash", "2026-10-20-cloud", "GLM-5.3 Flash", "cloud"],
+  ["deepseek/deepseek-v4.1-flash-1017", "2026-10-20-cloud", "DeepSeek V4.1 Flash", "cloud"],
+  ["minimax/minimax-m3.1-flash:free", "2026-10-20-cloud", "MiniMax M3.1 Flash (free)", "cloud"]
+].freeze
+AGENTIC_DIRS = %w[2026-10-19-extended 2026-10-20-ornith8-agentic] + (1..5).map { "2026-10-20-agentic5/a#{_1}" } +
+               (6..10).map { "2026-10-20-run9-mbp16/a#{_1}" } + %w[2026-10-20-cloud] + (2..5).map { "2026-10-20-cloud/a#{_1}" }
+agentic_runs = AGENTIC_DIRS.map { load_dir.(_1) }
+tools_runs = [load_dir.("2026-10-20-run9-mbp16/tools"), load_dir.("2026-10-20-cloud")]
+final = FINAL.map do |id, dir, label, kind|
+  c = coding(load_dir.(dir)[id])
+  tries = agentic_runs.filter_map { _1.dig(id, "screens", "agentic") }.reject(&:empty?)
+  t = tools_runs.filter_map { _1.dig(id, "screens", "tools") }.first
+  wrong = c["attempted"] - c["passed"]
+  { label: label, kind: kind, c: c, solved: tries.count { _1["solved"] }, tries: tries.size, tools: t,
+    review: (wrong * 1000.0 / c["attempted"]).round, vision: config.dig(id, "vision") }
+end
+out << "### Builder candidates and cloud comparison (2026-10-20 evening): all at 8,192 tokens, agentic over every attempt"
+out << ""
+out << "Coding: all 161 problems at 8,192-token answers, no time cap (Runs 3, 7 and 8). Agentic: every attempt under Run 2"
+out << "rules (10-minute box, 30 turns), Runs 2, 5, 6, 8 and 9. Tools: all 12 cases (Runs 8 and 9). Review minutes assume 10"
+out << "minutes of a person's time per wrong answer (README). The local finalists' failures in attempts 6 came on the MBP-16"
+out << "under different oMLX settings (Run 9 page). Cloud models run several requests at once; a Mac does one at a time."
+out << ""
+out << "| Model | Where | Pass / 161 | Pass rate | s / answer | Cut off | **Review min / 100** | Tools (of 12) | Agentic | Reads images |"
+out << "|---|---|---|---|---|---|---|---|---|---|"
+final.sort_by { _1[:review] }.each do |r|
+  c = r[:c]
+  out << "| #{r[:label]} | #{r[:kind]} | #{c['passed']} | #{(c['pass_rate'].to_f * 100).round}% | #{f.(c['seconds_per_problem'])} | " \
+         "#{c['hit_cap']} | **#{r[:review]}** | #{r[:tools] ? r[:tools]['passed'] : '—'} | #{r[:solved]} of #{r[:tries]} | " \
+         "#{r[:vision] ? 'yes' : (r[:kind] == 'cloud' ? 'not tested' : 'no')} |"
 end
 out << ""
 

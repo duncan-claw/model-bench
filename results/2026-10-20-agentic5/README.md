@@ -61,3 +61,13 @@ rerun on the MBP-14, `mbp16` = the stopped MBP-16 lane).
   Not investigated; load order and cache state differ between runs.
 - The Weights v2 summary below still uses Run 2's single agentic result. Whether to score agentic as solved ÷ attempts
   is an open decision.
+
+## Correction (added later on 2026-10-20)
+
+Two statements above about the MBP-16 were wrong, and are corrected here rather than edited, to keep the record:
+- **It wasn't an oMLX restart.** The whole Mac kernel-panicked and rebooted at 15:59 ("Sleep transition timed out …
+  Suspected bundle: IOThunderboltFamily"), one of 10 such panics since 2026-10-19 15:08. Cause and fix: Run 9's page.
+- **It wasn't serving other jobs during this run.** Its log shows no other client between 15:54 and 15:59; the
+  newsletter job had last called it at 08:26.
+- Also found later: its oMLX settings for Qwen3.6-35B-A3B 8-bit (no Splash) and Qwen3.8-27B 4-bit (TurboQuant KV off)
+  differ from the MBP-14's. The interrupted attempt is kept in `mbp16-stopped/` and is not counted.

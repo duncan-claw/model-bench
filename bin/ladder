@@ -1,0 +1,173 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Slice-ladder runner: one rung spec, one builder, one attempt.
+# Makes a git worktree from the base commit, runs pi (the builder harness) against a local oMLX model,
+# then verifies independently: the spec's test command, the full suite, the acceptance test file untouched,
+# and no edits outside the allowed files. Writes one result JSON. The builder's changes are committed on the
+# attempt branch for review. The runner never edits code itself.
+#
+# Usage:
+#   bin/ladder --repo PATH --spec PATH --base COMMIT --builder qwen38-4bit@mbp16 \
+#     --verify "bin/rails test test/models/event_test.rb" [--suite "bin/rails test"] \
+#     --test-file test/models/event_test.rb [--allow app/models/event.rb,db/migrate/*] \
+#     [--timeout-min 45] [--attempt 1] [--context-files] --out results/ladder/<feature>
+
+require "json"
+require "yaml"
+require "open3"
+require "optparse"
+require "fileutils"
+require "digest"
+require "time"
+require "tmpdir"
+
+ROOT = File.expand_path("..", __dir__)
+BUILDERS = {
+  "qwen38-4bit" => { model: "mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct", load: "mlx-community--Qwen3.8-27B-4bit" },
+  "qwen36-8bit" => { model: "Qwen3.6-35B-A3B-8bit", load: "Qwen3.6-35B-A3B-8bit", reasoning: true }
+}.freeze
+
+o = { suite: nil, allow: [], timeout_min: 45, attempt: 1, context_files: false }
+OptionParser.new do |p|
+  p.on("--repo P") { o[:repo] = File.expand_path(_1) }
+  p.on("--spec P") { o[:spec] = File.expand_path(_1) }
+  p.on("--base C") { o[:base] = _1 }
+  p.on("--builder B") { o[:builder] = _1 }
+  p.on("--verify CMD") { o[:verify] = _1 }
+  p.on("--suite CMD") { o[:suite] = _1 }
+  p.on("--test-file P") { o[:test_file] = _1 }
+  p.on("--allow LIST") { o[:allow] = _1.split(",") }
+  p.on("--timeout-min N", Integer) { o[:timeout_min] = _1 }
+  p.on("--attempt N", Integer) { o[:attempt] = _1 }
+  p.on("--context-files") { o[:context_files] = true }
+  p.on("--out DIR") { o[:out] = File.expand_path(_1, ROOT) }
+end.parse!
+%i[repo spec base builder verify test_file out].each { |k| abort "missing --#{k.to_s.tr('_', '-')}" unless o[k] }
+
+name, host_key = o[:builder].split("@")
+builder = BUILDERS.fetch(name) { abort "unknown builder #{name}; known: #{BUILDERS.keys.join(', ')}" }
+hosts = YAML.load_file(File.join(ROOT, "config/hosts.yml")).fetch("hosts")
+host = hosts.fetch("#{host_key}-omlx") { abort "no host #{host_key}-omlx in config/hosts.yml" }
+
+rung = File.basename(o[:spec], ".md")
+tag = "#{rung}-#{name}-#{host_key}-a#{o[:attempt]}"
+FileUtils.mkdir_p(o[:out])
+log_path = File.join(o[:out], "#{tag}.pi.jsonl")
+result_path = File.join(o[:out], "#{tag}.json")
+def log(msg) = $stdout.puts("[#{Time.now.strftime('%H:%M:%S')}] #{msg}").tap { $stdout.flush }
+
+# Local hosts are reached directly: the Gateway egress proxy refuses Tailscale addresses.
+LOCAL_ENV = %w[HTTP_PROXY HTTPS_PROXY http_proxy https_proxy ALL_PROXY all_proxy].to_h { [_1, nil] }
+RBENV = File.expand_path("~/.rbenv/versions/3.4.1/bin")
+def sh(cmd, dir, timeout: 1800)
+  env = LOCAL_ENV.merge("PATH" => "#{RBENV}:#{File.expand_path('~/.rbenv/shims')}:#{ENV['PATH']}")
+  out, st = Open3.capture2e(env, "perl", "-e", "alarm #{timeout}; exec @ARGV", "bash", "-lc", cmd, chdir: dir)
+  [out, st.exitstatus]
+end
+
+def omlx_key(host)
+  cmd = %q(python3 -c 'import json,os;print(json.load(open(os.path.expanduser("~/.omlx/settings.json")))["auth"]["api_key"])')
+  out, st = Open3.capture2("ssh", "-o", "ConnectTimeout=5", host["ssh"], cmd)
+  raise "could not read oMLX key" unless st.success?
+
+  out.strip
+end
+
+def admin(host, key, method, path)
+  out, = Open3.capture2(LOCAL_ENV, "curl", "-s", "-m", "600", "-X", method, "-H", "Authorization: Bearer #{key}",
+                        host["base"] + path)
+  JSON.parse(out) rescue out
+end
+
+result = { rung: rung, builder: name, host: host_key, model: builder[:model], attempt: o[:attempt], base: o[:base],
+           spec: o[:spec], started_at: Time.now.iso8601 }
+wt = File.join(File.expand_path("~/Development/runs/ladder-worktrees"), File.basename(o[:repo]), tag)
+branch = "ladder/#{File.basename(o[:out])}-#{tag}"
+agent_dir = Dir.mktmpdir("pi-agent-")
+begin
+  # 1. Worktree from the base commit.
+  FileUtils.mkdir_p(File.dirname(wt))
+  out, st = sh("git worktree add -B #{branch} #{wt} #{o[:base]}", o[:repo])
+  raise "worktree failed: #{out}" unless st.zero?
+
+  test_hash = Digest::SHA256.file(File.join(wt, o[:test_file])).hexdigest rescue nil
+  raise "acceptance test file #{o[:test_file]} not found at base" unless test_hash
+  setup = File.join(wt, "bin/setup")
+  sh("bin/rails db:prepare >/dev/null 2>&1 || true", wt) if File.exist?(setup)
+
+  # 2. The one model in memory on that Mac.
+  key = omlx_key(host)
+  loaded = (admin(host, key, "GET", "/admin/api/models").then { _1.is_a?(Hash) ? _1["models"] : _1 } || [])
+           .select { _1["loaded"] }.map { _1["id"] }
+  result[:restore] = loaded
+  unless loaded == [builder[:load]]
+    loaded.each { admin(host, key, "POST", "/admin/api/models/#{_1}/unload") }
+    admin(host, key, "POST", "/admin/api/models/#{builder[:load]}/load")
+  end
+
+  # 3. A pi config for this run only (the user's ~/.pi is left alone). No extensions, skills or MCP.
+  File.write(File.join(agent_dir, "models.json"), JSON.pretty_generate(
+    providers: { "omlx-#{host_key}" => { baseUrl: "#{host['base']}/v1", apiKey: key, api: "openai-completions",
+                                         compat: { thinkingFormat: "deepseek" },
+                                         models: [{ id: builder[:model], reasoning: builder.fetch(:reasoning, false),
+                                                    contextWindow: 98_304, maxTokens: 8192 }] } }
+  ))
+  File.chmod(0o600, File.join(agent_dir, "models.json"))
+  File.write(File.join(agent_dir, "settings.json"), JSON.generate(defaultProvider: "omlx-#{host_key}",
+                                                                   defaultModel: builder[:model], packages: []))
+
+  prompt = <<~P
+    You are building one spec in this repository. The spec follows. Work only in this directory.
+    Do not edit #{o[:test_file]}. When the spec's "Done means" commands pass, stop.
+
+    #{File.read(o[:spec])}
+  P
+  flags = %w[--mode json --no-extensions --no-skills --no-mcp --no-prompt-templates --no-session --offline]
+  flags << "--no-context-files" unless o[:context_files]
+  env = LOCAL_ENV.merge("PI_CODING_AGENT_DIR" => agent_dir,
+                        "PATH" => "#{RBENV}:#{File.expand_path('~/.rbenv/shims')}:#{ENV['PATH']}")
+  log "#{tag}: pi starting in #{wt}"
+  t0 = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+  pid = Process.spawn(env, "perl", "-e", "alarm #{o[:timeout_min] * 60}; exec @ARGV", "pi", *flags, prompt,
+                      chdir: wt, out: log_path, err: [log_path + ".err", "w"], in: :close)
+  _, pst = Process.wait2(pid)
+  result[:pi_seconds] = (Process.clock_gettime(Process::CLOCK_MONOTONIC) - t0).round(1)
+  result[:pi_exit] = pst.exitstatus || "signal #{pst.termsig}"
+  result[:timed_out] = pst.termsig == 14
+  sleep 2 # pi's last events can land just after exit
+  events = File.readlines(log_path).filter_map { JSON.parse(_1) rescue nil }
+  result[:turns] = events.count { _1["type"] == "turn_end" }
+  result[:tool_calls] = events.count { _1["type"] == "tool_execution_start" }
+  result[:stop] = events.reverse.find { _1["type"] == "message_end" && _1.dig("message", "role") == "assistant" }
+                        &.dig("message", "stopReason")
+  log "#{tag}: pi exited #{result[:pi_exit]} after #{result[:pi_seconds]} s, #{result[:turns]} turns"
+
+  # 4. Independent verification.
+  out, st = sh(o[:verify], wt)
+  result[:verify] = { passed: st.zero?, tail: out.lines.last(15).join }
+  if o[:suite]
+    out, st = sh(o[:suite], wt, timeout: 3600)
+    result[:suite] = { passed: st.zero?, tail: out.lines.last(8).join }
+  end
+  result[:test_file_untouched] = (Digest::SHA256.file(File.join(wt, o[:test_file])).hexdigest == test_hash rescue false)
+  changed, = sh("git add -A && git diff --cached --name-only #{o[:base]}", wt)
+  changed = changed.lines.map(&:strip).reject(&:empty?)
+  stat, = sh("git diff --cached --shortstat #{o[:base]}", wt)
+  result[:files_changed] = changed
+  result[:diffstat] = stat.strip
+  result[:outside_allowed] = o[:allow].empty? ? nil : changed.reject { |f| f == o[:test_file] || o[:allow].any? { |g| File.fnmatch(g, f) } }
+  sh("git -c user.name=ladder -c user.email=ladder@local commit -qm 'ladder #{tag} (builder output, unreviewed)' || true", wt)
+  result[:passed] = result.dig(:verify, :passed) && (o[:suite].nil? || result.dig(:suite, :passed)) &&
+                    result[:test_file_untouched] && (result[:outside_allowed].nil? || result[:outside_allowed].empty?)
+rescue StandardError => e
+  result[:error] = "#{e.class}: #{e.message}"[0, 500]
+  result[:passed] = false
+ensure
+  FileUtils.rm_rf(agent_dir)
+  result[:worktree] = wt
+  result[:branch] = branch
+  result[:finished_at] = Time.now.iso8601
+  File.write(result_path, JSON.pretty_generate(result))
+  log "#{tag}: #{result[:passed] ? 'PASSED' : 'FAILED'} -> #{result_path}"
+end

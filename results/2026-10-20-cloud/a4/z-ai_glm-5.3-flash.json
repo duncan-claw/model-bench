@@ -1,0 +1,26 @@
+{
+  "model": "z-ai/glm-5.3-flash",
+  "host": "openrouter",
+  "size_gb": null,
+  "started_at": "2026-10-20T17:52:51+11:00",
+  "screens": {
+    "agentic": {
+      "turns": 9,
+      "stop": "finish",
+      "seconds": 108.9,
+      "tool_counts": {
+        "list_files": 1,
+        "read_file": 2,
+        "write_file": 3,
+        "run_tests": 3,
+        "finish": 1
+      },
+      "solved": true,
+      "final_tests": "4 runs, 4 assertions, 0 failures, 0 errors, 0 skips",
+      "box_seconds": 600,
+      "max_turns": 30,
+      "max_tokens": 4096
+    }
+  },
+  "finished_at": "2026-10-20T17:54:40+11:00"
+}

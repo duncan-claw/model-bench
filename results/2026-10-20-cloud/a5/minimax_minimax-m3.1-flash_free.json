@@ -1,0 +1,27 @@
+{
+  "model": "minimax/minimax-m3.1-flash:free",
+  "host": "openrouter",
+  "size_gb": null,
+  "started_at": "2026-10-20T17:50:15+11:00",
+  "screens": {
+    "agentic": {
+      "turns": 26,
+      "stop": "finish",
+      "seconds": 121.8,
+      "tool_counts": {
+        "list_files": 4,
+        "run_tests": 9,
+        "read_file": 6,
+        "write_file": 11,
+        "edit_file": 1,
+        "finish": 1
+      },
+      "solved": true,
+      "final_tests": "4 runs, 4 assertions, 0 failures, 0 errors, 0 skips",
+      "box_seconds": 600,
+      "max_turns": 30,
+      "max_tokens": 4096
+    }
+  },
+  "finished_at": "2026-10-20T17:52:17+11:00"
+}

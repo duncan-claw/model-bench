@@ -1,0 +1,132 @@
+[17:22:34] run 2026-10-20-cloud: 1 models, screens speed,coding,tools,agentic
+[17:22:34] deepseek/deepseek-v4.1-flash-1017: cloud (https://openrouter.ai/api)
+[17:22:43]   speed {ttft: 1.48066999996081, tok_per_s: 50.063612077002325}
+[17:44:44]   coding 10/161, pass 80% (8), 132.0 s/problem, ~332 min left at this pace
+[17:45:09]   coding 20/161, pass 85% (17), 67.3 s/problem, ~158 min left at this pace
+[17:45:37]   coding 30/161, pass 90% (27), 45.8 s/problem, ~100 min left at this pace
+[17:46:28]   coding 40/161, pass 92% (37), 35.6 s/problem, ~72 min left at this pace
+[17:46:56]   coding 50/161, pass 94% (47), 29.1 s/problem, ~54 min left at this pace
+[17:47:33]   coding 60/161, pass 95% (57), 24.8 s/problem, ~42 min left at this pace
+[17:48:13]   coding 70/161, pass 95% (67), 21.9 s/problem, ~33 min left at this pace
+[17:48:28]   coding 80/161, pass 95% (76), 19.3 s/problem, ~26 min left at this pace
+[17:48:49]   coding 90/161, pass 95% (86), 17.4 s/problem, ~21 min left at this pace
+[17:49:21]   coding 100/161, pass 96% (96), 16.0 s/problem, ~16 min left at this pace
+[17:49:49]   coding 110/161, pass 96% (106), 14.8 s/problem, ~13 min left at this pace
+[17:50:07]   coding 120/161, pass 95% (114), 13.7 s/problem, ~9 min left at this pace
+[17:51:01]   coding 130/161, pass 93% (122), 13.1 s/problem, ~7 min left at this pace
+[17:51:16]   coding 140/161, pass 93% (131), 12.2 s/problem, ~4 min left at this pace
+[17:52:10]   coding 150/161, pass 94% (141), 11.8 s/problem, ~2 min left at this pace
+[17:52:32]   coding 160/161, pass 94% (151), 11.2 s/problem, ~0 min left at this pace
+[17:52:35]   coding {attempted: 161, passed: 152, pass_rate: 0.944, seconds_per_problem: 11.0, solved_per_hour: 307.7, hit_cap: 2, stop: "completed"}
+[17:52:44]   tools {attempted: 12, passed: 12}
+[17:52:54]   agentic {solved: true, turns: 8, stop: "finish"}
+~/Development/repos/tr-solutions/model-bench/bin/report:165:in 'Enumerable#sort_by': comparison of Float with NaN failed (ArgumentError)
+	from ~/Development/repos/tr-solutions/model-bench/bin/report:165:in 'block in <main>'
+	from ~/Development/repos/tr-solutions/model-bench/bin/report:159:in 'Array#each'
+	from ~/Development/repos/tr-solutions/model-bench/bin/report:159:in '<main>'
+[17:52:54] run 2026-10-20-cloud-a2: 1 models, screens agentic
+[17:52:54] deepseek/deepseek-v4.1-flash-1017: cloud (https://openrouter.ai/api)
+[17:53:03]   agentic {solved: true, turns: 6, stop: "finish"}
+# Results — 2026-10-20-cloud-a2
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| deepseek/deepseek-v4.1-flash-1017 | — | — | — | — | — | — | **solved** | 6 / finish |  |
+| minimax/minimax-m3.1-flash:free | — | — | — | — | — | — | **solved** | 7 / finish |  |
+| z-ai/glm-5.3-flash | — | — | — | — | — | — | **solved** | 9 / finish |  |
+[17:53:04] run 2026-10-20-cloud-a3: 1 models, screens agentic
+[17:53:04] deepseek/deepseek-v4.1-flash-1017: cloud (https://openrouter.ai/api)
+[17:53:10]   agentic {solved: true, turns: 6, stop: "finish"}
+# Results — 2026-10-20-cloud-a3
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| deepseek/deepseek-v4.1-flash-1017 | — | — | — | — | — | — | **solved** | 6 / finish |  |
+| minimax/minimax-m3.1-flash:free | — | — | — | — | — | — | **solved** | 7 / finish |  |
+| z-ai/glm-5.3-flash | — | — | — | — | — | — | **solved** | 9 / finish |  |
+[17:53:11] run 2026-10-20-cloud-a4: 1 models, screens agentic
+[17:53:11] deepseek/deepseek-v4.1-flash-1017: cloud (https://openrouter.ai/api)
+[17:53:20]   agentic {solved: true, turns: 7, stop: "finish"}
+# Results — 2026-10-20-cloud-a4
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| deepseek/deepseek-v4.1-flash-1017 | — | — | — | — | — | — | **solved** | 7 / finish |  |
+| minimax/minimax-m3.1-flash:free | — | — | — | — | — | — | **solved** | 10 / finish |  |
+[17:53:20] run 2026-10-20-cloud-a5: 1 models, screens agentic
+[17:53:20] deepseek/deepseek-v4.1-flash-1017: cloud (https://openrouter.ai/api)
+[17:53:30]   agentic {solved: true, turns: 6, stop: "finish"}
+# Results — 2026-10-20-cloud-a5
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| deepseek/deepseek-v4.1-flash-1017 | — | — | — | — | — | — | **solved** | 6 / finish |  |
+| minimax/minimax-m3.1-flash:free | — | — | — | — | — | — | **solved** | 26 / finish |  |

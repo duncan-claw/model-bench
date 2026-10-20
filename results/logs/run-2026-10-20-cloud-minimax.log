@@ -1,0 +1,126 @@
+[17:22:34] run 2026-10-20-cloud: 1 models, screens speed,coding,tools,agentic
+[17:22:34] minimax/minimax-m3.1-flash:free: cloud (https://openrouter.ai/api)
+[17:22:44]   speed {ttft: 1.3921339999651536, tok_per_s: 44.675441295493805}
+[17:24:42]   coding 10/161, pass 80% (8), 11.8 s/problem, ~30 min left at this pace
+[17:25:20]   coding 20/161, pass 85% (17), 7.8 s/problem, ~18 min left at this pace
+[17:25:50]   coding 30/161, pass 86% (26), 6.2 s/problem, ~14 min left at this pace
+[17:28:16]   coding 40/161, pass 87% (35), 8.3 s/problem, ~17 min left at this pace
+[17:29:35]   coding 50/161, pass 88% (44), 8.2 s/problem, ~15 min left at this pace
+[17:30:40]   coding 60/161, pass 90% (54), 7.9 s/problem, ~13 min left at this pace
+[17:32:49]   coding 70/161, pass 90% (63), 8.6 s/problem, ~13 min left at this pace
+[17:34:40]   coding 80/161, pass 91% (73), 8.9 s/problem, ~12 min left at this pace
+[17:35:32]   coding 90/161, pass 91% (82), 8.5 s/problem, ~10 min left at this pace
+[17:38:30]   coding 100/161, pass 89% (89), 9.5 s/problem, ~10 min left at this pace
+[17:39:06]   coding 110/161, pass 89% (98), 8.9 s/problem, ~8 min left at this pace
+[17:39:51]   coding 120/161, pass 89% (107), 8.6 s/problem, ~6 min left at this pace
+[17:42:03]   coding 130/161, pass 89% (116), 8.9 s/problem, ~5 min left at this pace
+[17:42:46]   coding 140/161, pass 90% (126), 8.6 s/problem, ~3 min left at this pace
+[17:46:31]   coding 150/161, pass 88% (132), 9.5 s/problem, ~2 min left at this pace
+[17:47:29]   coding 160/161, pass 87% (140), 9.3 s/problem, ~0 min left at this pace
+[17:47:34]   coding {attempted: 161, passed: 141, pass_rate: 0.876, seconds_per_problem: 9.2, solved_per_hour: 343.6, hit_cap: 6, stop: "completed"}
+[17:47:54]   tools {attempted: 12, passed: 11}
+[17:48:32]   agentic {solved: true, turns: 6, stop: "finish"}
+~/Development/repos/tr-solutions/model-bench/bin/report:165:in 'Enumerable#sort_by': comparison of Float with NaN failed (ArgumentError)
+	from ~/Development/repos/tr-solutions/model-bench/bin/report:165:in 'block in <main>'
+	from ~/Development/repos/tr-solutions/model-bench/bin/report:159:in 'Array#each'
+	from ~/Development/repos/tr-solutions/model-bench/bin/report:159:in '<main>'
+[17:48:32] run 2026-10-20-cloud-a2: 1 models, screens agentic
+[17:48:32] minimax/minimax-m3.1-flash:free: cloud (https://openrouter.ai/api)
+[17:49:08]   agentic {solved: true, turns: 7, stop: "finish"}
+# Results — 2026-10-20-cloud-a2
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| minimax/minimax-m3.1-flash:free | — | — | — | — | — | — | **solved** | 7 / finish |  |
+[17:49:08] run 2026-10-20-cloud-a3: 1 models, screens agentic
+[17:49:08] minimax/minimax-m3.1-flash:free: cloud (https://openrouter.ai/api)
+[17:49:34]   agentic {solved: true, turns: 7, stop: "finish"}
+# Results — 2026-10-20-cloud-a3
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| minimax/minimax-m3.1-flash:free | — | — | — | — | — | — | **solved** | 7 / finish |  |
+[17:49:34] run 2026-10-20-cloud-a4: 1 models, screens agentic
+[17:49:34] minimax/minimax-m3.1-flash:free: cloud (https://openrouter.ai/api)
+[17:50:15]   agentic {solved: true, turns: 10, stop: "finish"}
+# Results — 2026-10-20-cloud-a4
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| minimax/minimax-m3.1-flash:free | — | — | — | — | — | — | **solved** | 10 / finish |  |
+[17:50:15] run 2026-10-20-cloud-a5: 1 models, screens agentic
+[17:50:15] minimax/minimax-m3.1-flash:free: cloud (https://openrouter.ai/api)
+[17:52:17]   agentic {solved: true, turns: 26, stop: "finish"}
+# Results — 2026-10-20-cloud-a5
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| minimax/minimax-m3.1-flash:free | — | — | — | — | — | — | **solved** | 26 / finish |  |
