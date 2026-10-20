@@ -461,6 +461,111 @@ agentic from Run 2. The Source column says which. Throughput and memory are scal
 | gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | Run 2 | 0.0 | 0.71 | 0.68 | 0.68 | 0.0 | **38.4** | 130.5 | 78 |
 | qwen3-coder-30b-rails | Run 2 | 0.0 | 0.45 | 0.99 | 0.46 | 0.0 | **35.5** | 1195.6 | -266 |
 
+### By model name, with the latest results
+
+| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|---|
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | Run 2 | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
+| fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | Run 2 | 131/161 | 81% | 81% (131 of 161 finished) | 2.2 | 1331.1 | 0 | completed | not solved | 26 / finish / 265.1 |
+| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | Run 2 | 115/161 | 71% | 72% (115 of 160 finished) | 19.7 | 130.5 | 1 | completed | not solved | 30 / max_turns / 331.0 |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | Run 2 | 117/161 | 73% | 73% (117 of 161 finished) | 4.6 | 571.8 | 0 | completed | not solved | 3 / no_tool_call / 222.9 |
+| mlx-community--gemma-4-26b-a4b-it-4bit | Run 2 | 50/74 | 68% | 98% (49 of 50 finished) | 49.4 | 49.3 | 24 | time_cap (60 min) | **solved** | 7 / finish / 44.9 |
+| mlx-community--Qwen3.6-35B-A3B-4bit | Run 3 | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | not solved | 5 / no_tool_call / 66.6 |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | Run 2 | 136/161 | 85% | 84% (136 of 161 finished) | 4.4 | 692.5 | 0 | completed | **solved** | 6 / finish / 44.6 |
+| mlx-community--Qwen3.8-27B-8bit | Run 2 | 138/161 | 86% | 86% (138 of 161 finished) | 12.6 | 244.7 | 0 | completed | **solved** | 5 / finish / 77.9 |
+| ornith-1.5-35b-a3b <sup>(d)</sup> | Run 2 | 143/161 | 89% | 91% (143 of 157 finished) | 19.0 | 168.7 | 4 | completed | **solved** | 6 / finish / 148.7 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | Run 2 | 135/161 | 84% | 88% (135 of 154 finished) | 7.7 | 392.8 | 7 | completed | **solved** | 8 / finish / 79.0 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | Run 2 | 141/161 | 88% | 90% (141 of 156 finished) | 12.1 | 261.2 | 5 | completed | not solved | 8 / no_tool_call / 167.0 |
+| qwen3-coder-30b-rails | Run 2 | 9/20 | 45% | 45% (9 of 20 finished) | 1.4 | 1195.6 | 0 | low_pass_rate (45% after 20) | not solved | 30 / max_turns / 70.7 |
+| Qwen3.6-35B-A3B-8bit | Run 3 | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | **solved** | 8 / finish / 65.4 |
+| Qwopus3.6-35B-A3B-Coder-8bit | Run 3 | 122/161 | 76% | 90% (122 of 135 finished) | 26.9 | 101.4 | 26 | completed | **solved** | 8 / finish / 20.0 |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | Run 2 | 110/148 | 74% | 87% (90 of 104 finished) | 24.5 | 109.0 | 44 | time_cap (60 min) | not solved | 4 / no_tool_call / 86.7 |
+
+### By pass rate (most accurate first), with the latest results
+
+| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Qwen3.6-35B-A3B-8bit | Run 3 | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | **solved** | 8 / finish / 65.4 |
+| mlx-community--Qwen3.6-35B-A3B-4bit | Run 3 | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | not solved | 5 / no_tool_call / 66.6 |
+| ornith-1.5-35b-a3b <sup>(d)</sup> | Run 2 | 143/161 | 89% | 91% (143 of 157 finished) | 19.0 | 168.7 | 4 | completed | **solved** | 6 / finish / 148.7 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | Run 2 | 141/161 | 88% | 90% (141 of 156 finished) | 12.1 | 261.2 | 5 | completed | not solved | 8 / no_tool_call / 167.0 |
+| mlx-community--Qwen3.8-27B-8bit | Run 2 | 138/161 | 86% | 86% (138 of 161 finished) | 12.6 | 244.7 | 0 | completed | **solved** | 5 / finish / 77.9 |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | Run 2 | 136/161 | 85% | 84% (136 of 161 finished) | 4.4 | 692.5 | 0 | completed | **solved** | 6 / finish / 44.6 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | Run 2 | 135/161 | 84% | 88% (135 of 154 finished) | 7.7 | 392.8 | 7 | completed | **solved** | 8 / finish / 79.0 |
+| fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | Run 2 | 131/161 | 81% | 81% (131 of 161 finished) | 2.2 | 1331.1 | 0 | completed | not solved | 26 / finish / 265.1 |
+| Qwopus3.6-35B-A3B-Coder-8bit | Run 3 | 122/161 | 76% | 90% (122 of 135 finished) | 26.9 | 101.4 | 26 | completed | **solved** | 8 / finish / 20.0 |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | Run 2 | 110/148 | 74% | 87% (90 of 104 finished) | 24.5 | 109.0 | 44 | time_cap (60 min) | not solved | 4 / no_tool_call / 86.7 |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | Run 2 | 117/161 | 73% | 73% (117 of 161 finished) | 4.6 | 571.8 | 0 | completed | not solved | 3 / no_tool_call / 222.9 |
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | Run 2 | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
+| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | Run 2 | 115/161 | 71% | 72% (115 of 160 finished) | 19.7 | 130.5 | 1 | completed | not solved | 30 / max_turns / 331.0 |
+| mlx-community--gemma-4-26b-a4b-it-4bit | Run 2 | 50/74 | 68% | 98% (49 of 50 finished) | 49.4 | 49.3 | 24 | time_cap (60 min) | **solved** | 7 / finish / 44.9 |
+| qwen3-coder-30b-rails | Run 2 | 9/20 | 45% | 45% (9 of 20 finished) | 1.4 | 1195.6 | 0 | low_pass_rate (45% after 20) | not solved | 30 / max_turns / 70.7 |
+
+### By solved per hour (speed × accuracy), with the latest results
+
+| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|---|
+| fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | Run 2 | 131/161 | 81% | 81% (131 of 161 finished) | 2.2 | 1331.1 | 0 | completed | not solved | 26 / finish / 265.1 |
+| qwen3-coder-30b-rails | Run 2 | 9/20 | 45% | 45% (9 of 20 finished) | 1.4 | 1195.6 | 0 | low_pass_rate (45% after 20) | not solved | 30 / max_turns / 70.7 |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | Run 2 | 136/161 | 85% | 84% (136 of 161 finished) | 4.4 | 692.5 | 0 | completed | **solved** | 6 / finish / 44.6 |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | Run 2 | 117/161 | 73% | 73% (117 of 161 finished) | 4.6 | 571.8 | 0 | completed | not solved | 3 / no_tool_call / 222.9 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | Run 2 | 135/161 | 84% | 88% (135 of 154 finished) | 7.7 | 392.8 | 7 | completed | **solved** | 8 / finish / 79.0 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | Run 2 | 141/161 | 88% | 90% (141 of 156 finished) | 12.1 | 261.2 | 5 | completed | not solved | 8 / no_tool_call / 167.0 |
+| mlx-community--Qwen3.8-27B-8bit | Run 2 | 138/161 | 86% | 86% (138 of 161 finished) | 12.6 | 244.7 | 0 | completed | **solved** | 5 / finish / 77.9 |
+| ornith-1.5-35b-a3b <sup>(d)</sup> | Run 2 | 143/161 | 89% | 91% (143 of 157 finished) | 19.0 | 168.7 | 4 | completed | **solved** | 6 / finish / 148.7 |
+| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | Run 2 | 115/161 | 71% | 72% (115 of 160 finished) | 19.7 | 130.5 | 1 | completed | not solved | 30 / max_turns / 331.0 |
+| Qwen3.6-35B-A3B-8bit | Run 3 | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | **solved** | 8 / finish / 65.4 |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | Run 2 | 110/148 | 74% | 87% (90 of 104 finished) | 24.5 | 109.0 | 44 | time_cap (60 min) | not solved | 4 / no_tool_call / 86.7 |
+| Qwopus3.6-35B-A3B-Coder-8bit | Run 3 | 122/161 | 76% | 90% (122 of 135 finished) | 26.9 | 101.4 | 26 | completed | **solved** | 8 / finish / 20.0 |
+| mlx-community--Qwen3.6-35B-A3B-4bit | Run 3 | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | not solved | 5 / no_tool_call / 66.6 |
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | Run 2 | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
+| mlx-community--gemma-4-26b-a4b-it-4bit | Run 2 | 50/74 | 68% | 98% (49 of 50 finished) | 49.4 | 49.3 | 24 | time_cap (60 min) | **solved** | 7 / finish / 44.9 |
+
+### Grouped by agentic result, then solved per hour, with the latest results
+
+| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | Run 2 | 136/161 | 85% | 84% (136 of 161 finished) | 4.4 | 692.5 | 0 | completed | **solved** | 6 / finish / 44.6 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | Run 2 | 135/161 | 84% | 88% (135 of 154 finished) | 7.7 | 392.8 | 7 | completed | **solved** | 8 / finish / 79.0 |
+| mlx-community--Qwen3.8-27B-8bit | Run 2 | 138/161 | 86% | 86% (138 of 161 finished) | 12.6 | 244.7 | 0 | completed | **solved** | 5 / finish / 77.9 |
+| ornith-1.5-35b-a3b <sup>(d)</sup> | Run 2 | 143/161 | 89% | 91% (143 of 157 finished) | 19.0 | 168.7 | 4 | completed | **solved** | 6 / finish / 148.7 |
+| Qwen3.6-35B-A3B-8bit | Run 3 | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | **solved** | 8 / finish / 65.4 |
+| Qwopus3.6-35B-A3B-Coder-8bit | Run 3 | 122/161 | 76% | 90% (122 of 135 finished) | 26.9 | 101.4 | 26 | completed | **solved** | 8 / finish / 20.0 |
+| mlx-community--gemma-4-26b-a4b-it-4bit | Run 2 | 50/74 | 68% | 98% (49 of 50 finished) | 49.4 | 49.3 | 24 | time_cap (60 min) | **solved** | 7 / finish / 44.9 |
+| fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | Run 2 | 131/161 | 81% | 81% (131 of 161 finished) | 2.2 | 1331.1 | 0 | completed | not solved | 26 / finish / 265.1 |
+| qwen3-coder-30b-rails | Run 2 | 9/20 | 45% | 45% (9 of 20 finished) | 1.4 | 1195.6 | 0 | low_pass_rate (45% after 20) | not solved | 30 / max_turns / 70.7 |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | Run 2 | 117/161 | 73% | 73% (117 of 161 finished) | 4.6 | 571.8 | 0 | completed | not solved | 3 / no_tool_call / 222.9 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | Run 2 | 141/161 | 88% | 90% (141 of 156 finished) | 12.1 | 261.2 | 5 | completed | not solved | 8 / no_tool_call / 167.0 |
+| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | Run 2 | 115/161 | 71% | 72% (115 of 160 finished) | 19.7 | 130.5 | 1 | completed | not solved | 30 / max_turns / 331.0 |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | Run 2 | 110/148 | 74% | 87% (90 of 104 finished) | 24.5 | 109.0 | 44 | time_cap (60 min) | not solved | 4 / no_tool_call / 86.7 |
+| mlx-community--Qwen3.6-35B-A3B-4bit | Run 3 | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | not solved | 5 / no_tool_call / 66.6 |
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | Run 2 | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
+
+### Grouped by family (Qwen newest first, then Gemma), then solved per hour, with the latest results
+
+| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **Qwen3.8-27B** | | | | | | | | | | |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | Run 2 | 136/161 | 85% | 84% (136 of 161 finished) | 4.4 | 692.5 | 0 | completed | **solved** | 6 / finish / 44.6 |
+| mlx-community--Qwen3.8-27B-8bit | Run 2 | 138/161 | 86% | 86% (138 of 161 finished) | 12.6 | 244.7 | 0 | completed | **solved** | 5 / finish / 77.9 |
+| **Qwen3.6-35B-A3B** | | | | | | | | | | |
+| Qwen3.6-35B-A3B-8bit | Run 3 | 151/161 | 94% | 94% (151 of 160 finished) | 26.1 | 129.4 | 1 | completed | **solved** | 8 / finish / 65.4 |
+| Qwopus3.6-35B-A3B-Coder-8bit | Run 3 | 122/161 | 76% | 90% (122 of 135 finished) | 26.9 | 101.4 | 26 | completed | **solved** | 8 / finish / 20.0 |
+| mlx-community--Qwen3.6-35B-A3B-4bit | Run 3 | 149/161 | 93% | 94% (149 of 159 finished) | 34.7 | 96.1 | 2 | completed | not solved | 5 / no_tool_call / 66.6 |
+| **Qwen3.5 (fine-tunes/distills)** | | | | | | | | | | |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | Run 2 | 135/161 | 84% | 88% (135 of 154 finished) | 7.7 | 392.8 | 7 | completed | **solved** | 8 / finish / 79.0 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | Run 2 | 141/161 | 88% | 90% (141 of 156 finished) | 12.1 | 261.2 | 5 | completed | not solved | 8 / no_tool_call / 167.0 |
+| ornith-1.5-35b-a3b <sup>(d)</sup> | Run 2 | 143/161 | 89% | 91% (143 of 157 finished) | 19.0 | 168.7 | 4 | completed | **solved** | 6 / finish / 148.7 |
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | Run 2 | 74/102 | 73% | 82% (74 of 90 finished) | 35.4 | 73.7 | 12 | time_cap (60 min) | not solved | 21 / no_tool_call / 390.0 |
+| **Qwen3 30B-A3B MoE (fine-tunes)** | | | | | | | | | | |
+| fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | Run 2 | 131/161 | 81% | 81% (131 of 161 finished) | 2.2 | 1331.1 | 0 | completed | not solved | 26 / finish / 265.1 |
+| qwen3-coder-30b-rails | Run 2 | 9/20 | 45% | 45% (9 of 20 finished) | 1.4 | 1195.6 | 0 | low_pass_rate (45% after 20) | not solved | 30 / max_turns / 70.7 |
+| **Gemma 4** | | | | | | | | | | |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | Run 2 | 117/161 | 73% | 73% (117 of 161 finished) | 4.6 | 571.8 | 0 | completed | not solved | 3 / no_tool_call / 222.9 |
+| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | Run 2 | 115/161 | 71% | 72% (115 of 160 finished) | 19.7 | 130.5 | 1 | completed | not solved | 30 / max_turns / 331.0 |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | Run 2 | 110/148 | 74% | 87% (90 of 104 finished) | 24.5 | 109.0 | 44 | time_cap (60 min) | not solved | 4 / no_tool_call / 86.7 |
+| mlx-community--gemma-4-26b-a4b-it-4bit | Run 2 | 50/74 | 68% | 98% (49 of 50 finished) | 49.4 | 49.3 | 24 | time_cap (60 min) | **solved** | 7 / finish / 44.9 |
+
 ### Progression: Ruby pass rate run by run
 
 The same model across runs. The rules changed between runs, so a jump usually means the model was given more

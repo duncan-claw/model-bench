@@ -112,6 +112,45 @@ rows.sort_by { -_1[:score] }.each do |r|
 end
 out << ""
 
+# 1b. The same views as Run 2's extended tables, with the latest results (same columns, plus Source).
+FAMILY_ORDER = ["Qwen3.8", "Qwen3.6", "Qwen3.5", "Qwen3 ", "Gemma 4", "IQuest"].freeze
+family = ->(r) { config.dig(r[:model], "family") || "Other" }
+view_row = lambda do |r|
+  c = r[:c]
+  a = data.dig("2026-10-19-extended", r[:model], "screens", "agentic") || {}
+  whole = c["problems"].reject { _1["hit_cap"] }
+  clean = whole.empty? ? "—" : "#{(whole.count { _1['passed'] } * 100.0 / whole.size).round}% (#{whole.count { _1['passed'] }} of #{whole.size} finished)"
+  "| #{r[:model]}#{deleted.(r[:model])} | #{r[:src]} | #{c['passed']}/#{c['attempted']} | #{(c['pass_rate'].to_f * 100).round}% | #{clean} | " \
+    "#{f.(c['seconds_per_problem'])} | #{f.(c['solved_per_hour'])} | #{c['hit_cap']} | #{c['stop']} | " \
+    "#{a.empty? ? '—' : (a['solved'] ? '**solved**' : 'not solved')} | #{a.empty? ? '—' : "#{a['turns']} / #{a['stop']} / #{f.(a['seconds'])}"} |"
+end
+view_head = ["| Model | Source | Pass / attempted | Pass rate | Pass rate excl. cut-off | s / problem | Solved per hour | Hit token cap | Stop | Agentic | Agentic turns / stop / s |",
+             "|---|---|---|---|---|---|---|---|---|---|---|"]
+rate = ->(r) { r[:c]["pass_rate"].to_f }
+per_hour = ->(r) { r[:c]["solved_per_hour"].to_f }
+views = [
+  ["By model name", rows.sort_by { _1[:model].downcase }],
+  ["By pass rate (most accurate first)", rows.sort_by { [-rate.(_1), -per_hour.(_1)] }],
+  ["By solved per hour (speed × accuracy)", rows.sort_by { [-per_hour.(_1), -rate.(_1)] }],
+  ["Grouped by agentic result, then solved per hour", rows.sort_by { [-_1[:agentic], -per_hour.(_1)] }],
+  [:family, rows]
+]
+views.each do |title, list|
+  if title == :family
+    out << "### Grouped by family (Qwen newest first, then Gemma), then solved per hour, with the latest results" << ""
+    out.concat(view_head)
+    list.group_by { family.(_1) }.sort_by { |fam, _| [FAMILY_ORDER.index { fam.start_with?(_1) } || FAMILY_ORDER.size, fam] }.each do |fam, ms|
+      out << "| **#{fam}** | | | | | | | | | | |"
+      ms.sort_by { -per_hour.(_1) }.each { out << view_row.(_1) }
+    end
+  else
+    out << "### #{title}, with the latest results" << ""
+    out.concat(view_head)
+    list.each { out << view_row.(_1) }
+  end
+  out << ""
+end
+
 # 2. Progression
 out << "### Progression: Ruby pass rate run by run"
 out << ""
