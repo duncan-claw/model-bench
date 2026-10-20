@@ -5,8 +5,8 @@ factory: a frontier model plans, and a local model on a Mac builds. The aim is *
 keep/cut decisions**, not a leaderboard. Every keep/cut call and the reasoning behind it is in
 [`DECISIONS.md`](DECISIONS.md).
 
-**Full results tables: [`RESULTS.md`](RESULTS.md)**: every model, sorted by accuracy, by throughput, by family and by
-weighted score, with legends.
+**All results: [`RESULTS.md`](RESULTS.md)**: the latest numbers per model, how each model's numbers changed run by run,
+and links to every run's own tables (sorted views, family grouping, weighted scores), which are kept unchanged.
 
 **Hardware:** MacBook Pro M1 Max, 64 GB, one model loaded at a time, served by
 [oMLX](https://github.com/jundot/omlx) (MLX). A few GGUF models were run through LM Studio for comparison.

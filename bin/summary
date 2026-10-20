@@ -1,0 +1,109 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Builds the root RESULTS.md: the latest evidence per model, how each model's numbers progressed
+# across runs, and links to every run's own (unchanged) tables. Data only; no verdicts.
+require "json"
+require "yaml"
+
+ROOT = File.expand_path("..", __dir__)
+
+# Runs in the order they happened. `kind` says how to read each one.
+RUNS = [
+  { id: "2026-10-19", label: "Run 1: screen", note: "2-min coding box, 1,024-token answers, 2-min agentic box" },
+  { id: "2026-10-19-extended", label: "Run 2: extended", note: "all 161 problems, 4,096-token answers, 60-min cap, 10-min agentic box" },
+  { id: "2026-10-20-8k", label: "Run 3: 8k re-run", note: "coding only, 8,192-token answers, no time cap; verbose models only" },
+  { id: "2026-10-20-gemma32k", label: "Run 4: Gemma 32k", note: "coding only, 32,768-token answers; stopped at problem 30" }
+].freeze
+
+def load_run(id)
+  Dir[File.join(ROOT, "results", id, "*.json")].to_h do |f|
+    r = JSON.parse(File.read(f, encoding: "UTF-8"))
+    [r["model"], r]
+  end
+end
+
+data = RUNS.to_h { [_1[:id], load_run(_1[:id])] }
+config = YAML.load_file(File.join(ROOT, "config/models.yml"))["models"].to_h { [_1["id"], _1] }
+
+# Run 4 (Gemma 32k) ended before the harness wrote JSON; its figures come from its README.
+GEMMA = "mlx-community--gemma-4-26b-a4b-it-4bit"
+GEMMA_32K = { passed: 23, attempted: 30, note: "6 of 30 answers never finished" }.freeze
+
+def coding(r) = r&.dig("screens", "coding")
+def pct(c)
+  return "—" unless c && c["attempted"].to_i.positive?
+
+  rate = c["pass_rate"] ? c["pass_rate"].to_f * 100 : c["passed"] * 100.0 / c["attempted"]
+  "#{rate.round}% (#{c['passed']}/#{c['attempted']})"
+end
+def agentic(r) = (a = r&.dig("screens", "agentic")) && !a.empty? ? (a["solved"] ? "solved" : "not solved") : nil
+
+models = data["2026-10-19-extended"].keys.sort_by(&:downcase)
+short = ->(m) { m.sub(/\Amlx-community--/, "").sub(/:qwen-3-8-27b-instruct\z/, "") }
+deleted = ->(m) { config.dig(m, "parked").to_s =~ /deleted/i ? " <sup>(d)</sup>" : "" }
+
+out = []
+out << "# Results"
+out << ""
+out << "Every run's own tables are kept unchanged in its folder (links at the bottom). This page shows the"
+out << "**latest evidence per model** and **how each model's numbers changed from run to run**. Built by `bin/summary`."
+out << "Method, caveats and the time/cost view: [`README.md`](README.md). Why models were kept or cut: [`DECISIONS.md`](DECISIONS.md)."
+out << ""
+out << "<sup>(d)</sup> = since deleted from the test Mac (kept here as history)."
+out << ""
+
+# 1. Latest view
+out << "## Latest evidence per model"
+out << ""
+out << "Ruby pass rate comes from the most complete run for that model: Run 3 for the verbose models, otherwise Run 2."
+out << "Agentic shows every attempt so far, in run order."
+out << ""
+out << "| Model | Ruby pass rate (latest) | From | s / problem | Agentic attempts | Reads images |"
+out << "|---|---|---|---|---|---|"
+models.each do |m|
+  latest = %w[2026-10-20-8k 2026-10-19-extended].find { coding(data.dig(_1, m))&.dig("stop") == "completed" } ||
+           "2026-10-19-extended"
+  c = coding(data.dig(latest, m))
+  label = RUNS.find { _1[:id] == latest }[:label].split(":").first
+  attempts = %w[2026-10-19 2026-10-19-extended].filter_map { agentic(data.dig(_1, m)) }
+  vision = config.dig(m, "vision") ? "yes" : "no"
+  pass = pct(c)
+  pass += " · 32k: #{GEMMA_32K[:passed]}/#{GEMMA_32K[:attempted]}, #{GEMMA_32K[:note]}" if m == GEMMA
+  out << "| #{short.(m)}#{deleted.(m)} | #{pass} | #{label} | #{c&.dig('seconds_per_problem') || '—'} | " \
+         "#{attempts.empty? ? '—' : attempts.join(', ')} | #{vision} |"
+end
+out << ""
+
+# 2. Progression
+out << "## Progression: Ruby pass rate run by run"
+out << ""
+out << "The same model across runs. The rules changed between runs, so a jump usually means the model was given more"
+out << "room, not that it got better: Run 1 stopped after 2 minutes, Run 2 cut answers at 4,096 tokens, Run 3 at 8,192."
+out << ""
+out << "| Model | Run 1: screen | Run 2: extended | Run 3: 8k | Run 4: 32k |"
+out << "|---|---|---|---|---|"
+models.each do |m|
+  r4 = m == GEMMA ? "#{(GEMMA_32K[:passed] * 100.0 / GEMMA_32K[:attempted]).round}% (#{GEMMA_32K[:passed]}/#{GEMMA_32K[:attempted]})" : "—"
+  r3 = coding(data.dig("2026-10-20-8k", m))
+  out << "| #{short.(m)}#{deleted.(m)} | #{pct(coding(data.dig('2026-10-19', m)))} | #{pct(coding(data.dig('2026-10-19-extended', m)))} | " \
+         "#{r3 ? pct(r3) : '—'} | #{r4} |"
+end
+out << ""
+
+# 3. Runs
+out << "## The runs"
+out << ""
+RUNS.each do |run|
+  page = File.exist?(File.join(ROOT, "results", run[:id], "RESULTS.md")) ? "RESULTS.md" : "README.md"
+  page = nil unless File.exist?(File.join(ROOT, "results", run[:id], page))
+  link = page ? "[`results/#{run[:id]}/#{page}`](results/#{run[:id]}/#{page})" : "[`results/#{run[:id]}/`](results/#{run[:id]}/)"
+  out << "- **#{run[:label]}** (#{run[:note]}): #{link}"
+end
+out << "- **Run logs** for all of them (host addresses redacted): [`results/logs/`](results/logs/)"
+out << ""
+out << "Run 2's page also has the weighted scores (v1 and v2), the family grouping and the sorted views."
+out << "Run 3 has no table page of its own: it was stopped during its last model (Gemma-4-26B, rerun as Run 4)."
+
+File.write(File.join(ROOT, "RESULTS.md"), out.join("\n") + "\n")
+puts out
