@@ -80,6 +80,21 @@ For each builder, a short, factual card:
 The planner reads the card when writing specs. When a builder fails, the failure goes back into its card,
 which is the start of the self-learning loop.
 
+## Lessons from the August bake-off (Surface Oracle, SPEC-024-1)
+
+The August 2026 local-model bake-off ran real Surface Oracle specs in worktrees (`so-bench-*`). Reports are in
+`~/.openclaw/workspace/doco/model-ops/benchmarks/` (`2026-08-26_GEMMA12B_FINAL.md`, `..._PREFLIGHT.md`,
+`2026-08-28_QWEN38_FORENSIC_REPORT.md`, `2026-09-07_LEMANS_AGENTIC_FORENSIC_REPORT.md`, `BENCHMARK_METHODOLOGY.md`).
+What carries over to the ladder:
+- **Verify model routing before every run.** OpenClaw silently fell back to a cloud model when a local model ID didn't
+  match its provider config; a "Gemma" run was really DeepSeek. `bin/ladder` runs pi with a per-run config naming one
+  model, and records the engine; the orchestrator must still check the model in pi's log.
+- **Context limits and token caps are config, not model, failures.** Gemma's first run died at a stale 32K context cap;
+  Qwen3.8 ran out of context after 138 turns. Size rungs to stay well inside the context, and record prompt size per turn.
+- **Tool-format leaks** (IQuest, Gemma run 2) and **serving-stack bugs** (oMLX 0.6.3 TTL bug) looked like model
+  failures. The 2026-10-20 Splash finding (`experiments/mbp-parity/`) is the same class. Suspect the stack first.
+- **Fast-fail limits** (prompt size, turns, elapsed time, swap growth) and a pre-flight and post-run checklist per attempt.
+
 ## Out of scope for now
 
 Speed tuning (`docs/TUNING_TODO.md`), fine-tuning, and tickets/bug work. Tickets come later, once apps have

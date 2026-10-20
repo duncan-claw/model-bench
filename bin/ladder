@@ -101,10 +101,17 @@ begin
   loaded = (admin(host, key, "GET", "/admin/api/models").then { _1.is_a?(Hash) ? _1["models"] : _1 } || [])
            .select { _1["loaded"] }.map { _1["id"] }
   result[:restore] = loaded
-  unless loaded == [builder[:load]]
-    loaded.each { admin(host, key, "POST", "/admin/api/models/#{_1}/unload") }
-    admin(host, key, "POST", "/admin/api/models/#{builder[:load]}/load")
-  end
+  # Known starting state (2026-10-20 rule, experiments/mbp-parity): unload everything and empty this model's Splash
+  # prompt cache, so an attempt never inherits another run's serving state. Recorded in the result.
+  loaded.each { admin(host, key, "POST", "/admin/api/models/#{_1}/unload") }
+  _, st = Open3.capture2("ssh", "-o", "ConnectTimeout=5", host["ssh"],
+                         "rm -rf ~/.omlx/cache/splash/#{builder[:load].sub('--', '-')}-*")
+  result[:start_state] = st.success? ? "cold: models unloaded, Splash cache for this model emptied" : "unloaded; cache clear failed"
+  admin(host, key, "POST", "/admin/api/models/#{builder[:load]}/load")
+  info, = Open3.capture2("ssh", "-o", "ConnectTimeout=5", host["ssh"],
+                         "sw_vers -productVersion; defaults read /Applications/oMLX.app/Contents/Info CFBundleShortVersionString; " \
+                         "pgrep -f 'splash serve' >/dev/null && echo splash || echo plain")
+  result[:macos], result[:omlx], result[:engine] = info.lines.map(&:strip)
 
   # 3. A pi config for this run only (the user's ~/.pi is left alone). No extensions, skills or MCP.
   File.write(File.join(agent_dir, "models.json"), JSON.pretty_generate(

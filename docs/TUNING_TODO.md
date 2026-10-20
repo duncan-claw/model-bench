@@ -1,5 +1,9 @@
 # TODO: speed tuning for verbose, accurate models (Gemma 4 first)
 
+**Update (2026-10-20 evening):** the thinking-budget work now has its own experiment area with its plan and results
+table: [`experiments/thinking-budget/`](../experiments/thinking-budget/README.md). It targets the two builders
+(Qwen3.6-35B-A3B 8-bit and Qwen3.8-27B 4-bit) rather than Gemma.
+
 **Status (2026-10-20):** Gemma-4-26B fails the accuracy gate at full length (77% of the first 30 at 32,768
 tokens; about 1 answer in 5 never finishes). If it's revisited, start with a thinking budget (experiment 2),
 not a larger limit. Qwen3.6-35B-A3B passes the accuracy gate (94% 8-bit, 93% 4-bit at 8,192 tokens); its

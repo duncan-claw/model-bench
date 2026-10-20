@@ -5,6 +5,21 @@ The numbers live in `results/<run>/RESULTS.md`; this file records the reasoning.
 
 ## 2026-10-20
 
+- **Qwen3.6-35B-A3B 8-bit runs on oMLX's plain engine, not Splash, on both Macs** (Mark, 2026-10-20 evening;
+  `experiments/mbp-parity/`). On Splash it loops on turn 3 of the agentic task from a cold start: 0 of 16 across both
+  Macs, at 4k and 8k tokens per turn, while the identical request sent alone passes. Plain engine: 7 of 8 from cold.
+  Run 6's 5 of 5 for this model reflected a warm Splash state. Cost: about 1.5–1.8× slower (75 vs 134 tok/s; 37.8k-token
+  prompt first word 83 s vs 56 s). Qwen3.8-27B 4-bit stays on Splash: unaffected, and Splash is its whole speed-up
+  (plain 0.7.1rc1 measured the same as plain 0.7.0: 19 vs 56 tok/s). Not reported upstream yet (logged only).
+- **Rule: benchmarks and ladder attempts start from a known state** (models unloaded, the builder's Splash cache
+  emptied) and record macOS, oMLX version and engine. `bin/ladder` does this. In `docs/MAC_SERVING.md`.
+- **MBP-14 moved to the headless launchd service** like the MBP-16; serving runbook `docs/MAC_SERVING.md` is now the one
+  standard (Mark, after a stray second app copy and a hand-started desktop app were found). Splash cache on the MBP-14
+  raised to 100 GB. The MBP-16 is on macOS 27.0.1, the MBP-14 on 26.6.2; Darkbloom is installed but disabled on the
+  MBP-16 and has no effect.
+- **August bake-off lessons** linked into `docs/PLANNER_BUILDER_PLAN.md` (model-routing check, context caps, tool-format
+  leaks, serving bugs mistaken for model failures, fast-fail limits).
+
 - **Run 8: cloud comparison, overriding the 2026-10-19 "no cloud baseline" scope rule** (Mark's request;
   `results/2026-10-20-cloud/`). Three low-cost OpenRouter models under the same rules, with
   `data_collection: deny` on every request because MultiPL-E forbids training use. **GLM-5.3 Flash 154/161 (96%)**
