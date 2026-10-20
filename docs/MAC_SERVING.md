@@ -12,7 +12,7 @@ MBP-14 and the MBP-16. Any agent changing oMLX or Splash follows this file, and 
 | SSH | `mark@` (Tailscale) | `mrich@mbp-16-m1-max-64gb` |
 | oMLX | `/Applications/oMLX.app`, run **headless** by launchd | same |
 | Service | `~/Library/LaunchAgents/com.omlx.server.plist`, label `com.omlx.server` | same |
-| Command | `omlx-cli serve --host 0.0.0.0 --port 10240 --headless` (everything else from `~/.omlx/settings.json`) | `omlx-cli serve --host 0.0.0.0 --port 10240 --memory-guard balanced --memory-guard-gb 52 --api-key …` |
+| Command | `omlx-cli serve --host 0.0.0.0 --port 10240` (everything else from `~/.omlx/settings.json`). **Don't add `--headless`:** it removes the admin web page (`/admin`); launchd already means no menu-bar app | `omlx-cli serve --host 0.0.0.0 --port 10240 --memory-guard balanced --memory-guard-gb 52 --api-key …` |
 | Service log | `~/Library/Logs/omlx-server.log` | same |
 | oMLX log | `~/.omlx/logs/server.log` (rotated daily) | same |
 | Settings | `~/.omlx/settings.json` (global), `~/.omlx/model_settings.json` (per model) | same |
@@ -76,7 +76,7 @@ Read the API key from `~/.omlx/settings.json` (`auth.api_key`) on the Mac itself
    and run a 12-minute model-bench check (`bin/bench --screens coding` for Qwen3.8-27B 4-bit).
 4. Update this file's table and the version line below.
 
-**Versions (2026-10-20):** oMLX 0.7.1rc1 and Splash M1 1.3.2-m1.1 on both Macs. **macOS differs:** MBP-14 26.6.2,
+**Versions (2026-10-20, 22:30):** oMLX 0.7.1rc1, Splash M1 1.3.2-m1.1 and **macOS 27.0.1 on both Macs**. The MBP-14 was upgraded from 26.6.2 that evening; after the upgrade Qwen3.8-27B 4-bit passed and failed exactly the same 161 problems as before (136/161, 4.3 s per answer; `results/2026-10-20-mbp14-macos27/`). Earlier: MBP-14 26.6.2,
 MBP-16 27.0.1 (upgraded for Darkbloom, now disabled: both its launch agents are disabled and nothing runs). Decide
 whether to bring the MBP-14 to 27 (check the media studio first).
 
@@ -87,3 +87,6 @@ whether to bring the MBP-14 to 27 (check the media studio first).
 - 2026-10-20: MBP-14 found running the desktop app (started by hand 2026-10-17, not headless) plus a stray second
   copy an agent opened with `oMLX --version`. Stray closed; MBP-14 moved to the same headless service. Qwen3.6-35B-A3B
   8-bit moved to Splash on the MBP-16, matching the MBP-14. This runbook written.
+- 2026-10-20 (late): MBP-14 upgraded to macOS 27.0.1. The service came back by itself. Removed `--headless` from its
+  service (it had hidden the admin page). Default model set to Qwen3.8-27B 4-bit (none was set; oMLX fell back to
+  Gemma-4-19B). Post-upgrade check: 161/161 problems identical to before.
