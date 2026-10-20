@@ -433,6 +433,31 @@ stop. What survives:
 
 ---
 
+### Run 5: Ornith 8-bit agentic re-test (agentic task only, Run 2 settings: 10-min box, 30 turns, 4,096 tokens per turn)
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 37 | 18.2 | — | — | — | — | **solved** | 15 / finish |  |
+
+---
+
 ## Summary across runs
 
 ### Weights v2 (2026-10-20): adds vision, taken from memory, with the latest results
@@ -603,6 +628,7 @@ room, not that it got better: Run 1 stopped after 2 minutes, Run 2 cut answers a
 - **Run 2: extended** (all 161 problems, 4,096-token answers, 60-min cap, 10-min agentic box): [`results/2026-10-19-extended/RESULTS.md`](results/2026-10-19-extended/RESULTS.md)
 - **Run 3: 8k re-run** (coding only, 8,192-token answers, no time cap; verbose models only): [`results/2026-10-20-8k/RESULTS.md`](results/2026-10-20-8k/RESULTS.md)
 - **Run 4: Gemma 32k** (coding only, 32,768-token answers; stopped at problem 30): [`results/2026-10-20-gemma32k/README.md`](results/2026-10-20-gemma32k/README.md)
+- **Run 5: Ornith 8-bit agentic re-test** (agentic task only, Run 2 settings: 10-min box, 30 turns, 4,096 tokens per turn): [`results/2026-10-20-ornith8-agentic/RESULTS.md`](results/2026-10-20-ornith8-agentic/RESULTS.md)
 - **Run logs** for all of them (host addresses redacted): [`results/logs/`](results/logs/)
 
 Run 2's page also has the weighted scores (v1 and v2), the family grouping and the sorted views.

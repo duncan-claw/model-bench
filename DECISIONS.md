@@ -5,6 +5,11 @@ The numbers live in `results/<run>/RESULTS.md`; this file records the reasoning.
 
 ## 2026-10-20
 
+- **Ornith-1.5-35B-A3B MLX 8-bit agentic re-test: solved** (`results/2026-10-20-ornith8-agentic/`, same settings as
+  Run 2). 15 turns, 174 s: 4 edits, 8 test runs, then `finish` with all 4 tests passing. That makes it **1 of 2**
+  (Run 2 failed: one bad edit broke the file, then it gave up after 8 turns). Same pattern as Qwen3.6 4-bit:
+  agentic results swing between attempts, so builder decisions need 3+ attempts per model.
+
 - **Gemma-4-26B at 32,768 tokens: more room doesn't help** (`results/2026-10-20-gemma32k/`). It passed 23 of the
   first 30. 23 answers finished within 4,096 tokens and 1 within 8,192; **6 ran the full 32,768 tokens without
   finishing**, up to ~13½ minutes each. It **fails the tuning gate's accuracy test** (77% against ≥ 90%). Its
