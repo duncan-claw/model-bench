@@ -435,28 +435,31 @@ stop. What survives:
 
 ## Summary across runs
 
-### Latest evidence per model
+### Weights v2 (2026-10-20): adds vision, taken from memory, with the latest results
 
-Ruby pass rate comes from the most complete run for that model: Run 3 for the verbose models, otherwise Run 2.
-Agentic shows every attempt so far, in run order.
+Score = 100 × (0.4 × agentic + 0.3 × accuracy + 0.2 × throughput + 0.05 × memory + 0.05 × vision). A model that reads images avoids handing screenshots
+to a second model, which costs time and memory.
 
-| Model | Ruby pass rate (latest) | From | s / problem | Agentic attempts | Reads images |
-|---|---|---|---|---|---|
-| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 73% (74/102) | Run 2 | 35.4 | not solved, not solved | yes |
-| fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | 81% (131/161) | Run 2 | 2.2 | not solved, not solved | no |
-| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | 71% (115/161) | Run 2 | 19.7 | solved, not solved | no |
-| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | 73% (117/161) | Run 2 | 4.6 | not solved, not solved | no |
-| gemma-4-26b-a4b-it-4bit | 68% (50/74) · 32k: 23/30, 6 of 30 answers never finished | Run 2 | 49.4 | not solved, solved | yes |
-| Qwen3.6-35B-A3B-4bit | 93% (149/161) | Run 3 | 34.7 | solved, not solved | yes |
-| Qwen3.8-27B-4bit | 85% (136/161) | Run 2 | 4.4 | solved, solved | yes |
-| Qwen3.8-27B-8bit | 86% (138/161) | Run 2 | 12.6 | solved, solved | yes |
-| ornith-1.5-35b-a3b <sup>(d)</sup> | 89% (143/161) | Run 2 | 19.0 | not solved, solved | yes |
-| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 84% (135/161) | Run 2 | 7.7 | not solved, solved | no |
-| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 88% (141/161) | Run 2 | 12.1 | not solved | no |
-| qwen3-coder-30b-rails | 45% (9/20) | Run 2 | 1.4 | not solved, not solved | no |
-| Qwen3.6-35B-A3B-8bit | 94% (151/161) | Run 3 | 26.1 | solved, solved | yes |
-| Qwopus3.6-35B-A3B-Coder-8bit | 76% (122/161) | Run 3 | 26.9 | solved, solved | yes |
-| SrogiLesnik--Gemma-4-19B-mlx-4Bit | 74% (110/148) | Run 2 | 24.5 | not solved, not solved | no |
+Latest results: coding from Run 3 (8,192-token answers, no time cap) for the models it covered, otherwise Run 2;
+agentic from Run 2. The Source column says which. Throughput and memory are scaled against the best in this table.
+
+| Model | Source | Agentic (×0.4) | Accuracy (×0.3) | Throughput (×0.2) | Memory (×0.05) | Vision (×0.05) | **Score** | Solved per hour | Net per hour |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | Run 2 | 1.0 | 0.85 | 0.91 | 0.59 | 1.0 | **91.5** | 692.5 | 565 |
+| mlx-community--Qwen3.8-27B-8bit | Run 2 | 1.0 | 0.86 | 0.77 | 0.24 | 1.0 | **87.2** | 244.7 | 204 |
+| ornith-1.5-35b-a3b <sup>(d)</sup> | Run 2 | 1.0 | 0.89 | 0.71 | 0.25 | 1.0 | **87.1** | 168.7 | 147 |
+| Qwen3.6-35B-A3B-8bit | Run 3 | 1.0 | 0.94 | 0.68 | 0.05 | 1.0 | **87.0** | 129.4 | 121 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | Run 2 | 1.0 | 0.84 | 0.83 | 0.51 | 0.0 | **84.3** | 392.8 | 317 |
+| Qwopus3.6-35B-A3B-Coder-8bit | Run 3 | 1.0 | 0.76 | 0.64 | 0.05 | 1.0 | **80.9** | 101.4 | 69 |
+| mlx-community--gemma-4-26b-a4b-it-4bit | Run 2 | 1.0 | 0.68 | 0.54 | 0.62 | 1.0 | **79.3** | 49.3 | 26 |
+| mlx-community--Qwen3.6-35B-A3B-4bit | Run 3 | 0.0 | 0.93 | 0.64 | 0.49 | 1.0 | **47.9** | 96.1 | 88 |
+| fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | Run 2 | 0.0 | 0.81 | 1.0 | 0.38 | 0.0 | **46.3** | 1331.1 | 1026 |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | Run 2 | 0.0 | 0.73 | 0.88 | 0.68 | 0.0 | **42.8** | 571.8 | 357 |
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | Run 2 | 0.0 | 0.73 | 0.6 | 0.74 | 1.0 | **42.4** | 73.7 | 46 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | Run 2 | 0.0 | 0.88 | 0.77 | 0.0 | 0.0 | **41.8** | 261.2 | 224 |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | Run 2 | 0.0 | 0.74 | 0.65 | 0.74 | 0.0 | **39.0** | 109.0 | 71 |
+| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | Run 2 | 0.0 | 0.71 | 0.68 | 0.68 | 0.0 | **38.4** | 130.5 | 78 |
+| qwen3-coder-30b-rails | Run 2 | 0.0 | 0.45 | 0.99 | 0.46 | 0.0 | **35.5** | 1195.6 | -266 |
 
 ### Progression: Ruby pass rate run by run
 

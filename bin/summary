@@ -73,25 +73,42 @@ out << "---" << ""
 out << "## Summary across runs"
 out << ""
 
-# 1. Latest view
-out << "### Latest evidence per model"
+# 1. Weighted score v2 with the latest results: same table format as Run 2's v2 table.
+# Coding comes from Run 3 where that model completed it (more room to finish), otherwise Run 2.
+# Agentic comes from Run 2. Gemma-4-26B's Run 4 (32k) left no per-answer data, so its Run 2 figures stand.
+W = { agentic: 0.4, accuracy: 0.3, throughput: 0.2, memory: 0.05, vision: 0.05 }.freeze
+f = ->(v, d = 1) { v.nil? ? "—" : v.is_a?(Numeric) ? v.round(d).to_s : v.to_s }
+rows = models.map do |m|
+  r2 = data.dig("2026-10-19-extended", m)
+  c3 = coding(data.dig("2026-10-20-8k", m))
+  c = c3 && c3["stop"] == "completed" ? c3 : coding(r2)
+  hours = c["problems"].sum { _1["seconds"].to_f } / 3600
+  net = hours.positive? ? (c["passed"] - (c["attempted"] - c["passed"])) / hours : nil
+  { model: m, src: c.equal?(c3) ? "Run 3" : "Run 2", c: c, net: net, size: r2["size_gb"].to_f,
+    agentic: r2.dig("screens", "agentic", "solved") ? 1.0 : 0.0, vision: config.dig(m, "vision") ? 1.0 : 0.0 }
+end
+max_sph = rows.map { _1[:c]["solved_per_hour"].to_f }.max
+max_gb = rows.map { _1[:size] }.max
+rows.each do |r|
+  r[:accuracy] = r[:c]["pass_rate"].to_f
+  r[:throughput] = Math.log(1 + r[:c]["solved_per_hour"].to_f) / Math.log(1 + max_sph)
+  r[:memory] = 1 - r[:size] / max_gb
+  r[:score] = W.sum { |k, x| x * r[k] } * 100
+end
+out << "### Weights v2 (2026-10-20): adds vision, taken from memory, with the latest results"
 out << ""
-out << "Ruby pass rate comes from the most complete run for that model: Run 3 for the verbose models, otherwise Run 2."
-out << "Agentic shows every attempt so far, in run order."
+out << "Score = 100 × (#{W.map { |k, x| "#{x} × #{k}" }.join(' + ')}). A model that reads images avoids handing screenshots"
+out << "to a second model, which costs time and memory."
 out << ""
-out << "| Model | Ruby pass rate (latest) | From | s / problem | Agentic attempts | Reads images |"
-out << "|---|---|---|---|---|---|"
-models.each do |m|
-  latest = %w[2026-10-20-8k 2026-10-19-extended].find { coding(data.dig(_1, m))&.dig("stop") == "completed" } ||
-           "2026-10-19-extended"
-  c = coding(data.dig(latest, m))
-  label = RUNS.find { _1[:id] == latest }[:label].split(":").first
-  attempts = %w[2026-10-19 2026-10-19-extended].filter_map { agentic(data.dig(_1, m)) }
-  vision = config.dig(m, "vision") ? "yes" : "no"
-  pass = pct(c)
-  pass += " · 32k: #{GEMMA_32K[:passed]}/#{GEMMA_32K[:attempted]}, #{GEMMA_32K[:note]}" if m == GEMMA
-  out << "| #{short.(m)}#{deleted.(m)} | #{pass} | #{label} | #{c&.dig('seconds_per_problem') || '—'} | " \
-         "#{attempts.empty? ? '—' : attempts.join(', ')} | #{vision} |"
+out << "Latest results: coding from Run 3 (8,192-token answers, no time cap) for the models it covered, otherwise Run 2;"
+out << "agentic from Run 2. The Source column says which. Throughput and memory are scaled against the best in this table."
+out << ""
+out << "| Model | Source | #{W.map { |k, x| "#{k.to_s.capitalize} (×#{x})" }.join(' | ')} | **Score** | Solved per hour | Net per hour |"
+out << "|#{'---|' * (W.size + 5)}"
+rows.sort_by { -_1[:score] }.each do |r|
+  name = "#{r[:model]}#{deleted.(r[:model])}"
+  out << "| #{name} | #{r[:src]} | #{W.keys.map { f.(r[_1], 2) }.join(' | ')} | **#{f.(r[:score])}** | " \
+         "#{f.(r[:c]['solved_per_hour'])} | #{f.(r[:net], 0)} |"
 end
 out << ""
 
