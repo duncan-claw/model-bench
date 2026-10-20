@@ -163,13 +163,22 @@ out << ""
 out << "The same model across runs. The rules changed between runs, so a jump usually means the model was given more"
 out << "room, not that it got better: Run 1 stopped after 2 minutes, Run 2 cut answers at 4,096 tokens, Run 3 at 8,192."
 out << ""
-out << "| Model | Run 1: screen | Run 2: extended | Run 3: 8k | Run 4: 32k |"
-out << "|---|---|---|---|---|"
-models.each do |m|
-  r4 = m == GEMMA ? "#{(GEMMA_32K[:passed] * 100.0 / GEMMA_32K[:attempted]).round}% (#{GEMMA_32K[:passed]}/#{GEMMA_32K[:attempted]})" : "—"
+out << "**Latest** is each model's most recent result (the run is named in the cell). Rows are sorted by it, highest first."
+out << ""
+out << "| Model | Run 1: screen | Run 2: extended | Run 3: 8k | Run 4: 32k | **Latest** |"
+out << "|---|---|---|---|---|---|"
+prog = models.map do |m|
+  r1 = coding(data.dig("2026-10-19", m))
+  r2 = coding(data.dig("2026-10-19-extended", m))
   r3 = coding(data.dig("2026-10-20-8k", m))
-  out << "| #{short.(m)}#{deleted.(m)} | #{pct(coding(data.dig('2026-10-19', m)))} | #{pct(coding(data.dig('2026-10-19-extended', m)))} | " \
-         "#{r3 ? pct(r3) : '—'} | #{r4} |"
+  r3 = nil unless r3 && r3["attempted"].to_i.positive?
+  r4 = m == GEMMA ? { "passed" => GEMMA_32K[:passed], "attempted" => GEMMA_32K[:attempted] } : nil
+  latest, run = [[r4, "Run 4"], [r3, "Run 3"], [r2, "Run 2"], [r1, "Run 1"]].find { |c, _| c }
+  rate = latest["pass_rate"] ? latest["pass_rate"].to_f : latest["passed"].to_f / latest["attempted"]
+  { m: m, cells: [r1, r2, r3, r4].map { _1 ? pct(_1) : "—" }, latest: "**#{pct(latest)}** · #{run}", rate: rate }
+end
+prog.sort_by { [-_1[:rate], _1[:m].downcase] }.each do |p|
+  out << "| #{short.(p[:m])}#{deleted.(p[:m])} | #{p[:cells].join(' | ')} | #{p[:latest]} |"
 end
 out << ""
 

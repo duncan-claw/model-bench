@@ -577,23 +577,25 @@ agentic from Run 2. The Source column says which. Throughput and memory are scal
 The same model across runs. The rules changed between runs, so a jump usually means the model was given more
 room, not that it got better: Run 1 stopped after 2 minutes, Run 2 cut answers at 4,096 tokens, Run 3 at 8,192.
 
-| Model | Run 1: screen | Run 2: extended | Run 3: 8k | Run 4: 32k |
-|---|---|---|---|---|
-| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 33% (1/3) | 73% (74/102) | — | — |
-| fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | 70% (28/40) | 81% (131/161) | — | — |
-| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | 83% (5/6) | 71% (115/161) | — | — |
-| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | 62% (16/26) | 73% (117/161) | — | — |
-| gemma-4-26b-a4b-it-4bit | 14% (1/7) | 68% (50/74) | — | 77% (23/30) |
-| Qwen3.6-35B-A3B-4bit | 11% (1/9) | 82% (81/99) | 93% (149/161) | — |
-| Qwen3.8-27B-4bit | 73% (19/26) | 85% (136/161) | — | — |
-| Qwen3.8-27B-8bit | 82% (9/11) | 86% (138/161) | — | — |
-| ornith-1.5-35b-a3b <sup>(d)</sup> | 88% (7/8) | 89% (143/161) | — | — |
-| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 80% (20/25) | 84% (135/161) | — | — |
-| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | — | 88% (141/161) | — | — |
-| qwen3-coder-30b-rails | 67% (37/55) | 45% (9/20) | — | — |
-| Qwen3.6-35B-A3B-8bit | 33% (3/9) | 85% (128/151) | 94% (151/161) | — |
-| Qwopus3.6-35B-A3B-Coder-8bit | 46% (5/11) | 73% (118/161) | 76% (122/161) | — |
-| SrogiLesnik--Gemma-4-19B-mlx-4Bit | 79% (23/29) | 74% (110/148) | — | — |
+**Latest** is each model's most recent result (the run is named in the cell). Rows are sorted by it, highest first.
+
+| Model | Run 1: screen | Run 2: extended | Run 3: 8k | Run 4: 32k | **Latest** |
+|---|---|---|---|---|---|
+| Qwen3.6-35B-A3B-8bit | 33% (3/9) | 85% (128/151) | 94% (151/161) | — | **94% (151/161)** · Run 3 |
+| Qwen3.6-35B-A3B-4bit | 11% (1/9) | 82% (81/99) | 93% (149/161) | — | **93% (149/161)** · Run 3 |
+| ornith-1.5-35b-a3b <sup>(d)</sup> | 88% (7/8) | 89% (143/161) | — | — | **89% (143/161)** · Run 2 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | — | 88% (141/161) | — | — | **88% (141/161)** · Run 2 |
+| Qwen3.8-27B-8bit | 82% (9/11) | 86% (138/161) | — | — | **86% (138/161)** · Run 2 |
+| Qwen3.8-27B-4bit | 73% (19/26) | 85% (136/161) | — | — | **85% (136/161)** · Run 2 |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 80% (20/25) | 84% (135/161) | — | — | **84% (135/161)** · Run 2 |
+| fullstack-learn-lm-30b-a3b-i1 <sup>(d)</sup> | 70% (28/40) | 81% (131/161) | — | — | **81% (131/161)** · Run 2 |
+| gemma-4-26b-a4b-it-4bit | 14% (1/7) | 68% (50/74) | — | 77% (23/30) | **77% (23/30)** · Run 4 |
+| Qwopus3.6-35B-A3B-Coder-8bit | 46% (5/11) | 73% (118/161) | 76% (122/161) | — | **76% (122/161)** · Run 3 |
+| SrogiLesnik--Gemma-4-19B-mlx-4Bit | 79% (23/29) | 74% (110/148) | — | — | **74% (110/148)** · Run 2 |
+| kang-heewon--gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-MLX-8bit | 62% (16/26) | 73% (117/161) | — | — | **73% (117/161)** · Run 2 |
+| DeepSeek-V4-Pro-Qwen3.5-9B-8bit | 33% (1/3) | 73% (74/102) | — | — | **73% (74/102)** · Run 2 |
+| gemma-4-12b-agentic-fable5-composer2.5-v2-3.5x-tau2 <sup>(d)</sup> | 83% (5/6) | 71% (115/161) | — | — | **71% (115/161)** · Run 2 |
+| qwen3-coder-30b-rails | 67% (37/55) | 45% (9/20) | — | — | **45% (9/20)** · Run 2 |
 
 ### Where each run's page lives
 
