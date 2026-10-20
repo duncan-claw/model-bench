@@ -1,0 +1,132 @@
+[16:13:20] lane mbp14b start
+[16:13:21] run 2026-10-20-agentic5-a2: 3 models, screens agentic
+[16:14:09] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 47.2s
+[16:15:47]   agentic {solved: true, turns: 6, stop: "finish"}
+[16:16:20] Qwen3.6-35B-A3B-8bit: loaded in 31.7s
+[16:17:41]   agentic {solved: true, turns: 7, stop: "finish"}
+[16:18:05] ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit: loaded in 23.0s
+[16:19:56]   agentic {solved: true, turns: 7, stop: "finish"}
+[16:20:51] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+# Results — 2026-10-20-agentic5-a2
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.6-35B-A3B-4bit | 19 | 6.8 | — | — | — | — | not solved | 8 / no_tool_call |  |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 47.2 | — | — | — | — | **solved** | 6 / finish |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 23.0 | — | — | — | — | **solved** | 7 / finish |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 37 | 17.1 | — | — | — | — | not solved | 14 / no_tool_call |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 31.7 | — | — | — | — | **solved** | 7 / finish |  |
+[16:20:51] run 2026-10-20-agentic5-a3: 3 models, screens agentic
+[16:21:40] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 47.3s
+[16:23:36]   agentic {solved: true, turns: 6, stop: "finish"}
+[16:24:09] Qwen3.6-35B-A3B-8bit: loaded in 32.5s
+[16:25:24]   agentic {solved: true, turns: 6, stop: "finish"}
+[16:25:48] ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit: loaded in 23.3s
+[16:29:09]   agentic {solved: true, turns: 16, stop: "finish"}
+[16:29:57] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+# Results — 2026-10-20-agentic5-a3
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.6-35B-A3B-4bit | 19 | 7.4 | — | — | — | — | **solved** | 9 / finish |  |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 47.3 | — | — | — | — | **solved** | 6 / finish |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 23.3 | — | — | — | — | **solved** | 16 / finish |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit | 37 | 21.3 | — | — | — | — | **solved** | 8 / finish |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 32.5 | — | — | — | — | **solved** | 6 / finish |  |
+[16:29:57] run 2026-10-20-agentic5-a4: 3 models, screens agentic
+[16:30:46] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 47.0s
+[16:32:39]   agentic {solved: true, turns: 6, stop: "finish"}
+[16:33:11] Qwen3.6-35B-A3B-8bit: loaded in 31.3s
+[16:34:17]   agentic {solved: true, turns: 7, stop: "finish"}
+[16:34:38] ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit: loaded in 20.0s
+[16:37:19]   agentic {solved: false, turns: 11, stop: "no_tool_call"}
+[16:37:57] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+# Results — 2026-10-20-agentic5-a4
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| mlx-community--Qwen3.6-35B-A3B-4bit | 19 | 8.2 | — | — | — | — | **solved** | 10 / finish |  |
+| mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct | 15 | 47.0 | — | — | — | — | **solved** | 6 / finish |  |
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 20.0 | — | — | — | — | not solved | 11 / no_tool_call |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 31.3 | — | — | — | — | **solved** | 7 / finish |  |
+[16:37:57] run 2026-10-20-agentic5-a5: 2 models, screens agentic
+[16:38:28] Qwen3.6-35B-A3B-8bit: loaded in 29.3s
+[16:39:16]   agentic {solved: true, turns: 8, stop: "finish"}
+[16:39:36] ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit: loaded in 18.9s
+[16:41:02]   agentic {solved: true, turns: 6, stop: "finish"}
+[16:41:40] restored: mlx-community--Qwen3.8-27B-4bit, MarkItDown
+# Results — 2026-10-20-agentic5-a5
+
+Time boxes: coding 120 s, tools 90 s, agentic 120 s (a box stops *new* items; one in flight may overrun).
+Coding = MultiPL-E HumanEval-Ruby, same seeded order for every model. Tools = 12 single-turn cases.
+Agentic = fix `tasks/slugify` (4 tests) with file/test tools, max 15 turns.
+
+**Legend: screen table**
+
+- **Size GB**: model files on disk.
+- **Load s**: seconds to load the model into memory (oMLX or LM Studio).
+- **TTFT s**: time to first token, i.e. seconds from sending a prompt until the first text (or reasoning) arrives.
+- **tok/s**: generation speed once output starts (tokens per second, streamed 400-token reply). High tok/s does not mean fast answers if the model reasons at length first.
+- **Coding pass/attempted**: Ruby problems whose unit tests passed / problems answered inside the box. Per-answer limit 1024 tokens; answers cut off at the limit count as failures.
+- **Agentic token limit**: 4096 tokens per turn.
+- **Tools pass/attempted**: single-turn tool cases with the right tool (or none), right arguments and types / cases reached in the box.
+- **Agentic**: whether the 4 failing tests pass at the end (**solved**) or not.
+- **Agentic turns / stop**: model turns used, and why it stopped: `finish` (called done), `no_tool_call` (replied in plain text instead of using a tool, i.e. gave up), `time_box`, `max_turns`, or `error`.
+- **Error**: the model could not be loaded or reached; no scores for that row.
+
+| Model | Size GB | Load s | TTFT s | tok/s | Coding pass/attempted | Tools pass/attempted (of 12) | Agentic | Agentic turns / stop | Error |
+|---|---|---|---|---|---|---|---|---|---|
+| ornith-ai--Ornith-1.5-35B-A3B-MLX-4bit | 18 | 18.9 | — | — | — | — | **solved** | 6 / finish |  |
+| Qwen3.6-35B-A3B-8bit | 35 | 29.3 | — | — | — | — | **solved** | 8 / finish |  |
+[16:41:40] lane mbp14b done

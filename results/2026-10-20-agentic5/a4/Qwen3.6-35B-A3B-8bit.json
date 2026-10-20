@@ -1,0 +1,27 @@
+{
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "host": "mbp14-omlx",
+  "size_gb": 35,
+  "started_at": "2026-10-20T16:32:39+11:00",
+  "screens": {
+    "agentic": {
+      "turns": 7,
+      "stop": "finish",
+      "seconds": 65.9,
+      "tool_counts": {
+        "list_files": 1,
+        "read_file": 2,
+        "run_tests": 2,
+        "write_file": 2,
+        "finish": 1
+      },
+      "solved": true,
+      "final_tests": "4 runs, 4 assertions, 0 failures, 0 errors, 0 skips",
+      "box_seconds": 600,
+      "max_turns": 30,
+      "max_tokens": 4096
+    }
+  },
+  "load_seconds": 31.3,
+  "finished_at": "2026-10-20T16:34:17+11:00"
+}

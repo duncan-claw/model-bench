@@ -14,7 +14,8 @@ RUNS = [
   { id: "2026-10-19-extended", label: "Run 2: extended", note: "all 161 problems, 4,096-token answers, 60-min cap, 10-min agentic box" },
   { id: "2026-10-20-8k", label: "Run 3: 8k re-run", note: "coding only, 8,192-token answers, no time cap; verbose models only" },
   { id: "2026-10-20-gemma32k", label: "Run 4: Gemma 32k", note: "coding only, 32,768-token answers; stopped at problem 30" },
-  { id: "2026-10-20-ornith8-agentic", label: "Run 5: Ornith 8-bit agentic re-test", note: "agentic task only, Run 2 settings: 10-min box, 30 turns, 4,096 tokens per turn" }
+  { id: "2026-10-20-ornith8-agentic", label: "Run 5: Ornith 8-bit agentic re-test", note: "agentic task only, Run 2 settings: 10-min box, 30 turns, 4,096 tokens per turn" },
+  { id: "2026-10-20-agentic5", label: "Run 6: agentic ×5 for the builder candidates", note: "agentic task only, Run 2 settings; 5 attempts per candidate including earlier ones" }
 ].freeze
 
 def load_run(id)

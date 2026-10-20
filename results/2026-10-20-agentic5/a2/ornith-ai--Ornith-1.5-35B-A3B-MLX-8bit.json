@@ -1,0 +1,26 @@
+{
+  "model": "ornith-ai--Ornith-1.5-35B-A3B-MLX-8bit",
+  "host": "mbp14-omlx",
+  "size_gb": 37,
+  "started_at": "2026-10-20T16:00:10+11:00",
+  "screens": {
+    "agentic": {
+      "turns": 14,
+      "stop": "no_tool_call",
+      "seconds": 268.5,
+      "tool_counts": {
+        "list_files": 2,
+        "read_file": 2,
+        "run_tests": 8,
+        "write_file": 2
+      },
+      "solved": false,
+      "final_tests": "4 runs, 4 assertions, 1 failures, 0 errors, 0 skips",
+      "box_seconds": 600,
+      "max_turns": 30,
+      "max_tokens": 4096
+    }
+  },
+  "load_seconds": 17.1,
+  "finished_at": "2026-10-20T16:04:57+11:00"
+}

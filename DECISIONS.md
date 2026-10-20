@@ -5,6 +5,19 @@ The numbers live in `results/<run>/RESULTS.md`; this file records the reasoning.
 
 ## 2026-10-20
 
+- **Run 6: agentic ×5 for the five builder candidates** (`results/2026-10-20-agentic5/`, Run 2 settings, Run 2 and
+  Run 5 attempts counted, Run 1 not). Mark asked for 5 attempts each so the agentic result means something.
+  **Qwen3.8-27B 4-bit 5 of 5** (6 turns every time) and **Qwen3.6-35B-A3B 8-bit 5 of 5**; Ornith MLX 4-bit 4 of 5;
+  **Qwen3.6-35B-A3B 4-bit 3 of 5** and **Ornith MLX 8-bit 3 of 5**. Every failure was the model giving up
+  (`no_tool_call`). Reading: the two Qwens are the reliable builders; Ornith 4-bit passes the 2-of-3 gate; the
+  Qwen3.6 4-bit and Ornith 8-bit are close to coin flips. No keep/cut call yet: the builder line-up and the disk
+  clean-up are being decided with Mark. The Weights v2 summary still uses Run 2's single agentic result.
+- **Splitting a run across both MBPs didn't work this time.** The MBP-16's oMLX restarted by itself at 15:59, mid-attempt
+  (cause not found in its log), and that Mac was also serving other jobs from its pinned model, which runs with a
+  draft model. The MBP-16 lane was stopped after one attempt, the Mac put back as it was, and its models rerun on the
+  MBP-14. Lesson: a two-Mac run needs the MBP-16 free of other jobs, and matching oMLX model settings on both Macs.
+  The harness's restore step also assumes a single oMLX host (it restores the first one in `config/hosts.yml`).
+
 - **Ornith-1.5-35B-A3B MLX 8-bit agentic re-test: solved** (`results/2026-10-20-ornith8-agentic/`, same settings as
   Run 2). 15 turns, 174 s: 4 edits, 8 test runs, then `finish` with all 4 tests passing. That makes it **1 of 2**
   (Run 2 failed: one bad edit broke the file, then it gave up after 8 turns). Same pattern as Qwen3.6 4-bit:

@@ -1,0 +1,5 @@
+[15:53:51] lane mbp16 start
+[15:53:52] run 2026-10-20-agentic5-a1: 3 models, screens agentic
+[15:54:49] mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct: loaded in 56.7s
+[15:56:47]   agentic {solved: true, turns: 6, stop: "finish"}
+[15:57:06] Qwen3.6-35B-A3B-8bit: loaded in 17.9s
