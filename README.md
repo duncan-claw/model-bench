@@ -29,7 +29,9 @@ the times are for a single request with the model already loaded.
 | Ornith-1.5-35B-A3B 8-bit | 88% | 7 s | 21 s | 83 s | not solved (gave up after 167 s) | no |
 | Gemma-4-26B-A4B 4-bit (4,096 tokens, 60-min cap) | 68% (98% of finished answers) | 53 s | 76 s | 77 s* | solved (45 s) | yes |
 
-\* Capped by the 4,096-token limit. With room to finish, single Gemma-4-26B answers took up to 166 s.
+\* Capped by the 4,096-token limit. Given 32,768 tokens, Gemma-4-26B passed 23 of its first 30, but about 1 answer
+in 5 never finished and ran the full 32,768 tokens (up to ~13½ minutes each). See
+[`results/2026-10-20-gemma32k/`](results/2026-10-20-gemma32k/README.md).
 
 **One job at a time.** These numbers are for one request on one model. On a 64 GB Mac that is the real
 working pattern, and it's the biggest practical limit for a daily driver:
@@ -81,6 +83,10 @@ What surprised us:
 - **"Thinking" models lose on the clock, not on accuracy.** Gemma-4-26B and Qwen3.6 are among the most
   accurate when they finish, but they write 2,000–8,000+ tokens per answer. Generation speed (tok/s) was never
   the bottleneck; volume was.
+- **More thinking room doesn't rescue a model that gets stuck.** Given 32,768 tokens, Gemma-4-26B either finished
+  within about 4,000 tokens or never finished at all. About 1 answer in 5 ran to the limit, up to ~13½ minutes each.
+- **The serving engine matters as much as the model.** Switching oMLX to the Splash engine made the same model
+  (Qwen3.8-27B 4-bit) generate 2.6× faster. See [Serving engine: Splash](#serving-engine-splash).
 - **Fine-tunes didn't beat their bases** on plain Ruby: a Qwen3.6 coding fine-tune scored 76% against its
   base's 94%, and a Rails-tuned 30B scored 45%.
 - **Single-turn tool calling is easy** (most models 12/12). **Finishing a multi-step task isn't:** several
@@ -88,6 +94,26 @@ What surprised us:
 
 Caveats: plain-Ruby puzzles (no Rails conventions), one agentic attempt per model, one machine.
 See "How accuracy is counted" below.
+
+## Serving engine: Splash
+
+[Splash](https://inco.ai/blog/splash/) is an alternative engine for oMLX, for Qwen3.8-27B, Qwen3.6-35B-A3B and
+models with the same design (for example Ornith-1.5). We installed Splash M1 1.3.2 on a second M1 Max 64 GB
+MacBook Pro that had been running oMLX 0.7.0's standard MLX engine. **oMLX was updated to 0.7.1rc1 at the same
+time, so not all of the gain is Splash.**
+
+Qwen3.8-27B 4-bit, average of 3 runs each (measured 2026-10-18 with a separate oMLX benchmark script, not this repo):
+
+| Test | MLX engine (oMLX 0.7.0, TurboQuant KV) | Splash (oMLX 0.7.1rc1) | Gain |
+|---|---|---|---|
+| Short answer, thinking off: generation speed | 19.1 tok/s | **50.5 tok/s** | 2.6× |
+| Short answer: time to first token | 1.1 s | 0.87 s | small |
+| Cold 37.8k-token prompt: time to first token | 451 s | **222 s** | 2.0× faster |
+| Cold prompt: reading speed | 84 tok/s | **170 tok/s** | 2.0× |
+| Warm (cached) prompt: generation speed | 10.8 tok/s | 23.5 tok/s | 2.2× |
+
+All the Qwen and Ornith results above ran on Splash. The Gemma, IQuest and DeepSeek models ran on oMLX's
+own engines, which Splash doesn't support.
 
 ## Requirements
 

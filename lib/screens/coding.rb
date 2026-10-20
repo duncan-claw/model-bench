@@ -19,7 +19,7 @@ module Screens
     BATCH = 10
 
     def initialize(client, box:, max_tokens: 1024, extended: false, max_minutes: 60,
-                   min_pass_rate: 0.5, min_attempts: 20, progress: nil)
+                   min_pass_rate: 0.5, min_attempts: 20, progress: nil, checkpoint: nil)
       @client = client
       @box = box
       @max_tokens = max_tokens
@@ -28,6 +28,7 @@ module Screens
       @min_pass_rate = min_pass_rate
       @min_attempts = min_attempts
       @progress = progress
+      @checkpoint = checkpoint
     end
 
     def problems
@@ -55,14 +56,22 @@ module Screens
         tokens = res.dig(:usage, "completion_tokens")
         pending << { name: p["name"], seconds: res[:seconds]&.round(1), error: res[:error], tokens: tokens,
                      hit_cap: tokens.to_i >= @max_tokens, finish_reason: res[:finish_reason],
+                     raw_tail: tokens.to_i >= @max_tokens ? res[:raw_content].to_s[-3000..] || res[:raw_content].to_s : nil,
                      code: res[:error] ? nil : program(p, res[:content]) }
         next unless @extended && pending.size >= BATCH
 
         done.concat(test(pending))
         pending = []
         report(done, now - started)
+        @checkpoint&.call(summary(done, started, "in_progress"))
       end
       done.concat(test(pending)) unless pending.empty?
+      summary(done, started, stop)
+    end
+
+    private
+
+    def summary(done, started, stop)
       passed = done.count { _1[:passed] }
       secs = done.sum { _1[:seconds].to_f }
       { mode: @extended ? "extended" : "screen", stop: stop, attempted: done.size, passed: passed,
@@ -71,8 +80,6 @@ module Screens
         solved_per_hour: secs.positive? ? (passed * 3600 / secs).round(1) : nil,
         hit_cap: done.count { _1[:hit_cap] }, max_tokens: @max_tokens, box_seconds: @box, problems: done }
     end
-
-    private
 
     def early_stop(done, elapsed)
       return nil if done.empty?

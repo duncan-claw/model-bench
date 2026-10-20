@@ -1,6 +1,11 @@
 # TODO: speed tuning for verbose, accurate models (Gemma 4 first)
 
-**Status:** not started. Blocked on the 8,192-token re-run (`results/2026-10-20-8k/`), which
+**Status (2026-10-20):** Gemma-4-26B fails the accuracy gate at full length (77% of the first 30 at 32,768
+tokens; about 1 answer in 5 never finishes). If it's revisited, start with a thinking budget (experiment 2),
+not a larger limit. Qwen3.6-35B-A3B passes the accuracy gate (94% 8-bit, 93% 4-bit at 8,192 tokens); its
+agentic gate (2 of 3) isn't tested yet.
+
+**Original status:** not started. Blocked on the 8,192-token re-run (`results/2026-10-20-8k/`), which
 shows each model's accuracy when it can run until it finishes. Created 2026-10-20.
 
 ## Why

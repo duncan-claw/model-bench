@@ -1,2 +1,5 @@
 [12:53:12] run 2026-10-20-gemma32k: 1 models, screens coding
 [12:53:20] mlx-community--gemma-4-26b-a4b-it-4bit: loaded in 7.3s
+[13:38:19]   coding 10/161, pass 60% (6), 269.9 s/problem, ~679 min left at this pace
+[14:22:34]   coding 20/161, pass 65% (13), 267.7 s/problem, ~629 min left at this pace
+[14:29:24]   coding 30/161, pass 76% (23), 192.1 s/problem, ~419 min left at this pace

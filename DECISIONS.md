@@ -5,7 +5,19 @@ The numbers live in `results/<run>/RESULTS.md`; this file records the reasoning.
 
 ## 2026-10-20
 
-- **Published as a private GitHub repo, ready to make public:** https://github.com/duncan-claw/model-bench.
+- **Gemma-4-26B at 32,768 tokens: more room doesn't help** (`results/2026-10-20-gemma32k/`). It passed 23 of the
+  first 30. 23 answers finished within 4,096 tokens and 1 within 8,192; **6 ran the full 32,768 tokens without
+  finishing**, up to ~13½ minutes each. It **fails the tuning gate's accuracy test** (77% against ≥ 90%). Its
+  earlier "98% of finished answers" ignored the stuck ones. Any further Gemma work starts with a thinking budget
+  or thinking off, not a bigger limit. The run ended at problem 30 when the Mac mini's OpenClaw Gateway restarted,
+  taking the harness process with it.
+- **Harness hardened:** coding results are written after every 10 problems and saved on SIGTERM, and the last
+  3,000 characters of any cut-off answer are kept, to check for looping. Lesson: long runs must be started
+  independently of the Gateway (a detached job), not from an agent's shell.
+- **Splash results added to the README** (Qwen3.8-27B 4-bit: 2.6× faster generation, cold-prompt wait halved;
+  measured 2026-10-18 with the separate omlx-bench script on the MBP-16, alongside an oMLX 0.7.0→0.7.1rc1 update).
+
+- **Published publicly** at https://github.com/duncan-claw/model-bench (made public 2026-10-20, history squashed to one commit).
   It's a single-commit snapshot, because local history contains host addresses. Host addresses moved
   to the git-ignored `config/hosts.yml`, with `config/hosts.example.yml` as the template. Run logs and
   one-off queue scripts are untracked. Added an MIT licence for the code and MultiPL-E's licence for

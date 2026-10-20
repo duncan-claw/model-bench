@@ -106,6 +106,9 @@ def prepare_lmstudio(host, omlx, id)
   (Process.clock_gettime(Process::CLOCK_MONOTONIC) - t).round(1)
 end
 
+# Turn SIGTERM into an exception so the per-model `ensure` still writes what was gathered.
+Signal.trap("TERM") { raise Interrupt, "SIGTERM" }
+
 pinned = nil
 used_lmstudio = nil
 omlx_host = config["hosts"].values.find { _1["kind"] == "omlx" }
@@ -148,7 +151,11 @@ models.each do |m|
       r = case name
           when "coding"
             klass.new(client, box: BOX[name], max_tokens: opts[:max_tokens] || 1024, extended: opts[:extended],
-                              max_minutes: opts[:max_minutes] || 60, progress: ->(msg) { log "  #{msg}" }).run
+                              max_minutes: opts[:max_minutes] || 60, progress: ->(msg) { log "  #{msg}" },
+                              checkpoint: lambda { |partial|
+                                result[:screens][:coding] = partial
+                                File.write(File.join(out_dir, "#{slug}.json"), JSON.pretty_generate(result))
+                              }).run
           when "agentic"
             klass.new(client, box: opts[:agentic_box] || BOX[name], max_turns: opts[:agentic_turns] || 15,
                               max_tokens: [opts[:max_tokens] || 2048, 2048].max).run
@@ -159,13 +166,15 @@ models.each do |m|
       summary = r.slice(:attempted, :passed, :pass_rate, :seconds_per_problem, :solved_per_hour, :hit_cap, :solved, :turns, :stop)
       log "  #{name} #{summary}"
     end
-  rescue StandardError => e
+  rescue StandardError, Interrupt => e
     result[:error] = "#{e.class}: #{e.message}"[0, 300]
     log "  ERROR #{result[:error]}"
+    stopped = e.is_a?(Interrupt)
   ensure
     result[:finished_at] = Time.now.iso8601
     File.write(File.join(out_dir, "#{slug}.json"), JSON.pretty_generate(result))
   end
+  break if stopped
 end
 
 if used_lmstudio
