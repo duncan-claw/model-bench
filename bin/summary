@@ -46,15 +46,35 @@ deleted = ->(m) { config.dig(m, "parked").to_s =~ /deleted/i ? " <sup>(d)</sup>"
 out = []
 out << "# Results"
 out << ""
-out << "Every run's own tables are kept unchanged in its folder (links at the bottom). This page shows the"
-out << "**latest evidence per model** and **how each model's numbers changed from run to run**. Built by `bin/summary`."
+out << "Every result table from every run, **in the order the runs happened**, followed by a summary across runs."
+out << "Each run's own page is also kept unchanged in its folder. Built by `bin/summary`."
 out << "Method, caveats and the time/cost view: [`README.md`](README.md). Why models were kept or cut: [`DECISIONS.md`](DECISIONS.md)."
 out << ""
 out << "<sup>(d)</sup> = since deleted from the test Mac (kept here as history)."
 out << ""
 
+# Full contents of every run, oldest first. Each run's own page is included as-is (headings pushed down two levels).
+out << "## All results, in the order they were run"
+out << ""
+RUNS.each do |run|
+  page = %w[RESULTS.md README.md].map { File.join(ROOT, "results", run[:id], _1) }.find { File.exist?(_1) }
+  next unless page
+
+  body = File.read(page, encoding: "UTF-8")
+  body = body.gsub(/^(#+) /) { "###{$1} " }
+  body = body.gsub("](../", "](results/").gsub(/\]\((?!https?:|#|results\/)([^)]+)\)/) { "](results/#{run[:id]}/#{$1})" }
+  out << "---" << ""
+  out << "### #{run[:label]} (#{run[:note]})"
+  out << ""
+  out << body.sub(/\A#+ [^\n]*\n/, "").strip
+  out << ""
+end
+out << "---" << ""
+out << "## Summary across runs"
+out << ""
+
 # 1. Latest view
-out << "## Latest evidence per model"
+out << "### Latest evidence per model"
 out << ""
 out << "Ruby pass rate comes from the most complete run for that model: Run 3 for the verbose models, otherwise Run 2."
 out << "Agentic shows every attempt so far, in run order."
@@ -76,7 +96,7 @@ end
 out << ""
 
 # 2. Progression
-out << "## Progression: Ruby pass rate run by run"
+out << "### Progression: Ruby pass rate run by run"
 out << ""
 out << "The same model across runs. The rules changed between runs, so a jump usually means the model was given more"
 out << "room, not that it got better: Run 1 stopped after 2 minutes, Run 2 cut answers at 4,096 tokens, Run 3 at 8,192."
@@ -92,7 +112,7 @@ end
 out << ""
 
 # 3. Runs
-out << "## The runs"
+out << "### Where each run's page lives"
 out << ""
 RUNS.each do |run|
   page = File.exist?(File.join(ROOT, "results", run[:id], "RESULTS.md")) ? "RESULTS.md" : "README.md"
@@ -103,7 +123,7 @@ end
 out << "- **Run logs** for all of them (host addresses redacted): [`results/logs/`](results/logs/)"
 out << ""
 out << "Run 2's page also has the weighted scores (v1 and v2), the family grouping and the sorted views."
-out << "Run 3 has no table page of its own: it was stopped during its last model (Gemma-4-26B, rerun as Run 4)."
+out << "Run 3 was stopped during its last model (Gemma-4-26B, rerun as Run 4), so that model has no Run 3 row."
 
 File.write(File.join(ROOT, "RESULTS.md"), out.join("\n") + "\n")
 puts out
