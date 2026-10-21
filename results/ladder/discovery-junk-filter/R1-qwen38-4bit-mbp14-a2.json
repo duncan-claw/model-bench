@@ -23,7 +23,7 @@
   "stop": "toolUse",
   "verify": {
     "passed": false,
-    "tail": "\n# Running:\n\n....F\n\nFailure:\nContentQualityIndexTitleTest#test_index,_listing,_calendar,_archive,_tag_and_search-result_titles_are_index_titles [test/services/content_quality_index_title_test.rb:32]:\nexpected \"Search results for synthetic turf\" to be an index title\n\nbin/rails test test/services/content_quality_index_title_test.rb:30\n\n\n\nFinished in 0.002046s, 2443.7928 runs/s, 9775.1712 assertions/s.\n5 runs, 20 assertions, 1 failures, 0 errors, 0 skips\n"
+    "tail": "\n# Running:\n\n....F\n\nFailure:\nContentQualityIndexTitleTest#test_index,_listing,_calendar,_archive,_tag_and_search-result_titles_are_index_titles [test/services/content_quality_index_title_test.rb:32]:\nexpected \"Search results for solar farms\" to be an index title\n\nbin/rails test test/services/content_quality_index_title_test.rb:30\n\n\n\nFinished in 0.002046s, 2443.7928 runs/s, 9775.1712 assertions/s.\n5 runs, 20 assertions, 1 failures, 0 errors, 0 skips\n"
   },
   "suite": {
     "passed": false,

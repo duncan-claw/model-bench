@@ -51,7 +51,7 @@ spec:
 | Looks like | Is | Because |
 |---|---|---|
 | "Dallas-Fort Worth news" | article | a bare hyphen is not a separator |
-| "[PDF] Cataloging microplastics" | article | "catalog" must be a whole word |
+| "[PDF] Cataloging emissions" | article | "catalog" must be a whole word |
 | "  [pdf] Council minutes" | catalogue | leading spaces are allowed |
 
 *Prevents:* builds that pass the test but break the rule. Every R5 build missed at least one stated rule; one test

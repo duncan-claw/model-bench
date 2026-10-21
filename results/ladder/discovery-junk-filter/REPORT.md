@@ -1,6 +1,6 @@
 # discovery-junk-filter slice ladder: report (run of 21 Oct 2026)
 
-*Anonymised for publication: `client-app` is the client's project (a private Rails 8 app); client and people names are replaced with "the client".*
+*Anonymised for publication: `client-app` is the client's project, a news discovery and documentation RAG system (a private Rails 8 app). Client and people names are replaced with "the client"; example titles are reworded to a neutral topic, with the rule each one tests unchanged.*
 
 Plan: `docs/LADDER_RUN_PROMPT_discovery-junk-filter.md`. Specs: client-app `ladder/discovery-junk-filter-specs`
 (`dafc24f`). Runner: `bin/ladder` at `359169c` (Step 0: Tailwind build + `config/master.key` copy; proof on the R1 base:
@@ -72,7 +72,7 @@ the start was cold.
 
 - **R1 qwen38-4bit a2:** the first edit was close: one constant, one method, 19 lines, `assess`/`clean`/`link_ratio`
   untouched. It committed (`17be006`) while one test still failed (`content_quality_index_title_test.rb:30`, the
-  index-title list). Then it ran the same `bin/rails runner` probe on "search results for synthetic turf" 236 times
+  index-title list). Then it ran the same `bin/rails runner` probe on "search results for solar farms" 236 times
   until the 45-minute limit: a repetition loop, not a wrong approach.
 - **R2 qwen38-4bit a1:** one new 72-line file in the right shape (module_function, frozen constants, keyword Struct).
   It failed only the catalogue-PDF test (`discovery_junk_filter_test.rb:78`). It then ran one `bin/rails runner`
@@ -159,7 +159,7 @@ tests let these misses through.
 |---|---|---|---|
 | R1 qwen38 a2 (failed) | misses "Site Map", "Index of …", "Search Results: …" | — | — |
 | R1 qwen38 a3 | misses "Search Results: …" | — | — |
-| R1 qwen36 a1 / a2 / a3 | misses "Turf listings" / all OK / misses "Site Map", "Sitemap - …" | — | — |
+| R1 qwen36 a1 / a2 / a3 | misses "Product listings" / all OK / misses "Site Map", "Sitemap - …" | — | — |
 | R2 qwen38 a1 (failed) | misses "Site Map"; flags "Dallas-Fort Worth news", "Council news: …", "Hyphenated-News" | misses corporate/annual report, price list | OK |
 | R2 qwen38 a2 | misses "Local news: …", "Site Map" | OK | OK |
 | R2 qwen38 a3 | misses "Site Map" | flags "Cataloging …" (not a whole word) | OK |
@@ -200,7 +200,7 @@ On that heuristic Qwen3.8's R5 builds rank last despite clean diffs: each skips 
 
 | Rung | Attempt | Passed | Turns | pi s | Edge-case probe |
 |---|---|---|---|---|---|
-| R2 | a4 | yes | 7 | 438 | 1 miss: flags "[PDF] Microplastic report…"; raises on a `nil` title |
+| R2 | a4 | yes | 7 | 438 | 1 miss: flags "[PDF] Emissions report…"; raises on a `nil` title |
 | R2 | a5 | yes | 6 | 274 | all OK; raises on a `nil` title |
 | R2 | a6 | yes | 4 | 387 | all OK |
 | R5 | a4 | no: suite 2 failures (didn't update the two diagnostics tests; verify passed) | 29 | 638 | 3 misses |
@@ -212,7 +212,7 @@ reached 2/3 (graded properly this time). Not one attempt stalled before writing 
 16k per reply with thinking on.
 
 **R5 a5 against the UAT scheduled check** (`~/Development/runs/uat-djf/check_scheduled.rb`): 1 real article lost
-("Cataloging…"), against a3's 2 ("Turf-News…" too), and 1 junk item let through ("  [pdf] Council meeting minutes",
+("Cataloging…"), against a3's 2 ("Tech-News…" too), and 1 junk item let through ("  [pdf] Council meeting minutes",
 leading spaces). By the harm-weighted heuristic a5 beats a3: one silent loss instead of two. Not UAT'd in the browser.
 
 **Delivery decision revised (Mark, 2026-10-21, after the follow-up):** ship **R5 Qwen3.6 a5** (16k) instead of a3, plus
