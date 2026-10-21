@@ -10,7 +10,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 MSG=${1:?usage: bin/publish-snapshot "message"}
-PUBLIC_URL=https://github.com/duncan-claw/model-bench.git
+PUBLIC_URL=$(git remote get-url public)
 
 [ "$(git branch --show-current)" = main ] || { echo "switch to main first" >&2; exit 1; }
 [ -z "$(git status --porcelain)" ] || { echo "commit or stash your changes first" >&2; exit 1; }
