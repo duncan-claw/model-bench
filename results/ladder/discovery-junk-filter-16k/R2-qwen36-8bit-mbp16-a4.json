@@ -1,0 +1,45 @@
+{
+  "rung": "R2",
+  "builder": "qwen36-8bit",
+  "host": "mbp16",
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "attempt": 4,
+  "base": "a4dca34d642fdbc9a1b1a7e0d03c18e00a874d4a",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R2.md",
+  "max_tokens": 16384,
+  "started_at": "2026-10-21T12:15:21+11:00",
+  "restore": [
+    "mlx-community--Qwen3.6-35B-A3B-4bit",
+    "mlx-community--gemma-4-26b-a4b-it-4bit",
+    "nomicai-modernbert-embed-base-8bit",
+    "MarkItDown"
+  ],
+  "start_state": "unloaded; cache clear failed",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "plain",
+  "pi_seconds": 438.2,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 7,
+  "tool_calls": 15,
+  "stop": "toolUse",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 50868\n\n# Running:\n\n...........\n\nFinished in 0.002960s, 3716.2162 runs/s, 21283.7837 assertions/s.\n11 runs, 63 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": "....Backfilled 1 of 1 draft article news classification.\nRemaining unclassified draft articles: 0.\n..................................................\n\nFinished in 61.081802s, 62.1953 runs/s, 567.0756 assertions/s.\n3799 runs, 34638 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/services/editorial/discovery_junk_filter.rb"
+  ],
+  "diffstat": "1 file changed, 60 insertions(+)",
+  "outside_allowed": [],
+  "passed": true,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R2-qwen36-8bit-mbp16-a4",
+  "branch": "ladder/discovery-junk-filter-16k-R2-qwen36-8bit-mbp16-a4",
+  "finished_at": "2026-10-21T12:24:05+11:00"
+}

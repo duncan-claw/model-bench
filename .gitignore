@@ -6,3 +6,11 @@ bin/queue-*
 # Redacted copies of results/*.log are published; see bin/redact-logs
 !results/logs/
 .DS_Store
+
+# Ladder runs copy an app's config/master.key into each worktree, and the builder has a shell there.
+# Never commit a key, and keep raw pi logs local (they can echo anything the builder printed);
+# a pre-commit/pre-push hook in .git/hooks also blocks the key's value.
+master.key
+*.key
+results/ladder/**/*.pi.jsonl
+results/ladder/**/*.pi.jsonl.err

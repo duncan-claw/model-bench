@@ -80,9 +80,9 @@ For each builder, a short, factual card:
 The planner reads the card when writing specs. When a builder fails, the failure goes back into its card,
 which is the start of the self-learning loop.
 
-## Lessons from the August bake-off (Surface Oracle, SPEC-024-1)
+## Lessons from the August bake-off (the client's project, SPEC-024-1)
 
-The August 2026 local-model bake-off ran real Surface Oracle specs in worktrees (`so-bench-*`). Reports are in
+The August 2026 local-model bake-off ran real the client's project specs in worktrees (`client-bench-*`). Reports are in
 `~/.openclaw/workspace/doco/model-ops/benchmarks/` (`2026-08-26_GEMMA12B_FINAL.md`, `..._PREFLIGHT.md`,
 `2026-08-28_QWEN38_FORENSIC_REPORT.md`, `2026-09-07_LEMANS_AGENTIC_FORENSIC_REPORT.md`, `BENCHMARK_METHODOLOGY.md`).
 What carries over to the ladder:

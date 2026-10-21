@@ -1,0 +1,82 @@
+#!/bin/bash
+# Orientation pack for a Rails app: what a junior developer is told to look at first, generated from the framework's
+# own introspection so it can't drift. For the spec writer (planner) first; optionally pasted at the top of a builder
+# prompt. Read-only: it runs `bin/rails` commands in the app and writes markdown to stdout.
+#
+# Usage: bin/rails-orient APP_DIR --models DiscoveryResult,Setting [--routes discover,settings] [--tests discovery]
+#   --models   classes to reflect (associations, validations, enums, callbacks, scopes, concerns) and whose tables to show
+#   --routes   route filters, as for `bin/rails routes -g`
+#   --tests    test file name fragments to list (the nearest existing tests)
+set -euo pipefail
+APP=${1:?app dir}; shift
+MODELS=""; ROUTES=""; TESTS=""
+while [ $# -gt 0 ]; do
+  case $1 in
+    --models) MODELS=$2; shift 2 ;;
+    --routes) ROUTES=$2; shift 2 ;;
+    --tests) TESTS=$2; shift 2 ;;
+    *) echo "unknown option $1" >&2; exit 2 ;;
+  esac
+done
+cd "$APP"
+export PATH="$HOME/.rbenv/versions/3.4.1/bin:$HOME/.rbenv/shims:$PATH"
+unset HTTP_PROXY HTTPS_PROXY http_proxy https_proxy ALL_PROXY all_proxy
+
+echo "# Orientation: $(basename "$PWD") at $(git rev-parse --short HEAD 2>/dev/null)"
+echo
+echo "## Stack (\`bin/rails about\`)"
+echo '```'
+bin/rails about 2>/dev/null | grep -E '^(Rails|Ruby|Database adapter|Database schema version|Environment) '
+echo '```'
+echo
+echo "## Size (\`bin/rails stats\`)"
+echo '```'
+bin/rails stats 2>/dev/null | grep -E '^\| (Controllers|Models|Jobs|Views|Helpers|Controller tests|Model tests|Integration tests|Total) ' || true
+echo '```'
+
+if [ -n "$ROUTES" ]; then
+  echo
+  echo "## Routes (\`bin/rails routes -g\`)"
+  IFS=, read -ra RS <<< "$ROUTES"
+  for r in "${RS[@]}"; do
+    echo "### $r"
+    echo '```'
+    bin/rails routes -g "$r" 2>/dev/null | sed 's/[[:space:]]*$//'
+    echo '```'
+  done
+fi
+
+if [ -n "$MODELS" ]; then
+  echo
+  echo "## Models (Active Record reflection, \`bin/rails runner\`)"
+  bin/rails runner - "$MODELS" 2>/dev/null <<'RUBY'
+ARGV.first.split(",").each do |name|
+  klass = name.strip.constantize
+  puts "\n### #{klass.name} (table `#{klass.table_name}`)"
+  puts "- **Concerns:** #{(klass.included_modules - ActiveRecord::Base.included_modules).select { _1.name && !_1.name.start_with?("#<", "ActiveRecord", "ActiveModel", "ActiveSupport", "GeneratedAssociationMethods", "GeneratedAttributeMethods") && _1.name !~ /Generated/ }.map(&:name).first(8).join(", ").presence || "none"}"
+  assoc = klass.reflect_on_all_associations.map { |a| "#{a.macro} :#{a.name}#{" (#{a.class_name}, fk #{a.foreign_key})" unless a.macro == :has_one_attached}#{" through #{a.options[:through]}" if a.options[:through]}" }
+  puts "- **Associations:** #{assoc.join("; ").presence || "none"}"
+  enums = klass.defined_enums.map { |k, v| "#{k}: #{v.keys.join("/")}" }
+  puts "- **Enums:** #{enums.join("; ")}" if enums.any?
+  consts = klass.constants(false).filter_map { |c| v = klass.const_get(c); "#{c} = #{v.inspect[0, 120]}" if v.is_a?(Array) && v.all?(String) }
+  puts "- **List constants:** #{consts.join("; ")}" if consts.any?
+  vals = klass.validators.map { |v| "#{v.kind} #{v.attributes.join(",")}#{" #{v.options.except(:if, :unless).inspect}" if v.options.except(:if, :unless).any?}#{" (conditional)" if v.options[:if] || v.options[:unless]}" }
+  puts "- **Validations:** #{vals.join("; ").presence || "none"}"
+  cbs = %i[validation save create update destroy commit].flat_map { |k| klass.__callbacks[k].map { |c| "#{c.kind}_#{k} #{c.filter.is_a?(Symbol) ? c.filter : "(block)"}" } }.uniq.reject { _1.include?("autosave") || _1.include?("_ensure_") }
+  puts "- **Callbacks:** #{cbs.first(10).join("; ").presence || "none"}"
+  src = Rails.root.join("app/models/#{klass.name.underscore}.rb")
+  scopes = File.exist?(src) ? File.read(src).scan(/^\s*scope :(\w+)/).flatten : []
+  puts "- **Scopes:** #{scopes.join(", ").presence || "none"}"
+  puts "- **Columns:** #{klass.columns.map { |c| "#{c.name}:#{c.type}#{"=#{c.default}" unless c.default.nil?}#{" NOT NULL" unless c.null}" }.join(", ")}"
+end
+RUBY
+fi
+
+if [ -n "$TESTS" ]; then
+  echo
+  echo "## Nearest existing tests"
+  IFS=, read -ra TS <<< "$TESTS"
+  for t in "${TS[@]}"; do
+    git ls-files test | grep -i -- "$t" | sed 's/^/- `/; s/$/`/'
+  done
+fi

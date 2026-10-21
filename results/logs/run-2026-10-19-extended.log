@@ -231,6 +231,6 @@
 ~/.rbenv/versions/3.4.1/lib/ruby/gems/3.4.0/gems/json-3.0.2/lib/json/common.rb:302:in 'String#encode': "\xE2" on US-ASCII (Encoding::InvalidByteSequenceError)
 	from ~/.rbenv/versions/3.4.1/lib/ruby/gems/3.4.0/gems/json-3.0.2/lib/json/common.rb:302:in 'JSON::Ext::Parser.parse'
 	from ~/.rbenv/versions/3.4.1/lib/ruby/gems/3.4.0/gems/json-3.0.2/lib/json/common.rb:302:in 'JSON.parse'
-	from ~/Development/repos/tr-solutions/model-bench/bin/report:10:in 'block in <main>'
-	from ~/Development/repos/tr-solutions/model-bench/bin/report:10:in 'Array#map'
-	from ~/Development/repos/tr-solutions/model-bench/bin/report:10:in '<main>'
+	from ~/Development/repos/model-bench/bin/report:10:in 'block in <main>'
+	from ~/Development/repos/model-bench/bin/report:10:in 'Array#map'
+	from ~/Development/repos/model-bench/bin/report:10:in '<main>'

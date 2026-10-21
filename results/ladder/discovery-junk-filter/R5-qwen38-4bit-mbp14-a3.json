@@ -1,0 +1,53 @@
+{
+  "rung": "R5",
+  "builder": "qwen38-4bit",
+  "host": "mbp14",
+  "model": "mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct",
+  "attempt": 3,
+  "base": "6cdca66b3a6cf98c41e8c7e3439a6a706dcc8278",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R5.md",
+  "started_at": "2026-10-21T03:48:10+11:00",
+  "restore": [
+    "mlx-community--Qwen3.8-27B-4bit",
+    "MarkItDown"
+  ],
+  "start_state": "cold: models unloaded, Splash cache for this model emptied",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "splash",
+  "pi_seconds": 723.1,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 11,
+  "tool_calls": 24,
+  "stop": "toolUse",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 25160\n\n# Running:\n\n.........\n\nFinished in 0.196388s, 45.8276 runs/s, 254.5980 assertions/s.\n9 runs, 50 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": ".Seeded 6 topic groups, 36 sections.\nSeeded 6 topic groups, 36 sections.\n..........................................................................................\n\nFinished in 62.098749s, 61.1445 runs/s, 557.5797 assertions/s.\n3797 runs, 34625 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/jobs/news_discovery_job.rb",
+    "app/models/discovery_result.rb",
+    "app/services/editorial/discovery_junk_filter.rb",
+    "app/services/editorial/news_discovery_service.rb",
+    "app/views/editorial/discover/_detail_panel.html.erb",
+    "db/migrate/20261021100000_add_junk_reason_to_discovery_results.rb",
+    "db/schema.rb",
+    "test/services/news_discovery_gemini_grounded_test.rb",
+    "test/services/news_discovery_google_news_rss_test.rb"
+  ],
+  "diffstat": "9 files changed, 144 insertions(+), 11 deletions(-)",
+  "outside_allowed": [
+    "test/services/news_discovery_gemini_grounded_test.rb",
+    "test/services/news_discovery_google_news_rss_test.rb"
+  ],
+  "passed": false,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R5-qwen38-4bit-mbp14-a3",
+  "branch": "ladder/discovery-junk-filter-R5-qwen38-4bit-mbp14-a3",
+  "finished_at": "2026-10-21T04:02:00+11:00"
+}

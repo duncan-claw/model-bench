@@ -1,0 +1,46 @@
+{
+  "rung": "R4",
+  "builder": "qwen38-4bit",
+  "host": "mbp14",
+  "model": "mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct",
+  "attempt": 1,
+  "base": "42143467a5e8bc7e79cc43f94d93729d0f764f35",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R4.md",
+  "started_at": "2026-10-21T01:54:32+11:00",
+  "restore": [
+    "mlx-community--Qwen3.8-27B-4bit",
+    "MarkItDown"
+  ],
+  "start_state": "cold: models unloaded, Splash cache for this model emptied",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "splash",
+  "pi_seconds": 185.3,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 5,
+  "tool_calls": 12,
+  "stop": "toolUse",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 54768\n\n# Running:\n\n.......\n\nFinished in 0.188810s, 37.0743 runs/s, 74.1486 assertions/s.\n7 runs, 14 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": ".Backfilled 0 of 0 draft article news classifications.\nRemaining unclassified draft articles: 0.\n..........................................................................................................................................................................................................................................S.....................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................\n\nFinished in 64.165614s, 59.1438 runs/s, 538.9179 assertions/s.\n3795 runs, 34580 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/controllers/editorial/settings_controller.rb",
+    "app/services/editorial/discovery_config.rb",
+    "app/views/editorial/settings/_discovery.html.erb",
+    "db/migrate/20261021100100_add_discovery_junk_filter_enabled_to_settings.rb",
+    "db/schema.rb"
+  ],
+  "diffstat": "5 files changed, 16 insertions(+), 2 deletions(-)",
+  "outside_allowed": [],
+  "passed": true,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R4-qwen38-4bit-mbp14-a1",
+  "branch": "ladder/discovery-junk-filter-R4-qwen38-4bit-mbp14-a1",
+  "finished_at": "2026-10-21T01:59:26+11:00"
+}

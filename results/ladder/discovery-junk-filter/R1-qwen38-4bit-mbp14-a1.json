@@ -1,0 +1,42 @@
+{
+  "rung": "R1",
+  "builder": "qwen38-4bit",
+  "host": "mbp14",
+  "model": "mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct",
+  "attempt": 1,
+  "base": "931c25216a334113aada955fad5896d37b5dbfad",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R1.md",
+  "started_at": "2026-10-21T00:21:17+11:00",
+  "restore": [
+    "mlx-community--Qwen3.8-27B-4bit",
+    "MarkItDown"
+  ],
+  "start_state": "cold: models unloaded, Splash cache for this model emptied",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "splash",
+  "pi_seconds": 227.0,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 10,
+  "tool_calls": 12,
+  "stop": "toolUse",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 6701\n\n# Running:\n\n.....\n\nFinished in 0.002248s, 2224.1993 runs/s, 10676.1566 assertions/s.\n5 runs, 24 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": "Remaining unclassified draft articles: 0.\n.......................................................................................................................................................................................................................................................................................Test is missing assertions: `test_client's_AWS_config,_if_it_sets_PREVIEWS_ALLOWED,_sets_exactly_true` ~/Development/runs/ladder-worktrees/client-app/R1-qwen38-4bit-mbp14-a1/test/lib/deploy_config_previews_test.rb:17\n...................................................................................................................................................................................................................................\n\nFinished in 65.306751s, 58.0798 runs/s, 529.6543 assertions/s.\n3793 runs, 34590 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/services/editorial/content_quality.rb"
+  ],
+  "diffstat": "1 file changed, 17 insertions(+)",
+  "outside_allowed": [],
+  "passed": true,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R1-qwen38-4bit-mbp14-a1",
+  "branch": "ladder/discovery-junk-filter-R1-qwen38-4bit-mbp14-a1",
+  "finished_at": "2026-10-21T00:26:55+11:00"
+}

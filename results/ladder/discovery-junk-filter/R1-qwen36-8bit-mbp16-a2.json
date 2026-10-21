@@ -1,0 +1,42 @@
+{
+  "rung": "R1",
+  "builder": "qwen36-8bit",
+  "host": "mbp16",
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "attempt": 2,
+  "base": "931c25216a334113aada955fad5896d37b5dbfad",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R1.md",
+  "started_at": "2026-10-21T00:45:05+11:00",
+  "restore": [
+    "Qwen3.6-35B-A3B-8bit",
+    "MarkItDown"
+  ],
+  "start_state": "unloaded; cache clear failed",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "plain",
+  "pi_seconds": 224.1,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 4,
+  "tool_calls": 10,
+  "stop": "toolUse",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 9987\n\n# Running:\n\n.....\n\nFinished in 0.001838s, 2720.3482 runs/s, 13057.6712 assertions/s.\n5 runs, 24 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": ".Backfilled 0 of 0 draft article news classifications.\nRemaining unclassified draft articles: 0.\n.....................................................................................................................................................................................................................................................................................................................\n\nFinished in 62.149139s, 61.0306 runs/s, 556.5644 assertions/s.\n3793 runs, 34590 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/services/editorial/content_quality.rb"
+  ],
+  "diffstat": "1 file changed, 25 insertions(+)",
+  "outside_allowed": [],
+  "passed": true,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R1-qwen36-8bit-mbp16-a2",
+  "branch": "ladder/discovery-junk-filter-R1-qwen36-8bit-mbp16-a2",
+  "finished_at": "2026-10-21T00:50:16+11:00"
+}

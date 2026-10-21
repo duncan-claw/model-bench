@@ -1,0 +1,40 @@
+{
+  "rung": "R5",
+  "builder": "qwen36-8bit",
+  "host": "mbp16",
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "attempt": 1,
+  "base": "6cdca66b3a6cf98c41e8c7e3439a6a706dcc8278",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R5.md",
+  "started_at": "2026-10-21T00:40:02+11:00",
+  "restore": [
+    "Qwen3.6-35B-A3B-8bit",
+    "MarkItDown"
+  ],
+  "start_state": "unloaded; cache clear failed",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "plain",
+  "pi_seconds": 213.2,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 0,
+  "tool_calls": 8,
+  "stop": "toolUse",
+  "verify": {
+    "passed": false,
+    "tail": "bin/rails test test/integration/discovery_junk_filter_test.rb:103\n\n.E\n\nError:\nDiscoveryJunkFilterTest#test_the_filter_names_index_titles,_catalogue_PDFs_and_link-heavy_pages,_and_labels_each_reason:\nNameError: uninitialized constant Editorial::DiscoveryJunkFilter\n    test/integration/discovery_junk_filter_test.rb:89:in 'block in <class:DiscoveryJunkFilterTest>'\n\nbin/rails test test/integration/discovery_junk_filter_test.rb:88\n\n.\n\nFinished in 0.303662s, 29.6382 runs/s, 23.0519 assertions/s.\n9 runs, 7 assertions, 1 failures, 6 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": false,
+    "tail": "bin/rails test test/integration/discovery_junk_filter_test.rb:103\n\n...........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................\n\nFinished in 61.560740s, 61.6789 runs/s, 561.6079 assertions/s.\n3797 runs, 34573 assertions, 1 failures, 6 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [],
+  "diffstat": "",
+  "outside_allowed": [],
+  "passed": false,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R5-qwen36-8bit-mbp16-a1",
+  "branch": "ladder/discovery-junk-filter-R5-qwen36-8bit-mbp16-a1",
+  "finished_at": "2026-10-21T00:45:02+11:00"
+}

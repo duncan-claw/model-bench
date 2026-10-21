@@ -28,7 +28,7 @@ BUILDERS = {
   "qwen36-8bit" => { model: "Qwen3.6-35B-A3B-8bit", load: "Qwen3.6-35B-A3B-8bit", reasoning: true }
 }.freeze
 
-o = { suite: nil, allow: [], timeout_min: 45, attempt: 1, context_files: false }
+o = { suite: nil, allow: [], timeout_min: 45, attempt: 1, context_files: false, max_tokens: 8192 }
 OptionParser.new do |p|
   p.on("--repo P") { o[:repo] = File.expand_path(_1) }
   p.on("--spec P") { o[:spec] = File.expand_path(_1) }
@@ -41,6 +41,7 @@ OptionParser.new do |p|
   p.on("--timeout-min N", Integer) { o[:timeout_min] = _1 }
   p.on("--attempt N", Integer) { o[:attempt] = _1 }
   p.on("--context-files") { o[:context_files] = true }
+  p.on("--max-tokens N", Integer) { o[:max_tokens] = _1 } # per reply; thinking counts against it
   p.on("--out DIR") { o[:out] = File.expand_path(_1, ROOT) }
 end.parse!
 %i[repo spec base builder verify test_file out].each { |k| abort "missing --#{k.to_s.tr('_', '-')}" unless o[k] }
@@ -81,7 +82,7 @@ def admin(host, key, method, path)
 end
 
 result = { rung: rung, builder: name, host: host_key, model: builder[:model], attempt: o[:attempt], base: o[:base],
-           spec: o[:spec], started_at: Time.now.iso8601 }
+           spec: o[:spec], max_tokens: o[:max_tokens], started_at: Time.now.iso8601 }
 wt = File.join(File.expand_path("~/Development/runs/ladder-worktrees"), File.basename(o[:repo]), tag)
 branch = "ladder/#{File.basename(o[:out])}-#{tag}"
 agent_dir = Dir.mktmpdir("pi-agent-")
@@ -95,6 +96,11 @@ begin
   raise "acceptance test file #{o[:test_file]} not found at base" unless test_hash
   setup = File.join(wt, "bin/setup")
   sh("bin/rails db:prepare >/dev/null 2>&1 || true", wt) if File.exist?(setup)
+  # Gitignored files a fresh Rails worktree lacks: the Tailwind build and the master key (credentials hold the
+  # Active Record encryption keys). Without them the suite errors for reasons unrelated to the builder.
+  sh("bin/rails tailwindcss:build >/dev/null 2>&1 || true", wt) if File.exist?(setup)
+  master_key = File.join(o[:repo], "config/master.key")
+  FileUtils.install(master_key, File.join(wt, "config/master.key"), mode: 0o600) if File.exist?(master_key)
 
   # 2. The one model in memory on that Mac.
   key = omlx_key(host)
@@ -118,7 +124,7 @@ begin
     providers: { "omlx-#{host_key}" => { baseUrl: "#{host['base']}/v1", apiKey: key, api: "openai-completions",
                                          compat: { thinkingFormat: "deepseek" },
                                          models: [{ id: builder[:model], reasoning: builder.fetch(:reasoning, false),
-                                                    contextWindow: 98_304, maxTokens: 8192 }] } }
+                                                    contextWindow: 98_304, maxTokens: o[:max_tokens] }] } }
   ))
   File.chmod(0o600, File.join(agent_dir, "models.json"))
   File.write(File.join(agent_dir, "settings.json"), JSON.generate(defaultProvider: "omlx-#{host_key}",

@@ -1,0 +1,40 @@
+{
+  "rung": "R2",
+  "builder": "qwen36-8bit",
+  "host": "mbp16",
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "attempt": 3,
+  "base": "a4dca34d642fdbc9a1b1a7e0d03c18e00a874d4a",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R2.md",
+  "started_at": "2026-10-21T01:21:27+11:00",
+  "restore": [
+    "Qwen3.6-35B-A3B-8bit",
+    "MarkItDown"
+  ],
+  "start_state": "unloaded; cache clear failed",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "plain",
+  "pi_seconds": 132.4,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 0,
+  "tool_calls": 2,
+  "stop": "toolUse",
+  "verify": {
+    "passed": false,
+    "tail": "\nE\n\nError:\nDiscoveryJunkFilterTest#test_a_clean_article_is_not_junk:\nNameError: uninitialized constant Editorial::DiscoveryJunkFilter\n    test/services/discovery_junk_filter_test.rb:26:in 'DiscoveryJunkFilterTest#verdict'\n    test/services/discovery_junk_filter_test.rb:35:in 'block in <class:DiscoveryJunkFilterTest>'\n\nbin/rails test test/services/discovery_junk_filter_test.rb:34\n\n\n\nFinished in 0.003936s, 2794.7155 runs/s, 0.0000 assertions/s.\n11 runs, 0 assertions, 0 failures, 11 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": false,
+    "tail": "Seeded 6 topic groups, 36 sections.\n.Seeded 6 topic groups, 36 sections.\n..........................................................................................................................................................................................................................................................................................................................................................................................................................................\n\nFinished in 63.620117s, 59.7138 runs/s, 543.3187 assertions/s.\n3799 runs, 34566 assertions, 0 failures, 11 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [],
+  "diffstat": "",
+  "outside_allowed": [],
+  "passed": false,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R2-qwen36-8bit-mbp16-a3",
+  "branch": "ladder/discovery-junk-filter-R2-qwen36-8bit-mbp16-a3",
+  "finished_at": "2026-10-21T01:25:08+11:00"
+}

@@ -1,0 +1,53 @@
+{
+  "rung": "R5",
+  "builder": "qwen36-8bit",
+  "host": "mbp16",
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "attempt": 2,
+  "base": "6cdca66b3a6cf98c41e8c7e3439a6a706dcc8278",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R5.md",
+  "started_at": "2026-10-21T01:01:16+11:00",
+  "restore": [
+    "Qwen3.6-35B-A3B-8bit",
+    "MarkItDown"
+  ],
+  "start_state": "unloaded; cache clear failed",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "plain",
+  "pi_seconds": 848.4,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 43,
+  "tool_calls": 61,
+  "stop": "stop",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 42598\n\n# Running:\n\n.........\n\nFinished in 0.224735s, 40.0472 runs/s, 222.4843 assertions/s.\n9 runs, 50 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": "Remaining unclassified draft articles: 0.\n............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................Test is missing assertions: `test_client's_AWS_config,_if_it_sets_PREVIEWS_ALLOWED,_sets_exactly_true` ~/Development/runs/ladder-worktrees/client-app/R5-qwen36-8bit-mbp16-a2/test/lib/deploy_config_previews_test.rb:17\n..............................................................................................................................................................................................................................................................\n\nFinished in 63.100228s, 60.1741 runs/s, 548.7302 assertions/s.\n3797 runs, 34625 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/jobs/news_discovery_job.rb",
+    "app/models/discovery_result.rb",
+    "app/services/editorial/discovery_junk_filter.rb",
+    "app/services/editorial/news_discovery_service.rb",
+    "app/views/editorial/discover/_detail_panel.html.erb",
+    "db/migrate/20261021100000_add_junk_reason_to_discovery_results.rb",
+    "db/schema.rb",
+    "test/services/news_discovery_gemini_grounded_test.rb",
+    "test/services/news_discovery_google_news_rss_test.rb"
+  ],
+  "diffstat": "9 files changed, 177 insertions(+), 11 deletions(-)",
+  "outside_allowed": [
+    "test/services/news_discovery_gemini_grounded_test.rb",
+    "test/services/news_discovery_google_news_rss_test.rb"
+  ],
+  "passed": false,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R5-qwen36-8bit-mbp16-a2",
+  "branch": "ladder/discovery-junk-filter-R5-qwen36-8bit-mbp16-a2",
+  "finished_at": "2026-10-21T01:16:53+11:00"
+}

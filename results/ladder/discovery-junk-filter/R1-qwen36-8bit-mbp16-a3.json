@@ -1,0 +1,42 @@
+{
+  "rung": "R1",
+  "builder": "qwen36-8bit",
+  "host": "mbp16",
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "attempt": 3,
+  "base": "931c25216a334113aada955fad5896d37b5dbfad",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R1.md",
+  "started_at": "2026-10-21T01:16:57+11:00",
+  "restore": [
+    "Qwen3.6-35B-A3B-8bit",
+    "MarkItDown"
+  ],
+  "start_state": "unloaded; cache clear failed",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "plain",
+  "pi_seconds": 178.7,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 1,
+  "tool_calls": 6,
+  "stop": "toolUse",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 15351\n\n# Running:\n\n.....\n\nFinished in 0.001590s, 3144.6541 runs/s, 15094.3396 assertions/s.\n5 runs, 24 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": ".Seeded 6 topic groups, 36 sections.\nSeeded 6 topic groups, 36 sections.\n....\n\nFinished in 62.621526s, 60.5702 runs/s, 552.3660 assertions/s.\n3793 runs, 34590 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/services/editorial/content_quality.rb"
+  ],
+  "diffstat": "1 file changed, 20 insertions(+)",
+  "outside_allowed": [],
+  "passed": true,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R1-qwen36-8bit-mbp16-a3",
+  "branch": "ladder/discovery-junk-filter-R1-qwen36-8bit-mbp16-a3",
+  "finished_at": "2026-10-21T01:21:23+11:00"
+}

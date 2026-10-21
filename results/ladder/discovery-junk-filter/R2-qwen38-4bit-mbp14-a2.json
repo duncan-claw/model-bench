@@ -1,0 +1,42 @@
+{
+  "rung": "R2",
+  "builder": "qwen38-4bit",
+  "host": "mbp14",
+  "model": "mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct",
+  "attempt": 2,
+  "base": "a4dca34d642fdbc9a1b1a7e0d03c18e00a874d4a",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R2.md",
+  "started_at": "2026-10-21T02:58:19+11:00",
+  "restore": [
+    "mlx-community--Qwen3.8-27B-4bit",
+    "MarkItDown"
+  ],
+  "start_state": "cold: models unloaded, Splash cache for this model emptied",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "splash",
+  "pi_seconds": 223.4,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 8,
+  "tool_calls": 10,
+  "stop": "toolUse",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 45239\n\n# Running:\n\n...........\n\nFinished in 0.003222s, 3414.0285 runs/s, 19553.0725 assertions/s.\n11 runs, 63 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": "Seeded 6 topic groups, 36 sections.\n.Seeded 6 topic groups, 36 sections.\n.......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................\n\nFinished in 61.680815s, 61.5913 runs/s, 561.5685 assertions/s.\n3799 runs, 34638 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/services/editorial/discovery_junk_filter.rb"
+  ],
+  "diffstat": "1 file changed, 76 insertions(+)",
+  "outside_allowed": [],
+  "passed": true,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R2-qwen38-4bit-mbp14-a2",
+  "branch": "ladder/discovery-junk-filter-R2-qwen38-4bit-mbp14-a2",
+  "finished_at": "2026-10-21T03:05:02+11:00"
+}

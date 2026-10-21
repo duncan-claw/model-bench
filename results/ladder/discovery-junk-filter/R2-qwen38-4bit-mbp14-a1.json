@@ -1,0 +1,42 @@
+{
+  "rung": "R2",
+  "builder": "qwen38-4bit",
+  "host": "mbp14",
+  "model": "mlx-community--Qwen3.8-27B-4bit:qwen-3-8-27b-instruct",
+  "attempt": 1,
+  "base": "a4dca34d642fdbc9a1b1a7e0d03c18e00a874d4a",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R2.md",
+  "started_at": "2026-10-21T01:02:57+11:00",
+  "restore": [
+    "mlx-community--Qwen3.8-27B-4bit",
+    "MarkItDown"
+  ],
+  "start_state": "cold: models unloaded, Splash cache for this model emptied",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "splash",
+  "pi_seconds": 2700.1,
+  "pi_exit": "signal 14",
+  "timed_out": true,
+  "turns": 196,
+  "tool_calls": 199,
+  "stop": "toolUse",
+  "verify": {
+    "passed": false,
+    "tail": "\n......F\n\nFailure:\nDiscoveryJunkFilterTest#test_catalogue,_brochure,_report_and_minutes_PDFs_are_catalogue_pdf_junk [test/services/discovery_junk_filter_test.rb:87]:\nwrong reason for \"[PDF] CORPORATE REPORT - City of Surrey\".\nExpected: \"catalogue_pdf\"\n  Actual: nil\n\nbin/rails test test/services/discovery_junk_filter_test.rb:78\n\n....\n\nFinished in 0.003459s, 3180.1098 runs/s, 17635.1545 assertions/s.\n11 runs, 61 assertions, 1 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": false,
+    "tail": "Syntax Error: Couldn't find trailer dictionary\nSyntax Error: Couldn't read xref table\n.......................................................................................................................................................................................................................................................................................................................................\n\nFinished in 63.406817s, 59.9147 runs/s, 546.2504 assertions/s.\n3799 runs, 34636 assertions, 1 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/services/editorial/discovery_junk_filter.rb"
+  ],
+  "diffstat": "1 file changed, 72 insertions(+)",
+  "outside_allowed": [],
+  "passed": false,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R2-qwen38-4bit-mbp14-a1",
+  "branch": "ladder/discovery-junk-filter-R2-qwen38-4bit-mbp14-a1",
+  "finished_at": "2026-10-21T01:49:45+11:00"
+}

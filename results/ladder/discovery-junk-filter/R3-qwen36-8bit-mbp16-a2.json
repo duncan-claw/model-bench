@@ -1,0 +1,44 @@
+{
+  "rung": "R3",
+  "builder": "qwen36-8bit",
+  "host": "mbp16",
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "attempt": 2,
+  "base": "41a53fc4eb0acd6e65bde1976545794aa8ddbdbb",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R3.md",
+  "started_at": "2026-10-21T00:54:07+11:00",
+  "restore": [
+    "Qwen3.6-35B-A3B-8bit",
+    "MarkItDown"
+  ],
+  "start_state": "unloaded; cache clear failed",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "plain",
+  "pi_seconds": 136.3,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 8,
+  "tool_calls": 13,
+  "stop": "toolUse",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 59823\n\n# Running:\n\n......\n\nFinished in 0.019517s, 307.4243 runs/s, 922.2729 assertions/s.\n6 runs, 18 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": ".Backfilled 1 of 1 draft article news classification.\nRemaining unclassified draft articles: 0.\n......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................\n\nFinished in 64.099170s, 59.1895 runs/s, 539.5390 assertions/s.\n3794 runs, 34584 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/models/discovery_result.rb",
+    "db/migrate/20261021100000_add_junk_reason_to_discovery_results.rb",
+    "db/schema.rb"
+  ],
+  "diffstat": "3 files changed, 15 insertions(+), 1 deletion(-)",
+  "outside_allowed": [],
+  "passed": true,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R3-qwen36-8bit-mbp16-a2",
+  "branch": "ladder/discovery-junk-filter-R3-qwen36-8bit-mbp16-a2",
+  "finished_at": "2026-10-21T00:57:52+11:00"
+}

@@ -1,0 +1,51 @@
+{
+  "rung": "R5",
+  "builder": "qwen36-8bit",
+  "host": "mbp16",
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "attempt": 5,
+  "base": "6cdca66b3a6cf98c41e8c7e3439a6a706dcc8278",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R5.md",
+  "max_tokens": 16384,
+  "started_at": "2026-10-21T12:42:18+11:00",
+  "restore": [
+    "Qwen3.6-35B-A3B-8bit",
+    "MarkItDown"
+  ],
+  "start_state": "unloaded; cache clear failed",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "plain",
+  "pi_seconds": 661.5,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 15,
+  "tool_calls": 28,
+  "stop": "stop",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 47746\n\n# Running:\n\n.........\n\nFinished in 0.327232s, 27.5034 runs/s, 152.7968 assertions/s.\n9 runs, 50 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": "Seeded 6 topic groups, 36 sections.\n.Seeded 6 topic groups, 36 sections.\n................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................\n\nFinished in 62.385115s, 60.8639 runs/s, 555.0202 assertions/s.\n3797 runs, 34625 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/jobs/news_discovery_job.rb",
+    "app/models/discovery_result.rb",
+    "app/services/editorial/discovery_junk_filter.rb",
+    "app/services/editorial/news_discovery_service.rb",
+    "app/views/editorial/discover/_detail_panel.html.erb",
+    "db/migrate/20261021100000_add_junk_reason_to_discovery_results.rb",
+    "db/schema.rb",
+    "test/services/news_discovery_gemini_grounded_test.rb",
+    "test/services/news_discovery_google_news_rss_test.rb"
+  ],
+  "diffstat": "9 files changed, 165 insertions(+), 11 deletions(-)",
+  "outside_allowed": [],
+  "passed": true,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R5-qwen36-8bit-mbp16-a5",
+  "branch": "ladder/discovery-junk-filter-16k-R5-qwen36-8bit-mbp16-a5",
+  "finished_at": "2026-10-21T12:54:47+11:00"
+}

@@ -1,0 +1,43 @@
+{
+  "rung": "R2",
+  "builder": "qwen36-8bit",
+  "host": "mbp16",
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "attempt": 6,
+  "base": "a4dca34d642fdbc9a1b1a7e0d03c18e00a874d4a",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R2.md",
+  "max_tokens": 16384,
+  "started_at": "2026-10-21T12:54:47+11:00",
+  "restore": [
+    "Qwen3.6-35B-A3B-8bit",
+    "MarkItDown"
+  ],
+  "start_state": "unloaded; cache clear failed",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "plain",
+  "pi_seconds": 386.5,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 4,
+  "tool_calls": 7,
+  "stop": "toolUse",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 6076\n\n# Running:\n\n...........\n\nFinished in 0.003194s, 3443.9574 runs/s, 19724.4835 assertions/s.\n11 runs, 63 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": "..Backfilled 1 of 1 draft article news classification.\nRemaining unclassified draft articles: 0.\n...................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................\n\nFinished in 63.645620s, 59.6899 runs/s, 544.2323 assertions/s.\n3799 runs, 34638 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/services/editorial/discovery_junk_filter.rb"
+  ],
+  "diffstat": "1 file changed, 75 insertions(+)",
+  "outside_allowed": [],
+  "passed": true,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R2-qwen36-8bit-mbp16-a6",
+  "branch": "ladder/discovery-junk-filter-16k-R2-qwen36-8bit-mbp16-a6",
+  "finished_at": "2026-10-21T13:02:42+11:00"
+}

@@ -9,7 +9,7 @@ MBP-14 and the MBP-16. Any agent changing oMLX or Splash follows this file, and 
 
 | | MBP-14 | MBP-16 |
 |---|---|---|
-| SSH | `mark@` (Tailscale) | `mrich@mbp-16-m1-max-64gb` |
+| SSH | `<user>@` (Tailscale) | `<user>@<mbp-16-host>` |
 | oMLX | `/Applications/oMLX.app`, run **headless** by launchd | same |
 | Service | `~/Library/LaunchAgents/com.omlx.server.plist`, label `com.omlx.server` | same |
 | Command | `omlx-cli serve --host 0.0.0.0 --port 10240` (everything else from `~/.omlx/settings.json`). **Don't add `--headless`:** it removes the admin web page (`/admin`); launchd already means no menu-bar app | `omlx-cli serve --host 0.0.0.0 --port 10240 --memory-guard balanced --memory-guard-gb 52 --api-key …` |
@@ -24,13 +24,13 @@ There is no menu-bar app running on either Mac. One `omlx-server` process listen
 
 ## Differences kept on purpose
 
-- **MBP-16 allows inference without an API key** (`auth.allow_unauthenticated_inference: true`): Surface Oracle's
-  "ollama" provider sends no key, and the earthcore and demo tenants use this Mac. Review reminder set for
+- **MBP-16 allows inference without an API key** (`auth.allow_unauthenticated_inference: true`): the client's project's
+  "ollama" provider sends no key, and other client and demo tenants use this Mac. Review reminder set for
   2026-10-24. Everything else (model-bench, pi, SMS triage) sends the key.
-- **MBP-16 embedding batch size 1:** at 32, oMLX returned null vectors for Surface Oracle (its `script/README.md`).
+- **MBP-16 embedding batch size 1:** at 32, oMLX returned null vectors for the client's project (its `script/README.md`).
 - **Splash disk cache:** MBP-14 100 GB (211 GB free), MBP-16 372 GB.
 - **Pinned models:** MBP-14 `mlx-community--Qwen3.8-27B-4bit` + MarkItDown; MBP-16 `mlx-community--Qwen3.6-35B-A3B-4bit`
-  + `nomicai-modernbert-embed-base-8bit` + MarkItDown (SMS triage, Surface Oracle).
+  + `nomicai-modernbert-embed-base-8bit` + MarkItDown (SMS triage, the client's project).
 
 **Engine per builder (2026-10-20, `experiments/mbp-parity/`):** Qwen3.8-27B 4-bit on **Splash**; Qwen3.6-35B-A3B 8-bit on
 oMLX's **plain engine** (on Splash it loops on multi-turn agentic work from a cold start: 0 of 16).

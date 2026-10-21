@@ -1,7 +1,7 @@
 # Prompt: write slice-ladder specs for a local builder
 
 Use this **after** the requirements and analysis for the feature are done in the session. Paste it, or say
-"follow `~/Development/repos/tr-solutions/model-bench/docs/LADDER_SPEC_PROMPT.md`".
+"follow `~/Development/repos/model-bench/docs/LADDER_SPEC_PROMPT.md`".
 
 ---
 

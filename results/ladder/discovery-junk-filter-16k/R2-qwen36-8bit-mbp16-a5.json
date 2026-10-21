@@ -1,0 +1,43 @@
+{
+  "rung": "R2",
+  "builder": "qwen36-8bit",
+  "host": "mbp16",
+  "model": "Qwen3.6-35B-A3B-8bit",
+  "attempt": 5,
+  "base": "a4dca34d642fdbc9a1b1a7e0d03c18e00a874d4a",
+  "spec": "~/Development/runs/ladder-specs/doco/specs/ladder/discovery-junk-filter/R2.md",
+  "max_tokens": 16384,
+  "started_at": "2026-10-21T12:36:13+11:00",
+  "restore": [
+    "Qwen3.6-35B-A3B-8bit",
+    "MarkItDown"
+  ],
+  "start_state": "unloaded; cache clear failed",
+  "macos": "27.0.1",
+  "omlx": "0.7.1rc1",
+  "engine": "plain",
+  "pi_seconds": 273.9,
+  "pi_exit": 0,
+  "timed_out": false,
+  "turns": 6,
+  "tool_calls": 10,
+  "stop": "toolUse",
+  "verify": {
+    "passed": true,
+    "tail": "\nRun options: --seed 16400\n\n# Running:\n\n...........\n\nFinished in 0.003071s, 3581.8951 runs/s, 20514.4901 assertions/s.\n11 runs, 63 assertions, 0 failures, 0 errors, 0 skips\n"
+  },
+  "suite": {
+    "passed": true,
+    "tail": "Syntax Error: Couldn't find trailer dictionary\nSyntax Error: Couldn't read xref table\n..........................................................................................................................................................................................................S.......................................................................................................................\n\nFinished in 65.566603s, 57.9411 runs/s, 528.2872 assertions/s.\n3799 runs, 34638 assertions, 0 failures, 0 errors, 1 skips\n\nYou have skipped tests. Run with --verbose for details.\n"
+  },
+  "test_file_untouched": true,
+  "files_changed": [
+    "app/services/editorial/discovery_junk_filter.rb"
+  ],
+  "diffstat": "1 file changed, 52 insertions(+)",
+  "outside_allowed": [],
+  "passed": true,
+  "worktree": "~/Development/runs/ladder-worktrees/client-app/R2-qwen36-8bit-mbp16-a5",
+  "branch": "ladder/discovery-junk-filter-16k-R2-qwen36-8bit-mbp16-a5",
+  "finished_at": "2026-10-21T12:42:17+11:00"
+}

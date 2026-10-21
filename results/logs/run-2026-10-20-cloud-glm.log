@@ -20,10 +20,10 @@
 [17:47:55]   coding {attempted: 161, passed: 154, pass_rate: 0.957, seconds_per_problem: 9.3, solved_per_hour: 370.7, hit_cap: 1, stop: "completed"}
 [17:49:00]   tools {attempted: 12, passed: 12}
 [17:49:59]   agentic {solved: true, turns: 7, stop: "finish"}
-~/Development/repos/tr-solutions/model-bench/bin/report:165:in 'Enumerable#sort_by': comparison of Float with NaN failed (ArgumentError)
-	from ~/Development/repos/tr-solutions/model-bench/bin/report:165:in 'block in <main>'
-	from ~/Development/repos/tr-solutions/model-bench/bin/report:159:in 'Array#each'
-	from ~/Development/repos/tr-solutions/model-bench/bin/report:159:in '<main>'
+~/Development/repos/model-bench/bin/report:165:in 'Enumerable#sort_by': comparison of Float with NaN failed (ArgumentError)
+	from ~/Development/repos/model-bench/bin/report:165:in 'block in <main>'
+	from ~/Development/repos/model-bench/bin/report:159:in 'Array#each'
+	from ~/Development/repos/model-bench/bin/report:159:in '<main>'
 [17:50:00] run 2026-10-20-cloud-a2: 1 models, screens agentic
 [17:50:00] z-ai/glm-5.3-flash: cloud (https://openrouter.ai/api)
 [17:51:31]   agentic {solved: true, turns: 9, stop: "finish"}
