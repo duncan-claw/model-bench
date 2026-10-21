@@ -94,6 +94,7 @@ The numbers live in `results/<run>/RESULTS.md`; this file records the reasoning.
   one-off queue scripts are untracked. Added an MIT licence for the code and MultiPL-E's licence for
   `data/`, which forbids using it as ML training data. The README now leads with hardware, results
   and caveats. The local repo keeps full history; GitHub gets snapshots.
+  **2026-10-21:** full history now lives in the private repo `duncan-claw/model-bench-private` (remote `origin`; `main` tracks it, so a normal push/sync is safe). The public repo is remote `public`, push disabled; publish with `bin/publish-snapshot "message"`, which builds one snapshot commit and refuses to publish anything matching the git-ignored `config/publish-denylist.txt`, a private IP, a home path or a key.
 
 - **One model per Mac, on its own** (agreed with Mark). The two MBPs run in parallel (different
   models or different jobs) rather than splitting one model across them with exo. Reason: the link

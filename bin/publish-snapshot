@@ -1,0 +1,45 @@
+#!/bin/bash
+# Publish the current `main` to the public repo as ONE snapshot commit on top of public/main.
+# The full history (with host addresses) lives on origin (private) and never goes public.
+#
+# Usage: bin/publish-snapshot "message"        (from a clean main that is pushed to origin)
+#
+# Refuses to publish if the snapshot contains anything listed in config/publish-denylist.txt (git-ignored,
+# one extended regex per line: client names, host names, private paths), any IPv4 address other than
+# 0.0.0.0/127.0.0.1, a home path, or a tracked hosts.yml / *.key / raw pi log.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+MSG=${1:?usage: bin/publish-snapshot "message"}
+PUBLIC_URL=https://github.com/duncan-claw/model-bench.git
+
+[ "$(git branch --show-current)" = main ] || { echo "switch to main first" >&2; exit 1; }
+[ -z "$(git status --porcelain)" ] || { echo "commit or stash your changes first" >&2; exit 1; }
+git fetch -q origin && git fetch -q public
+[ "$(git rev-parse main)" = "$(git rev-parse origin/main)" ] || { echo "push main to origin first (git push)" >&2; exit 1; }
+if git diff --quiet main public/main; then echo "public repo already matches main; nothing to publish"; exit 0; fi
+
+WT=$(mktemp -d)/snapshot
+trap 'git worktree remove --force "$WT" 2>/dev/null; git worktree prune' EXIT
+git worktree add -q --detach "$WT" public/main
+(
+  cd "$WT"
+  git rm -rq --cached . && git checkout main -- . && git add -A
+  bad=0
+  if [ -f "$OLDPWD/config/publish-denylist.txt" ]; then
+    while IFS= read -r pat; do
+      [ -z "$pat" ] || [ "${pat#\#}" != "$pat" ] && continue
+      if git grep --cached -qIiE "$pat" -- . ':!data/*'; then echo "denylisted text found: /$pat/ in:" >&2; git grep --cached -lIiE "$pat" -- . ':!data/*' | head -5 >&2; bad=1; fi
+    done < "$OLDPWD/config/publish-denylist.txt"
+  else
+    echo "config/publish-denylist.txt missing: refusing to publish without the client/host denylist" >&2; exit 1
+  fi
+  if git grep --cached -nIE '([0-9]{1,3}\.){3}[0-9]{1,3}' -- . ':!data/*' | grep -vE '0\.0\.0\.0|127\.0\.0\.1|[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+[-._a-zA-Z]' | grep -qE '\b(10|100|172|192)\.[0-9]+\.[0-9]+\.[0-9]+\b'; then
+    echo "private IP address found" >&2; bad=1; fi
+  if git grep --cached -qIE '/Users/[A-Za-z]' -- . ':!data/*'; then echo "home path found" >&2; bad=1; fi
+  if git ls-files | grep -qE '(^|/)hosts\.yml$|\.key$|\.pi\.jsonl'; then echo "hosts.yml, key or raw pi log tracked" >&2; bad=1; fi
+  [ "$bad" = 0 ] || { echo "nothing published" >&2; exit 1; }
+  git -c user.name=duncan-claw -c user.email=duncan-claw@users.noreply.github.com commit -qm "$MSG"
+  MB_PUBLISH_SNAPSHOT=1 git push -q "$PUBLIC_URL" HEAD:main
+)
+git fetch -q public
+git diff --quiet main public/main && echo "published: public/main now matches main ($(git rev-parse --short public/main))"

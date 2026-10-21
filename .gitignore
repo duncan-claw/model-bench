@@ -14,3 +14,6 @@ master.key
 *.key
 results/ladder/**/*.pi.jsonl
 results/ladder/**/*.pi.jsonl.err
+
+# bin/publish-snapshot denylist (names what it protects)
+config/publish-denylist.txt
